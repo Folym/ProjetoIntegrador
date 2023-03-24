@@ -3,11 +3,21 @@ import DoacaoDAO from "../Persistencia/DoacaoDAO";
 export default class Doacao{
     #codigo;
     #tipo;
-
-    constructor(codigo=0,tipo=""){
+    #end;
+    #numend;
+    #cep;
+    #quant;
+    #valor;
+    #data;
+    constructor(codigo=0,tipo="",end="",numend=0,cep=0,quant=0,valor=0,data=""){
         this.#codigo = codigo;
         this.#tipo = tipo;
-        this.#descricao = descricao;
+        this.#end = end;
+        this.#numend = numend;
+        this.#cep = cep;
+        this.#quant = quant;
+        this.#valor = valor;
+        this.#data = data;
     }
 
     get codigo(){
@@ -24,7 +34,48 @@ export default class Doacao{
         this.#tipo = tipo;
     }
 
+    get end(){
+        return this.#end;
+    }
+    set end(end){
+        this.#end = end;
+    }
 
+    get numend(){
+        return this.#numend;
+    }
+    set numend(numend){
+        this.#numend = numend;
+    }
+
+    get cep(){
+        return this.#cep;
+    }
+    set cep(cep){
+        this.#cep = cep;
+    }
+
+    get quant(){
+        return this.#quant;
+    }
+    set quant(quant){
+        this.#quant = quant;
+    }
+
+    get valor(){
+        return this.#valor;
+    }
+    set valor(valor){
+        this.#valor = valor;
+    }
+
+    get data(){
+        return this.#data;
+    }
+    set data(data){
+        this.#data = data;
+    }
+    
     toJSON(){
         return{
             codigo:this.#codigo,
