@@ -1,5 +1,5 @@
-import Doacao from "../Modelo/Doacao";
-import Dao from "./DAO";
+import Doacao from "../Modelo/Doacao.js";
+import Dao from "./Dao.js"
 export default class DoacaoDAO{
     constructor(){
 

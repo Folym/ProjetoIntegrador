@@ -1,6 +1,6 @@
-import mysql from 'mysql2';
+import mysql from 'mysql2/promise';
 
-export async function conectar(){
+export default async function conectar(){
     if (global.conexao && global.conexao.state !== "disconnected"){
         return global.conexao;
     }
@@ -16,9 +16,4 @@ export async function conectar(){
     return conexao;
 }
 
-/*export async function desconectar(){
-    if (global.conexao && global.conexao.state !== "connected"){
-        return global.conexao.end();
-    }
-}*/
 
