@@ -18,11 +18,9 @@ export default class DoacaoDAO{
     async atualizar(doacao){
         if(doacao instanceof Doacao){
             const dao = new Dao();
-            dao.conectar();
             const sql = "UPDATE Doacao SET doac_tipo=?,doac_end=?,doac_numend=?,doac_cep=?,doac_quantidade=?,doac_valor=?,doac_data=? WHERE doac_codigo=?";
             const dados = [doacao.tipo,doacao.end,doacao.numend,doacao.quant,doacao.valor,doacao.data,doacao.codigo];
             const parm = {sql,dados};
-            dao.desconectar();
             await dao.atualizar(parm);
         }
     }
@@ -31,7 +29,8 @@ export default class DoacaoDAO{
         if(doacao instanceof Doacao){
             const dao = new Dao();
             const sql = "DELETE FROM Cliente WHERE codigo=?";
-            const parm = [doacao.codigo];
+            const dados = [doacao.codigo];
+            const parm = {sql,dados};
             await dao.excluir(parm);
         }
     }
@@ -39,7 +38,7 @@ export default class DoacaoDAO{
     async consultarNome(nome){
         if(doacao instanceof Doacao){
             const dao = new Dao();
-            const sql = "SELECT * FROM Doacao WHERE codigo like ?";
+            const sql = "SELECT * FROM Doacao WHERE nome like ?";
             const dados = ['%'+ nome +'%'];
             const rows = dao.consultar(sql,dados);
             let lista = [];
@@ -48,7 +47,23 @@ export default class DoacaoDAO{
                     reg['doac_numend'],reg['doac_cep'],reg['doac_quantidade'],reg['doac_valor'],reg['doac_data']);
                     lista.push(doacao);
             }
+            return lista;
         }
-        return lista;
+    }
+
+    async consultarCodg(codigo){
+        if(doacao instanceof Doacao){
+            const dao = new Dao();
+            const sql = "SELECT * FROM Doacao WHERE codigo = ?";
+            const dados = [codigo];
+            const rows = dao.consultar(sql,dados);
+            let lista = [];
+            for(const reg of rows){
+                const doacao = new Doacao(reg['doac_codigo'],reg['doac_tipo'],reg['doac_end'],
+                    reg['doac_numend'],reg['doac_cep'],reg['doac_quantidade'],reg['doac_valor'],reg['doac_data']);
+                lista.push(doacao);
+            }
+            return lista;
+        }
     }
 }
