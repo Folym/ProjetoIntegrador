@@ -5,7 +5,7 @@ export default class DoacaoCTRL{
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
             const {tipo,end,numend,cep,quant,valor,data,desc} = req.body;
-            if(doac_tipo==undefined || doac_tipo==""){
+            if(tipo==undefined || tipo==""){
                 resp.sendStatus(400);
             }
             const doacao = new Doacao(tipo,end,numend,cep,quant,valor,data,desc);
@@ -61,7 +61,8 @@ export default class DoacaoCTRL{
             }
             const doacao = new Doacao(desc);
             doacao.consultarDesc(desc).then(()=>{
-                resp.sendStatus(200);
+                resp.json(desc);
+//              resp.sendStatus(200);
             }).catch((error)=>{
                 console.log(error);
                 resp.sendStatus(400);

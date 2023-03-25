@@ -121,7 +121,7 @@ export default class Doacao{
     
     async consultarDesc(desc){
         const doacaoDAO = new DoacaoDAO();
-        return await doacaoDAO.consultarNome(desc);
+        return await doacaoDAO.consultarDesc(desc);
     }
 
     async consultarCodg(codigo){

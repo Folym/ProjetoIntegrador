@@ -35,7 +35,7 @@ export default class DoacaoDAO{
         }
     }
 
-    async consultarDesc(desc){
+    async consultarDesc(doacao){
         if(doacao instanceof Doacao){
             const dao = new Dao();
             const sql = "SELECT * FROM Doacao WHERE nome like ?";
@@ -44,7 +44,7 @@ export default class DoacaoDAO{
         }
     }
 
-    async consultarCodg(codigo){
+    async consultarCodg(doacao){
         if(doacao instanceof Doacao){
             const dao = new Dao();
             const sql = "SELECT * FROM Doacao WHERE codigo = ?";
