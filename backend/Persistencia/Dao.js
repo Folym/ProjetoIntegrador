@@ -36,8 +36,8 @@ export default class Dao{
         try{
             const con = await conectar();
             try{
-                const [rows] = await conexao.query(parm.sql,parm.dados);
-                return [rows];
+                const [rows] = await con.query(parm.sql,parm.dados);
+                return rows;
             }catch(error){
                 console.log(error);
             }

@@ -9,7 +9,8 @@ export default class Doacao{
     #quant;
     #valor;
     #data;
-    constructor(codigo=0,tipo="",end="",numend=0,cep=0,quant=0,valor=0,data=""){
+    #desc;
+    constructor(codigo=0,tipo="",end="",numend=0,cep=0,quant=0,valor=0,data="",desc=""){
         this.#codigo = codigo;
         this.#tipo = tipo;
         this.#end = end;
@@ -18,6 +19,7 @@ export default class Doacao{
         this.#quant = quant;
         this.#valor = valor;
         this.#data = data;
+        this.#desc = desc;
     }
 
     get codigo(){
@@ -76,6 +78,13 @@ export default class Doacao{
         this.#data = data;
     }
     
+    get desc(){
+        return this.#desc;
+    }
+    set desc(desc){
+        this.#desc = desc;
+    }
+
     toJSON(){
         return{
             codigo:this.#codigo,
@@ -85,7 +94,8 @@ export default class Doacao{
             cep:this.#cep,
             quant:this.#quant,
             valor:this.#valor,
-            data:this.#data
+            data:this.#data,
+            desc:this.#desc
         }
     }
 
@@ -109,8 +119,13 @@ export default class Doacao{
         await doacaoDAO.excluir(this);
     }
     
-    async consultar(codigo){
+    async consultarDesc(desc){
         const doacaoDAO = new DoacaoDAO();
-        return await doacaoDAO.consultar(codigo);
+        return await doacaoDAO.consultarNome(desc);
+    }
+
+    async consultarCodg(codigo){
+        const doacaoDAO = new DoacaoDAO();
+        return await doacaoDAO.consultarCodg(codigo);
     }
 }

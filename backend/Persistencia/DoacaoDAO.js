@@ -8,8 +8,8 @@ export default class DoacaoDAO{
     async gravar(doacao){
         if(doacao instanceof Doacao){
             const dao = new Dao();
-            const sql = "INSERT INTO Doacao (doac_tipo,doac_end,doac_numend,doac_cep,doac_quantidade,doac_valor,doac_data) VALUES (?,?,?,?,?,?,?)"
-            const dados = [doacao.tipo,doacao.end,doacao.numend,doacao.quant,doacao.valor,doacao.data];
+            const sql = "INSERT INTO Doacao (doac_tipo,doac_end,doac_numend,doac_cep,doac_quantidade,doac_valor,doac_data,doac_desc) VALUES (?,?,?,?,?,?,?,?)"
+            const dados = [doacao.tipo,doacao.end,doacao.numend,doacao.cep,doacao.quant,doacao.valor,doacao.data,doacao.desc];
             const parm = {sql,dados};
             return await dao.gravar(parm);
         }
@@ -18,8 +18,8 @@ export default class DoacaoDAO{
     async atualizar(doacao){
         if(doacao instanceof Doacao){
             const dao = new Dao();
-            const sql = "UPDATE Doacao SET doac_tipo=?,doac_end=?,doac_numend=?,doac_cep=?,doac_quantidade=?,doac_valor=?,doac_data=? WHERE doac_codigo=?";
-            const dados = [doacao.tipo,doacao.end,doacao.numend,doacao.quant,doacao.valor,doacao.data,doacao.codigo];
+            const sql = "UPDATE Doacao SET doac_tipo=?,doac_end=?,doac_numend=?,doac_cep=?,doac_quantidade=?,doac_valor=?,doac_data=?,doac_desc=? WHERE doac_codigo=?";
+            const dados = [doacao.tipo,doacao.end,doacao.numend,doacao.cep,doacao.quant,doacao.valor,doacao.data,doacao.desc,doacao.codigo];
             const parm = {sql,dados};
             await dao.atualizar(parm);
         }
@@ -35,19 +35,12 @@ export default class DoacaoDAO{
         }
     }
 
-    async consultarNome(nome){
+    async consultarDesc(desc){
         if(doacao instanceof Doacao){
             const dao = new Dao();
             const sql = "SELECT * FROM Doacao WHERE nome like ?";
-            const dados = ['%'+ nome +'%'];
-            const rows = dao.consultar(sql,dados);
-            let lista = [];
-            for(const reg of rows){
-                const doacao = new Doacao(reg['doac_codigo'],reg['doac_tipo'],reg['doac_end'],
-                    reg['doac_numend'],reg['doac_cep'],reg['doac_quantidade'],reg['doac_valor'],reg['doac_data']);
-                    lista.push(doacao);
-            }
-            return lista;
+            const dados = ['%'+ desc +'%'];
+            return await dao.consultar(sql,dados);
         }
     }
 
@@ -56,14 +49,7 @@ export default class DoacaoDAO{
             const dao = new Dao();
             const sql = "SELECT * FROM Doacao WHERE codigo = ?";
             const dados = [codigo];
-            const rows = dao.consultar(sql,dados);
-            let lista = [];
-            for(const reg of rows){
-                const doacao = new Doacao(reg['doac_codigo'],reg['doac_tipo'],reg['doac_end'],
-                    reg['doac_numend'],reg['doac_cep'],reg['doac_quantidade'],reg['doac_valor'],reg['doac_data']);
-                lista.push(doacao);
-            }
-            return lista;
+            return await dao.consultar(sql,dados);
         }
     }
 }
