@@ -1,5 +1,4 @@
 import express from "express";
-import Pretendentes from "./Modelo/Pretendentes.js";
 import rotaDoacao from "./Rotas/rotaDoacao.js";
 import rotaPret from "./Rotas/rotaPretendente.js";
 
@@ -13,7 +12,7 @@ app.use(cors({
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 
-app.use(rotaDoacao);
+app.use("/Doacao",rotaDoacao);
 app.use("/Pretendente",rotaPret);
 app.listen(8080,()=>{
     console.log("Executando");
