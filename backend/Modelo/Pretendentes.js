@@ -119,14 +119,15 @@ export default class Pretendentes{
         await pretDAO.excluir(this);
     }
     
-    async consultar(codigo){
+    async consultarCodigo(codigo){
         const pretDAO = new PretendentesDAO();
-        return await pretDAO.consultar(codigo);
+        return await pretDAO.consultarCodigo(codigo);
     }
 
-    async consultar(nome){
+    async consultarNome(nome){
         const pretDAO = new PretendentesDAO();
-        return await pretDAO.consultarNome(nome);
+       return await pretDAO.consultarNome(nome);
+        
     }
 
 

@@ -5,19 +5,24 @@ export default class Dao{
 
     }
     async gravar(parm){
+        console.log(parm)
         try{
             const con = await conectar();
-            const resultado = await con.query(parm.sql, parm.dados);
-            return resultado[0].insertId;
+            con.connect()
+            const resultado = await con.query(parm);
+            console.log(resultado);
+            return resultado.rowCount;
         }catch(error){
             console.log(error);
+            console.log("Passou 3")
         }
     }
 
     async atualizar(parm){
         try{
             const con = await conectar();
-            await con.query(parm.sql, parm.dados);
+            con.connect()
+            await con.query(parm);
         }catch(error){
             console.log(error);
         }
@@ -26,18 +31,21 @@ export default class Dao{
     async excluir(parm){
         try{
             const con = await conectar();
-            await con.query(parm.sql,parm.dados);
+            con.connect()
+            await con.query(parm);
         }catch(error){
             console.log(error);
         }
     }
 
     async consultar(parm){
+        console.log(parm);
         try{
-            const con = await conectar();
             try{
-                const [rows] = await con.query(parm.sql,parm.dados);
-                return rows;
+                const con = await conectar();
+                 con.connect()
+                let rows = await con.query(parm);
+                return rows.rows;
             }catch(error){
                 console.log(error);
             }

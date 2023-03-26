@@ -1,19 +1,25 @@
 import mysql from 'mysql2/promise';
+import  pkg from 'pg'; 
+const {Pool, Client} = pkg;
 
 export default async function conectar(){
-    if (global.conexao && global.conexao.state !== "disconnected"){
-        return global.conexao;
-    }
+    // if (global.conexao && global.conexao.state !== "disconnected"){
+    //     return "AQUI :" +global.conexao;
+    // }
 
-    const conexao = await mysql.createConnection({
-        host:"localhost",
-        port:3306,
-        user:"root",
-        password:"",
-        database:"backend"
+   
+
+    const conexao = new Client({
+    user: 'postgres',
+    host: '127.0.0.1',
+    database: 'Casa_Lar',
+    password: 'postgres123',
+    port: 5432
     });
-    global.conexao = conexao;
+
+    //global.conexao = conexao;
     return conexao;
+
 }
 
 
