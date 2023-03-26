@@ -1,16 +1,15 @@
+import Funcionarios from "../Modelo/Funcionarios.js";
 
-import Pretendentes from "../Modelo/Pretendentes.js";
-
-export default class PretendentesCTRL{
+export default class FuncionariosCTRL{
     gravar(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {nome,cpf, cel,email,end,numend,cep,status} = req.body;
+            const {nome, cpf, cel, email, end, numend, cep} = req.body;
             if(tipo==undefined || tipo==""){
                 resp.sendStatus(400);
             }
-            const pret = new Pretendentes(0,nome,cpf, cel,email,end,numend,cep,status);
-            pret.gravar().then(()=>{
+            const funcionarios = new Funcionarios(nome, cpf, cel, email, end, numend, cep);
+            funcionarios.gravar().then(()=>{
                 resp.sendStatus(200);
             }).catch((error)=>{
                 console.log(error);
@@ -22,12 +21,12 @@ export default class PretendentesCTRL{
     atualizar(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {codigo,nome,cpf, cel,email,end,numend,cep,status} = req.body;
+            const {codigo, nome, cpf, cel, email, end, numend, cep} = req.body;
             if(codigo==undefined || !(typeof(codigo)=="number")){
                 resp.sendStatus(400);
             }
-            const pret = new Pretendentes(codigo,nome,cpf, cel,email,end,numend,cep,status);
-            pret.atualizar().then(()=>{
+            const funcionarios = new Funcionarios(codigo, nome, cpf, cel, email, end, numend, cep);
+            funcionarios.atualizar().then(()=>{
                 resp.sendStatus(200);
             }).catch((error)=>{
                 console.log(error);
@@ -43,8 +42,8 @@ export default class PretendentesCTRL{
             if(codigo==undefined || !(typeof(codigo)=="number")){
                 resp.sendStatus(400);
             }
-            const pret = new Pretendentes(codigo);
-            pret.excluir().then(()=>{
+            const funcionarios = new Funcionarios(codigo);
+            funcionarios.excluir().then(()=>{
                 resp.sendStatus(200);
             }).catch((error)=>{
                 console.log(error);
@@ -57,11 +56,11 @@ export default class PretendentesCTRL{
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
             const {nome} = req.params;
-            if(desc==undefined || desc==""){
+            if(nome==undefined || nome==""){
                 resp.sendStatus(400);
             }
-            const pret = new Pretendentes(0,nome);
-            pret.consultarNome(nome).then(()=>{
+            const funcionarios = new Funcionarios(nome);
+            funcionarios.consultarNome(nome).then(()=>{
                 resp.json(nome);
 //              resp.sendStatus(200);
             }).catch((error)=>{
@@ -71,15 +70,15 @@ export default class PretendentesCTRL{
         }
     }
 
-    consultarCod(req,resp){
+    consultarCodg(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
             const {codigo} = req.params;
             if(codigo==undefined || !(typeof(codigo)=="number")){
                 resp.sendStatus(400);
             }
-            const pret = new Pretendentes(codigo);
-            pret.consultarCodigo(codigo).then(()=>{
+            const funcionarios = new Funcionarios(codigo);
+            funcionarios.consultarCodg(codigo).then(()=>{
                 resp.sendStatus(200);
             }).catch((error)=>{
                 console.log(error);
