@@ -18,11 +18,12 @@ import { STATUS } from '../redux/redutores/PretendentesSlice'
   const [pretendente,setPretendente] = useState({
     cpf:"",
     nome:"",
-    sobrenome:"",
-    endereco:"",
-    cidade:"",
-    estado:"",
+    numend:"",
+    end:"",
+    email:"",
+    status:"",
     cep:"",
+    cel :""
   });
 
   const {status}= useSelector(state=>state.pretendentes)
@@ -36,8 +37,8 @@ import { STATUS } from '../redux/redutores/PretendentesSlice'
   const manipularEnvioDados = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === true) {
-      // action  clientes/ adicionar 
-      // dispatch(adicionar(cliente));// os dispatch seria enviar e usa do reducer adiconar para adicionar o cliente
+      
+      
       dispatch(adicionarPretendentes(pretendente));
       setPretendente({
         nome:"",
@@ -110,59 +111,59 @@ import { STATUS } from '../redux/redutores/PretendentesSlice'
             <Form.Control.Feedback type='invalid'>Informe seu Nome</Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="4" >
-            <Form.Label>Sobrenome</Form.Label>
+            <Form.Label>Endereço</Form.Label>
             <Form.Control
               required
               type="text"
-              placeholder="Informe seu Sobrenome"
+              placeholder="Informe seu Endereço"
               defaultValue=""
-              id='sobrenome'
-              name='sobrenome'
-              value={pretendente.sobrenome}
+              id='endereco'
+              name='endereco'
+              value={pretendente.endereco}
               onChange={manipularMudanca}
             />
             <Form.Control.Feedback>Ok!</Form.Control.Feedback>
-            <Form.Control.Feedback type='invalid'>Informe seu Sobrenome</Form.Control.Feedback>
+            <Form.Control.Feedback type='invalid'>Informe seu Endereço</Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="4" >
-            <Form.Label>Endereço</Form.Label>
+            <Form.Label>Nº Endereço</Form.Label>
               <Form.Control
                   type="text"
-                  placeholder="Informe seu Endereço"
+                  placeholder="Informe seu Numero de Endereço"
                   required
-                  id='endereco'
-                  name='endereco'
-                  value={pretendente.endereco}
+                  id='numend'
+                  name='numend'
+                  value={pretendente.numend}
                   onChange={manipularMudanca}
                   
               />
               <Form.Control.Feedback>Ok!</Form.Control.Feedback>
-              <Form.Control.Feedback type='invalid'>Informe seu Endereço</Form.Control.Feedback>
+              <Form.Control.Feedback type='invalid'>Informe seu Nº Endereço</Form.Control.Feedback>
           </Form.Group>
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} md="6" >
-            <Form.Label>City</Form.Label>
-            <Form.Control type="text" placeholder="Cidade" required
-              id='cidade'
-              name='cidade'
-              value={pretendente.cidade}
+            <Form.Label>Email</Form.Label>
+            <Form.Control type="text" placeholder="Email" required
+              id='email'
+              name='email'
+              value={pretendente.email}
               onChange={manipularMudanca}
             />
             <Form.Control.Feedback>Ok!</Form.Control.Feedback>
-              <Form.Control.Feedback type='invalid'>Informe sua Cidade</Form.Control.Feedback>
+              <Form.Control.Feedback type='invalid'>Informe seu Email</Form.Control.Feedback>
             
           </Form.Group>
           <Form.Group as={Col} md="3" >
-            <Form.Label>Estado</Form.Label>
-            <Form.Control type="text" placeholder="Estado" required 
-              id='estado'
-              name='estado'
-              value={pretendente.estado}
+            <Form.Label>Nº de Telefone</Form.Label>
+            <Form.Control type="text" placeholder="Celular" required 
+              id='cel'
+              name='cel'
+              value={pretendente.cel}
               onChange={manipularMudanca}
             />
             <Form.Control.Feedback>Ok!</Form.Control.Feedback>
-              <Form.Control.Feedback type='invalid'>Informe seu Estado</Form.Control.Feedback>
+              <Form.Control.Feedback type='invalid'>Informe seu Nº de Telefone</Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="3" >
             <Form.Label>CEP</Form.Label>
@@ -174,6 +175,17 @@ import { STATUS } from '../redux/redutores/PretendentesSlice'
             />
             <Form.Control.Feedback>Ok!</Form.Control.Feedback>
               <Form.Control.Feedback type='invalid'>Informe seu CEP</Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group as={Col} md="3" >
+            <Form.Label>Status</Form.Label>
+            <Form.Control type="text" placeholder="Status" required 
+              id='status'
+              name='status'
+              value={pretendente.status}
+              onChange={manipularMudanca}
+            />
+            <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+              <Form.Control.Feedback type='invalid'>Informe seu Status</Form.Control.Feedback>
           </Form.Group>
         </Row>
         <Button type="submit">Cadastrar</Button>

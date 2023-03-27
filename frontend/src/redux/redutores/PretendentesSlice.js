@@ -2,7 +2,7 @@
 import {createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 const urlBase = 'http://localhost:8080/pretendente'
 
-export const STATUS = Object.freeze({ // object.freeze não deixa esses objetos tem seu valor alterado
+export const STATUS = Object.freeze({ 
     'OCIOSO': 'idle',
     'CARREGADO':'fulfilled',
     'ERRO':'reajected'
@@ -10,9 +10,9 @@ export const STATUS = Object.freeze({ // object.freeze não deixa esses objetos 
 
 export const buscarPretendentes = createAsyncThunk('pretendente/buscarPretendentes', async ()=>{
     const resposta = await fetch(urlBase,{method :'GET'})
-    const dados = await resposta.json()// pois la o metod consultar retorna uma lista de cliente
+    const dados = await resposta.json()
     return dados;
-});// esta fazendo uma chamda assincrona Thunk, ou seja espera o resultado do backend
+});
 
 export const adicionarPretendentes = createAsyncThunk('pretendente/adicionarPretendentes', async(pretendente)=>{
     const resposta = await fetch(urlBase,{
@@ -20,8 +20,8 @@ export const adicionarPretendentes = createAsyncThunk('pretendente/adicionarPret
         headers : {'Content-Type': 'application/json'},
         body : JSON.stringify(pretendente)
     })
-    // O Resultado não deve ser processado na chamda assincrona
-    const dados = await resposta.json()// pois la o metod adiconar retorna uma lista de cliente
+  
+    const dados = await resposta.json()
     return {
         resposta : dados
     };
@@ -33,8 +33,8 @@ export const excluirPretendentes = createAsyncThunk('pretendente/excluirPretende
         headers : {'Content-Type': 'application/json'},
         body : JSON.stringify(pretendente)
     })
-    // O Resultado não deve ser processado na chamda assincrona
-    const dados = await resposta.json()// pois la o metod adiconar retorna uma lista de cliente
+    
+    const dados = await resposta.json()
     return {
         pretendente:pretendente,
         resposta : dados
@@ -42,11 +42,11 @@ export const excluirPretendentes = createAsyncThunk('pretendente/excluirPretende
 });
 
 const pretendenteSlice = createSlice({
-    name:'pretendentes', //reducer clientes
+    name:'pretendentes', 
     initialState:{
-        status:STATUS.OCIOSO,
+        status:STATUS.CARREGADO,
         dados:[]
-    }, //estado inicial da fatia clientes
+    }, 
 
     reducers:{
     },

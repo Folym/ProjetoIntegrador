@@ -6,7 +6,8 @@ export default class PretendentesCTRL{
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
             const {nome,cpf, cel,email,end,numend,cep,status} = req.body;
-            if(tipo==undefined || tipo==""){
+            console.log({nome,cpf, cel,email,end,numend,cep,status})
+            if(nome==undefined || nome==""){
                 resp.sendStatus(400);
             }
             const pret = new Pretendentes(0,nome,cpf, cel,email,end,numend,cep,status);
