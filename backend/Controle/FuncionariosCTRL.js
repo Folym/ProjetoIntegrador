@@ -62,7 +62,7 @@ export default class FuncionariosCTRL{
             const funcionarios = new Funcionarios(nome);
             funcionarios.consultarNome(nome).then(()=>{
                 resp.json(nome);
-//              resp.sendStatus(200);
+                resp.sendStatus(200);
             }).catch((error)=>{
                 console.log(error);
                 resp.sendStatus(400);

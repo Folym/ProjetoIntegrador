@@ -61,8 +61,7 @@ export default class DoacaoCTRL{
             }
             const doacao = new Doacao(desc);
             doacao.consultarDesc(desc).then(()=>{
-                resp.json(desc);
-//              resp.sendStatus(200);
+                resp.sendStatus(200);
             }).catch((error)=>{
                 console.log(error);
                 resp.sendStatus(400);

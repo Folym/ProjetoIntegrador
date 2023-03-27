@@ -86,28 +86,28 @@ export default class Funcionarios{
     }
 
     async gravar(){
-        const FuncionariosDAO = new FuncionariosDAO();
-        const codigo = await FuncionariosDAO.gravar(this);
+        const funcionariosDAO = new FuncionariosDAO();
+        const codigo = await funcionariosDAO.gravar(this);
         this.#codigo = codigo;
     }
 
     async atualizar(){
-        const FuncionariosDAO = new FuncionariosDAO();
-        await FuncionariosDAO.atualizar(this);
+        const funcionariosDAO = new FuncionariosDAO();
+        await funcionariosDAO.atualizar(this);
     }
 
     async excluir(){
-        const FuncionariosDAO = new FuncionariosDAO();
-        await FuncionariosDAO.excluir(this);
+        const funcionariosDAO = new FuncionariosDAO();
+        await funcionariosDAO.excluir(this);
     }
     
     async consultarNome(nome){
-        const FuncionariosDAO = new FuncionariosDAO();
-        return await FuncionariosDAO.consultarNome(nome);
+        const funcionariosDAO = new FuncionariosDAO();
+        return await funcionariosDAO.consultarNome(nome);
     }
 
     async consultarCodg(codigo){
-        const FuncionariosDAO = new FuncionariosDAO();
-        return await FuncionariosDAO.consultarCodg(codigo);
+        const funcionariosDAO = new FuncionariosDAO();
+        return await funcionariosDAO.consultarCodg(codigo);
     }
 }
