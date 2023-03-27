@@ -24,20 +24,20 @@ export default class DoacaoDAO{
     async excluir(doacao){
         if(doacao instanceof Doacao){
             const dao = new Dao();
-            const sql = "DELETE FROM Doacao WHERE codigo="+doacao.codigo;
+            const sql = "DELETE FROM Doacao WHERE doac_codigo="+doacao.codigo;
             await dao.excluir(sql);
         }
     }
 
     async consultarDesc(desc){
             const dao = new Dao();
-            const sql = "SELECT * FROM Doacao WHERE nome like '%'"+ desc+"'%'";
+            const sql = "SELECT * FROM Doacao WHERE doac_desc like '%'"+ desc+"'%'";
             return await dao.consultar(sql);
     }
 
     async consultarCodg(codigo){
             const dao = new Dao();
-            const sql = "SELECT * FROM Doacao WHERE codigo = "+ codigo;
+            const sql = "SELECT * FROM Doacao WHERE doac_codigo = "+ codigo;
             return await dao.consultar(sql);
     }
 }
