@@ -60,7 +60,7 @@ export default class PretendentesCTRL{
             if(desc==undefined || desc==""){
                 resp.sendStatus(400);
             }
-            const pret = new Pretendentes(0,nome);
+            const pret = new Pretendentes();
             pret.consultarNome(nome).then(()=>{
                 resp.json(nome);
 //              resp.sendStatus(200);

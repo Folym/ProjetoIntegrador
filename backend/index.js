@@ -1,6 +1,7 @@
 import express from "express";
 import rotaDoacao from "./Rotas/rotaDoacao.js";
 import rotaPret from "./Rotas/rotaPretendente.js";
+import cors from "cors";
 
 
 const app = express();
