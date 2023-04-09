@@ -70,7 +70,7 @@ import { STATUS } from '../redux/redutores/PretendentesSlice'
                       role="status"
                       aria-hidden="true"
                       />
-                    {} Adicionando Pretendentes
+                    {} Buscando Pretendentes
               </Button>
       </Container>
   )
