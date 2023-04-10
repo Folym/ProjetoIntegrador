@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit"
-import PretendentesSlice from "./redutores/PretendentesSlice";
+import PretendentesSlice from "./redutores/PretendentesSlice.js";
+import DoacaoSlice from "./redutores/DoacaoSlice.js";
+
 
 const store = configureStore({
-    reducer:{//é algo global o reducer e combina umas listas de reducers
+    reducer:{
         pretendentes: PretendentesSlice,
+        doacao : DoacaoSlice,
     }
 
 })

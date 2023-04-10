@@ -4,11 +4,11 @@ export default class DoacaoCTRL{
     gravar(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {tipo,end,numend,cep,quant,valor,data,desc} = req.body;
+            const {tipo,end,numend,cep,quant,data,desc} = req.body;
             if(tipo==undefined || tipo==""){
                 resp.sendStatus(400);
             }
-            const doacao = new Doacao(tipo,end,numend,cep,quant,valor,data,desc);
+            const doacao = new Doacao(tipo,end,numend,cep,quant,data,desc);
             doacao.gravar().then(()=>{
                 resp.sendStatus(200);
             }).catch((error)=>{
@@ -21,11 +21,11 @@ export default class DoacaoCTRL{
     atualizar(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {codigo,tipo,end,numend,cep,quant,valor,data,desc} = req.body;
+            const {codigo,tipo,end,numend,cep,quant,data,desc} = req.body;
             if(codigo==undefined || !(typeof(codigo)=="number")){
                 resp.sendStatus(400);
             }
-            const doacao = new Doacao(codigo,tipo,end,numend,cep,quant,valor,data,desc);
+            const doacao = new Doacao(codigo,tipo,end,numend,cep,quant,data,desc);
             doacao.atualizar().then(()=>{
                 resp.sendStatus(200);
             }).catch((error)=>{

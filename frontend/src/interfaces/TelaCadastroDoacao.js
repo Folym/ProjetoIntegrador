@@ -1,20 +1,20 @@
 import { useState } from "react";
 import Pagina from "../templates/Pagina";
-import FormCadastroPret from "../formularios/FormularioPretendente"
-import ListaPretendentes from "../tabelas/listaPretendentes";
-export default function TelaCadastroCliente(props) {
+import FormCadastroDoac from "../formularios/FormularioDoacao.js";
+import ListaDoacao from "../tabelas/listaDoacao";
+export default function TelaCadastroDoacao(props) {
     const [exibirTabela,setExibirTabela] = useState(false);
     console.log(exibirTabela);
     if (exibirTabela) {
         return(  
             <Pagina>
-                <ListaPretendentes onTabela={setExibirTabela}></ListaPretendentes>
+                <ListaDoacao onTabela={setExibirTabela}></ListaDoacao>
             </Pagina>
         );
     }else{
         return(
             <Pagina>
-                 <FormCadastroPret onTabela={setExibirTabela} ></FormCadastroPret>
+                 <FormCadastroDoac onTabela={setExibirTabela} ></FormCadastroDoac>
             </Pagina>
         );
     }

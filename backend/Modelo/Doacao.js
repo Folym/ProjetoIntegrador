@@ -7,17 +7,15 @@ export default class Doacao{
     #numend;
     #cep;
     #quant;
-    #valor;
     #data;
     #desc;
-    constructor(codigo=0,tipo="",end="",numend=0,cep=0,quant=0,valor=0,data="",desc=""){
+    constructor(codigo=0,tipo="",end="",numend=0,cep=0,quant=0,data="",desc=""){
         this.#codigo = codigo;
         this.#tipo = tipo;
         this.#end = end;
         this.#numend = numend;
         this.#cep = cep;
         this.#quant = quant;
-        this.#valor = valor;
         this.#data = data;
         this.#desc = desc;
     }
@@ -64,13 +62,6 @@ export default class Doacao{
         this.#quant = quant;
     }
 
-    get valor(){
-        return this.#valor;
-    }
-    set valor(valor){
-        this.#valor = valor;
-    }
-
     get data(){
         return this.#data;
     }
@@ -93,7 +84,6 @@ export default class Doacao{
             numend:this.#numend,
             cep:this.#cep,
             quant:this.#quant,
-            valor:this.#valor,
             data:this.#data,
             desc:this.#desc
         }

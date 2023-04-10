@@ -1,13 +1,13 @@
 //import { Button } from "react-bootstrap";
 import Sistema from "./Sistema";
 import TelaCadastroPretedentes from "./interfaces/TelaCadastroPretendentes";
-// import TelaCadastroProduto from "./interfaces/TelaCadastroProduto";
+import TelaCadastroDoacao from "./interfaces/TelaCadastroDoacao";
 import TelaMenu from "./interfaces/MenuSistema";
 // import TelaCadastroCliente from "./interfaces/TelaCadastroCliente";
 // import TelaLogin from "./interfaces/TelaLogin";
 
 import {Route} from "react-router-dom";
-import { useState } from "react";
+//import { useState } from "react";
 // import imgAvatar from "./imagens/avatar.png"
 import ContextoUsuario from "./contexto/ContextoGlobal";
 // import TelaVenda from "./interfaces/TelaVenda";
@@ -24,6 +24,7 @@ function App() {
         <Sistema>
           <Route path="*" element ={<TelaMenu/>}></Route>
           <Route path="/cadPretendentes" element ={<TelaCadastroPretedentes/>}></Route>
+          <Route path="/cadDoacao" element ={<TelaCadastroDoacao/>}></Route>
         </Sistema>
       </ContextoUsuario.Provider>
      );

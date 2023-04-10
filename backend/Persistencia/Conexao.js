@@ -1,6 +1,6 @@
 import mysql from 'mysql2/promise';
 import  pkg from 'pg'; 
-const {Pool, Client} = pkg;
+const {Pool, Client} = mysql;
 
 export default async function conectar(){
     // if (global.conexao && global.conexao.state !== "disconnected"){
@@ -10,11 +10,11 @@ export default async function conectar(){
    
 
     const conexao = new Client({
-    user: 'postgres',
+    user: 'root',
     host: '127.0.0.1',
-    database: 'Casa_Lar',
-    password: 'postgres123',
-    port: 5432
+    database: 'pi',
+    password: 'fred10',
+    port: 3306
     });
 
     //global.conexao = conexao;
