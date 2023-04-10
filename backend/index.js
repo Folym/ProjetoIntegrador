@@ -1,6 +1,7 @@
 import express from "express";
 import rotaDoacao from "./Rotas/rotaDoacao.js";
 import rotaPret from "./Rotas/rotaPretendente.js";
+import rotaJovem from "./Rotas/rotaJovem.js";
 import cors from "cors";
 
 
@@ -15,6 +16,7 @@ app.use(express.json());
 
 app.use("/Doacao",rotaDoacao);
 app.use("/Pretendente",rotaPret);
+app.use("/Jovem",rotaJovem);
 app.listen(8080,()=>{
     console.log("Executando");
 });

@@ -36,9 +36,7 @@ export default function Menu(props) {
                         >
                             <NavDropdown.Item ><Link to="/cadPretendentes" > Pretendentes </Link></NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="/cadPretendentes">
-                            Another action
-                            </NavDropdown.Item>
+                            <NavDropdown.Item ><Link to="/cadJovens" > Jovens </Link></NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action5">
                             Something else here

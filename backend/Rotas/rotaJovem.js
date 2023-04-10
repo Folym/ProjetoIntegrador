@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import JovensCTRL from '../Controle/JovensCTRL';
+import JovensCTRL from '../Controle/JovensCTRL.js';
 
 const rotaJovem= new Router();
 const ctrlJovem = new JovensCTRL();
