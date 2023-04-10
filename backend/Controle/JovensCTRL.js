@@ -6,7 +6,7 @@ export default class JovensCTRL{
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
             const {nome,cpf, nomepai, nomemae, idade, sexo, status} = req.body;
-            if(tipo==undefined || tipo==""){
+            if(nome==undefined || nome==""){
                 resp.sendStatus(400);
             }
             const jovem = new Jovens(0,nome,cpf, nomepai, nomemae, idade, sexo, status);

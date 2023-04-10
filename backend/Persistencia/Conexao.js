@@ -18,6 +18,11 @@ export default async function conectar(){
     });
 
     //global.conexao = conexao;
+    conexao.query("SELECT * FROM Pretendente")
+    .then(results =>{
+        let resultado = results.rows;
+     console.log(resultado);
+ }).catch((erro)=>{console.log(erro)})
     return conexao;
 
 }
