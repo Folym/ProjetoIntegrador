@@ -38,6 +38,8 @@ export default function Menu(props) {
                             <NavDropdown.Divider />
                             <NavDropdown.Item ><Link to="/cadJovens" > Jovens </Link></NavDropdown.Item>
                             <NavDropdown.Divider />
+                            <NavDropdown.Item ><Link to="/cadDoacao" > Doação </Link></NavDropdown.Item>
+                            <NavDropdown.Divider />
                             <NavDropdown.Item href="#action5">
                             Something else here
                             </NavDropdown.Item>
