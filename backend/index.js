@@ -15,7 +15,7 @@ app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 
 app.use("/doacao",rotaDoacao);
-app.use("/Pretendente",rotaPret);
+app.use("/pretendente",rotaPret);
 app.use("/Jovem",rotaJovem);
 app.listen(8080,()=>{
     console.log("Executando");

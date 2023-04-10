@@ -6,7 +6,7 @@ export default class PretendentesCTRL{
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
             const {nome,cpf, cel,email,end,numend,cep,status} = req.body;
-            console.log({nome,cpf, cel,email,end,numend,cep,status})
+            console.log({nome,cpf,cel,email,end,numend,cep,status})
             if(nome==undefined || nome==""){
                 resp.sendStatus(400);
             }
@@ -56,20 +56,16 @@ export default class PretendentesCTRL{
 
     consultarNome(req,resp){
         resp.setHeader("Content-Type","application/json");
-        if(req.is("application/json")){
-            const {nome} = req.params;
-            if(desc==undefined || desc==""){
-                resp.sendStatus(400);
-            }
+        
             const pret = new Pretendentes();
-            pret.consultarNome(nome).then(()=>{
-                resp.json(nome);
+            pret.consultarNome().then((lista)=>{
+                resp.json(lista);
 //              resp.sendStatus(200);
             }).catch((error)=>{
                 console.log(error);
                 resp.sendStatus(400);
             });
-        }
+        
     }
 
     consultarCod(req,resp){

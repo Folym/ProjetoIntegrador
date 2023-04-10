@@ -11,6 +11,7 @@ export const STATUS = Object.freeze({
 export const buscarPretendentes = createAsyncThunk('pretendente/buscarPretendentes', async ()=>{
     const resposta = await fetch(urlBase,{method :'GET'})
     const dados = await resposta.json()
+    console.log(dados);
     return dados;
 });
 

@@ -3,7 +3,7 @@ import Pagina from "../templates/Pagina";
 import FormCadastroPret from "../formularios/FormularioPretendente"
 import ListaPretendentes from "../tabelas/listaPretendentes";
 export default function TelaCadastroPretedentes(props) {
-    const [exibirTabela,setExibirTabela] = useState(false);
+    const [exibirTabela,setExibirTabela] = useState(true);
     console.log(exibirTabela);
     if (exibirTabela) {
         return(  

@@ -29,10 +29,10 @@ export default class PretendentesDAO{
         }   
     }
     
-    async  consultarNome(nome) {
+    async  consultarNome() {
        
         const dao = new Dao();
-        const sql = "SELECT * FROM Pretendente WHERE pret_nome like '%"+nome+"%'";
+        const sql = "SELECT * FROM Pretendente";
         return dao.consultar(sql);
         
     }

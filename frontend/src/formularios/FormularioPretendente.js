@@ -117,9 +117,9 @@ import { STATUS } from '../redux/redutores/PretendentesSlice'
               type="text"
               placeholder="Informe seu Endereço"
               defaultValue=""
-              id='endereco'
-              name='endereco'
-              value={pretendente.endereco}
+              id='end'
+              name='end'
+              value={pretendente.end}
               onChange={manipularMudanca}
             />
             <Form.Control.Feedback>Ok!</Form.Control.Feedback>

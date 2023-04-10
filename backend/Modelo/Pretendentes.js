@@ -124,9 +124,9 @@ export default class Pretendentes{
         return await pretDAO.consultarCodigo(codigo);
     }
 
-    async consultarNome(nome){
+    async consultarNome(){
         const pretDAO = new PretendentesDAO();
-       return await pretDAO.consultarNome(nome);
+       return await pretDAO.consultarNome();
         
     }
 

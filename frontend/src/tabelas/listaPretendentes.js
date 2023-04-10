@@ -47,7 +47,6 @@ export default function ListaPretendentes(props) {
                             <th>Email</th>
                             <th>Endereço</th>
                             <th>Nº Endereço</th>
-                            <th>Cidade/UF</th>
                             <th>CEP</th>
                             <th>Status</th>
                             <th>Ações</th>
@@ -58,21 +57,21 @@ export default function ListaPretendentes(props) {
                             dados.map(predentende =>
                                 <tr>
 
-                                    <td>{predentende.nome}</td>
+                                    <td>{predentende.pret_nome}</td>
 
-                                    <td>{predentende.cpf}</td>
+                                    <td>{predentende.pret_cpf}</td>
 
-                                    <td>{predentende.cel}</td>
+                                    <td>{predentende.pret_cel}</td>
 
-                                    <td>{predentende.email}</td>
+                                    <td>{predentende.pret_email}</td>
 
-                                    <td>{predentende.end}</td>
+                                    <td>{predentende.pret_end}</td>
 
-                                    <td>{predentende.numend}</td>
+                                    <td>{predentende.pret_numend}</td>
 
-                                    <td>{predentende.cep}</td>
+                                    <td>{predentende.pret_cep}</td>
 
-                                    <td>{predentende.status}</td>
+                                    <td>{predentende.pret_status}</td>
                                     <td>
                                         <Button  onClick={() => {
                                              dispatch(excluirPretendentes(predentende));
