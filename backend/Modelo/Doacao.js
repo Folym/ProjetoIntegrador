@@ -109,9 +109,10 @@ export default class Doacao{
         await doacaoDAO.excluir(this);
     }
     
-    async consultarDesc(desc){
+    async consultarDesc(){
         const doacaoDAO = new DoacaoDAO();
-        return await doacaoDAO.consultarDesc(desc);
+        console.log("consultarDesc modelo");
+        return await doacaoDAO.consultarDesc();
     }
 
     async consultarCodg(codigo){

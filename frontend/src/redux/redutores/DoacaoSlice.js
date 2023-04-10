@@ -9,8 +9,9 @@ export const STATUS = Object.freeze({
 })
 
 export const buscarDoacao = createAsyncThunk('doacao/buscarDoacao', async ()=>{
-    const resposta = await fetch(urlBase,{method :'GET'})
-    const dados = await resposta.json()
+    const resposta = await fetch(urlBase,{method :'GET'});
+    const dados = await resposta.json();
+    console.log(dados);
     return dados;
 });
 

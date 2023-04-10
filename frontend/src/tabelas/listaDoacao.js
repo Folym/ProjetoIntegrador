@@ -51,19 +51,19 @@ export default function ListaDoacao(props) {
                             dados.map(doacao =>
                                 <tr>
 
-                                    <td>{doacao.tipo}</td>
+                                    <td>{doacao.doac_tipo}</td>
 
-                                    <td>{doacao.end}</td>
+                                    <td>{doacao.doac_end}</td>
 
-                                    <td>{doacao.numend}</td>
+                                    <td>{doacao.doac_numend}</td>
 
-                                    <td>{doacao.cep}</td>
+                                    <td>{doacao.doac_cep}</td>
 
-                                    <td>{doacao.quant}</td>
+                                    <td>{doacao.doac_quantidade}</td>
 
-                                    <td>{doacao.data}</td>
+                                    <td>{doacao.doac_data}</td>
 
-                                    <td>{doacao.desc}</td>
+                                    <td>{doacao.doac_desc}</td>
 
                                     <td>
                                         <Button  onClick={() => {

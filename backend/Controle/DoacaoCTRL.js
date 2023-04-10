@@ -55,19 +55,14 @@ export default class DoacaoCTRL{
 
     consultarDesc(req,resp){
         resp.setHeader("Content-Type","application/json");
-        if(req.is("application/json")){
-            const {desc} = req.params;
-            if(desc==undefined || desc==""){
-                resp.sendStatus(400);
-            }
-            const doacao = new Doacao(desc);
-            doacao.consultarDesc(desc).then(()=>{
-                resp.sendStatus(200);
+            const doacao = new Doacao();
+            console.log("consultarDesc ctrl");
+            doacao.consultarDesc().then((lista)=>{
+                resp.json(lista);
             }).catch((error)=>{
                 console.log(error);
                 resp.sendStatus(400);
             });
-        }
     }
 
     consultarCodg(req,resp){
