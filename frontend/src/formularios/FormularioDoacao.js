@@ -27,7 +27,7 @@ import { STATUS } from '../redux/redutores/DoacaoSlice.js'
   const {status}= useSelector(state=>state.doacao)
 
   const manipularMudanca = (evento) =>{
-    setDoacao({...doacao,[evento.target.name]:evento.target.value})// esse ... faz um copia da cosntante cliente, podendo adiconar novos valores ou até atualizar, ou seja, a cada letra ele atualiza
+    setDoacao({...doacao,[evento.target.name]:evento.target.value})
 
   }
 
@@ -156,7 +156,7 @@ import { STATUS } from '../redux/redutores/DoacaoSlice.js'
           </Form.Group>
           <Form.Group as={Col} md="3" >
             <Form.Label>Data</Form.Label>
-            <Form.Control type="text" placeholder="data" required 
+            <Form.Control type="date" placeholder="data" required 
               id='data'
               name='data'
               value={doacao.data}
@@ -170,7 +170,7 @@ import { STATUS } from '../redux/redutores/DoacaoSlice.js'
             <Form.Control type="text" placeholder="Descricao" required 
               id='desc'
               name='desc'
-              value={doacao.cep}
+              value={doacao.desc}
               onChange={manipularMudanca}
             />
             <Form.Control.Feedback>Ok!</Form.Control.Feedback>

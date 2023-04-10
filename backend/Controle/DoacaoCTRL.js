@@ -5,10 +5,11 @@ export default class DoacaoCTRL{
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
             const {tipo,end,numend,cep,quant,data,desc} = req.body;
+            console.log(data);
             if(tipo==undefined || tipo==""){
                 resp.sendStatus(400);
             }
-            const doacao = new Doacao(tipo,end,numend,cep,quant,data,desc);
+            const doacao = new Doacao(0,tipo,end,numend,cep,quant,data,desc);
             doacao.gravar().then(()=>{
                 resp.sendStatus(200);
             }).catch((error)=>{
