@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use("/doacao",rotaDoacao);
 app.use("/pretendente",rotaPret);
-app.use("/Jovem",rotaJovem);
+app.use("/jovem",rotaJovem);
 app.listen(8080,()=>{
     console.log("Executando");
 });

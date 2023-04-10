@@ -109,18 +109,15 @@ export default class Jovens{
         await jovemDAO.excluir(this);
     }
     
-    async consultar(codigo){
+    async consultarCodigo(codigo){
         const jovemDAO = new JovemDAO();
-        return await jovemDAO.consultar(codigo);
+        return await jovemDAO.consultarCodigo(codigo);
     }
 
-    async consultar(nome){
+    async consultarNome(){
         const jovemDAO = new JovemDAO();
-        return await jovemDAO.consultarNome(nome);
+       return await jovemDAO.consultarNome();
+        
     }
-
-
-    
-
 
 }

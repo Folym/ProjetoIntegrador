@@ -2,15 +2,16 @@ import { useEffect } from 'react';
 import { Container, Table, Button } from 'react-bootstrap';
 import {Spinner} from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import {buscarJovens, excluirJovens} from '../redux/redutores/JovensSlice'
 import { STATUS } from '../redux/redutores/JovensSlice'
-import { buscarJovens, excluirJovens } from '../redux/redutores/JovensSlice';
 
 export default function ListaJovens(props) {
-  
+    //o useSelector é uma ganjo para conseguir acessar o redux store e consumi-la(esse clientes é da  store)
+    //const listaClientes = useSelector(state => state.clientes)
     
     const dispatch = useDispatch();//despacha ações para redutores da store
     const {status,dados} = useSelector(state => state.jovens)
-    /
+    // willMount -  vai montar
     useEffect(()=>{
         dispatch(buscarJovens());// aqui faz a busca
     }, []);
@@ -36,7 +37,7 @@ export default function ListaJovens(props) {
         return (
             <Container>
                 <Table striped bordered hover>
-                    <thead>
+                <thead>
                         <tr>
                             <th>Nome</th>
                             <th>CPF</th>
@@ -53,19 +54,19 @@ export default function ListaJovens(props) {
                             dados.map(jovem =>
                                 <tr>
 
-                                    <td>{jovem.nome}</td>
+                                    <td>{jovem.jov_nome}</td>
 
-                                    <td>{jovem.cpf}</td>
+                                    <td>{jovem.jov_cpf}</td>
 
-                                    <td>{jovem.nomepai}</td>
+                                    <td>{jovem.jov_nomepai}</td>
 
-                                    <td>{jovem.nomemae}</td>
+                                    <td>{jovem.jov_nomemae}</td>
 
-                                    <td>{jovem.idade}</td>
+                                    <td>{jovem.jov_idade}</td>
 
-                                    <td>{jovem.sexo}</td>
+                                    <td>{jovem.jov_sexo}</td>
 
-                                    <td>{jovem.status}</td>
+                                    <td>{jovem.jov_status}</td>
                                     <td>
                                         <Button  onClick={() => {
                                              dispatch(excluirJovens(jovem));
@@ -84,14 +85,14 @@ export default function ListaJovens(props) {
 
 
                 </Table>
-                <Button onClick={() => props.onTabela(false)}>Novo Jovem</Button>
+                <Button onClick={() => props.onTabela(false)}>Novo jovem</Button>
             </Container>
 
         );
     }else if(status === STATUS.ERRO){
         return(
             <Container>
-                <p> <strong>Erro</strong></p>
+                <p> <strong>DEU CERTO NÂO</strong></p>
             </Container>
         );
         

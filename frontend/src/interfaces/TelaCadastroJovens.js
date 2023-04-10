@@ -3,7 +3,7 @@ import Pagina from "../templates/Pagina";
 import FormCadastroJovem from "../formularios/FormularioJovens";
 import ListaJovens from "../tabelas/listaJovens";
 export default function TelaCadastroJovens(props) {
-    const [exibirTabela,setExibirTabela] = useState(false);
+    const [exibirTabela,setExibirTabela] = useState(true);
     console.log(exibirTabela);
     if (exibirTabela) {
         return(  

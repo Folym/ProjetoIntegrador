@@ -31,16 +31,18 @@ export default class JovemDAO{
     }
 
 
-    async  consultarNome(nome) {
+    async  consultarNome() {
         const dao = new Dao();
-        const sql = "SELECT * FROM Jovem WHERE jov_nome like '%'"+nome+"'%'";
+        const sql = "SELECT * FROM Jovem";
         return dao.consultar(sql);;
         
     }
 
     async  consultarCodigo(codigo) {
         const dao = new Dao();
-        const sql = "SELECT * FROM Jovem WHERE jov_codigo = "+codigo;
-        return dao.consultar(sql);
+        const sql = "SELECT * FROM Jovem WHERE jov_codigo = ";
+        const dados = [codigo];
+        const parm = sql+""+dados;
+        return dao.consultar(parm);
    }
 }
