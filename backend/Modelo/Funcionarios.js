@@ -74,14 +74,13 @@ export default class Funcionarios{
     toJSON(){
         return{
             codigo:this.#codigo,
-            tipo:this.#tipo,
+            nome:this.#nome,
             end:this.#end,
             numend:this.#numend,
             cep:this.#cep,
-            quant:this.#quant,
-            valor:this.#valor,
-            data:this.#data,
-            desc:this.#desc
+            cpf:this.#cpf,
+            cel:this.#cel,
+            email:this.#email,
         }
     }
 
@@ -106,8 +105,8 @@ export default class Funcionarios{
         return await funcionariosDAO.consultarNome(nome);
     }
 
-    async consultarCodg(codigo){
+    async consultarCpf(cpf){
         const funcionariosDAO = new FuncionariosDAO();
-        return await funcionariosDAO.consultarCodg(codigo);
+        return await funcionariosDAO.consultarCodg(cpf);
     }
 }

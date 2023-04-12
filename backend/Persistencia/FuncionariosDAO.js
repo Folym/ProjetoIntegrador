@@ -35,9 +35,9 @@ export default class FuncionariosDAO{
             return await dao.consultar(sql);
     }
 
-    async consultarCodg(codigo){
+    async consultarCpf(cpf){
             const dao = new Dao();
-            const sql = "SELECT * FROM Funcionario WHERE func_codigo = "+ codigo;
+            const sql = "SELECT * FROM Funcionario WHERE func_cpf = "+ cpf;
             return await dao.consultar(sql);
     }
 }
