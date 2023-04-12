@@ -21,11 +21,11 @@ export default class PretendentesDAO{
         }   
     }
     
-    async  excluir(pret) {
-        if(pret instanceof Pretendentes){
-            const dao = new Dao();
-            const sql = "DELETE FROM Pretendente WHERE pret_codigo = "+pret.codigo;
-            await dao.gravar(sql);
+    async  excluir(pret) {     
+        if(pret instanceof Pretendentes){           
+            const dao = new Dao();            
+            const sql = "DELETE FROM Pretendente WHERE pret_codigo = "+pret.codigo+";";         
+            await dao.excluir(sql);
         }   
     }
     
