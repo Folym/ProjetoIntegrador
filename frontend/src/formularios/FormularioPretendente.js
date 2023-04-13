@@ -18,11 +18,11 @@ import { STATUS } from '../redux/redutores/PretendentesSlice'
   const [pretendente,setPretendente] = useState({
     cpf:"",
     nome:"",
-    numend:"",
+    numend:0,
     end:"",
     email:"",
     status:"",
-    cep:"",
+    cep:0,
     cel :""
   });
 
@@ -41,14 +41,14 @@ import { STATUS } from '../redux/redutores/PretendentesSlice'
       
       dispatch(adicionarPretendentes(pretendente));
       setPretendente({
-        nome:"",
         cpf:"",
-        cel:"",
-        email:"",
+        nome:"",
+        numend:0,
         end:"",
-        numend: 0,
+        email:"",
+        status:"",
         cep:0,
-        status :""
+        cel :""
       })
       setValidado(false)
     }else{

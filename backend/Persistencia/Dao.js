@@ -27,9 +27,10 @@ export default class Dao{
     }
 
     async excluir(param){
+        
         try{
-            const con = await conectar();
-            con.connect()
+            const con = await conectar();         
+            con.connect()     
             await con.query(param);
         }catch(error){
             console.log(error);

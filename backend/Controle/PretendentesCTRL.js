@@ -23,7 +23,7 @@ export default class PretendentesCTRL{
     atualizar(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {codigo,nome,cpf, cel,email,end,numend,cep,status} = req.body;
+            const {codigo,nome,cpf,cel,email,end,numend,cep,status} = req.body;
             if(codigo==undefined || !(typeof(codigo)=="number")){
                 resp.sendStatus(400);
             }
@@ -40,7 +40,9 @@ export default class PretendentesCTRL{
     excluir(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {codigo} = req.body;
+            const dados = req.body;
+            const codigo = dados["pret_codigo"];
+            console.log(codigo)
             if(codigo==undefined || !(typeof(codigo)=="number")){
                 resp.sendStatus(400);
             }
@@ -48,6 +50,7 @@ export default class PretendentesCTRL{
             pret.excluir().then(()=>{
                 resp.sendStatus(200);
             }).catch((error)=>{
+                console.log("ERRO");
                 console.log(error);
                 resp.sendStatus(400);
             });
