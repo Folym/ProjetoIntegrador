@@ -1,14 +1,18 @@
 import Funcionarios from "../Modelo/Funcionarios.js";
 
 export default class FuncionariosCTRL{
-    gravar(req,resp){
+    gravar(req,resp)
+    {
         resp.setHeader("Content-Type","application/json");
-        if(req.is("application/json")){
+        if(req.is("application/json"))
+        {
             const {nome, cpf, cel, email, end, numend, cep} = req.body;
-            if(tipo==undefined || tipo==""){
+            if(tipo==undefined || tipo=="")
+            {
                 resp.sendStatus(400);
             }
             const funcionarios = new Funcionarios(nome, cpf, cel, email, end, numend, cep);
+
             funcionarios.gravar().then(()=>{
                 resp.sendStatus(200);
             }).catch((error)=>{
@@ -18,14 +22,18 @@ export default class FuncionariosCTRL{
         }
     }
 
-    atualizar(req,resp){
+    atualizar(req,resp)
+    {
         resp.setHeader("Content-Type","application/json");
-        if(req.is("application/json")){
+        if(req.is("application/json"))
+        {
             const {codigo, nome, cpf, cel, email, end, numend, cep} = req.body;
-            if(codigo==undefined || !(typeof(codigo)=="number")){
+            if(codigo==undefined || !(typeof(codigo)=="number"))
+            {
                 resp.sendStatus(400);
             }
             const funcionarios = new Funcionarios(codigo, nome, cpf, cel, email, end, numend, cep);
+
             funcionarios.atualizar().then(()=>{
                 resp.sendStatus(200);
             }).catch((error)=>{
@@ -35,14 +43,18 @@ export default class FuncionariosCTRL{
         }
     }
 
-    excluir(req,resp){
+    excluir(req,resp)
+    {
         resp.setHeader("Content-Type","application/json");
-        if(req.is("application/json")){
+        if(req.is("application/json"))
+        {
             const {codigo} = req.body;
-            if(codigo==undefined || !(typeof(codigo)=="number")){
+            if(codigo==undefined || !(typeof(codigo)=="number"))
+            {
                 resp.sendStatus(400);
             }
             const funcionarios = new Funcionarios(codigo);
+
             funcionarios.excluir().then(()=>{
                 resp.sendStatus(200);
             }).catch((error)=>{
@@ -52,14 +64,18 @@ export default class FuncionariosCTRL{
         }
     }
 
-    consultarNome(req,resp){
+    consultarNome(req,resp)
+    {
         resp.setHeader("Content-Type","application/json");
-        if(req.is("application/json")){
+        if(req.is("application/json"))
+        {
             const {nome} = req.params;
-            if(nome==undefined || nome==""){
+            if(nome==undefined || nome=="")
+            {
                 resp.sendStatus(400);
             }
             const funcionarios = new Funcionarios(nome);
+
             funcionarios.consultarNome(nome).then(()=>{
                 resp.json(nome);
                 resp.sendStatus(200);
@@ -70,15 +86,19 @@ export default class FuncionariosCTRL{
         }
     }
 
-    consultarCodg(req,resp){
+    consultarCpf(req,resp)
+    {
         resp.setHeader("Content-Type","application/json");
-        if(req.is("application/json")){
-            const {codigo} = req.params;
-            if(codigo==undefined || !(typeof(codigo)=="number")){
+        if(req.is("application/json"))
+        {
+            const {cpf} = req.params;
+            if(cpf==undefined || !(typeof(cpf)=="number"))
+            {
                 resp.sendStatus(400);
             }
-            const funcionarios = new Funcionarios(codigo);
-            funcionarios.consultarCodg(codigo).then(()=>{
+            const funcionarios = new Funcionarios(cpf);
+            
+            funcionarios.consultarCpf(cpf).then(()=>{
                 resp.sendStatus(200);
             }).catch((error)=>{
                 console.log(error);
