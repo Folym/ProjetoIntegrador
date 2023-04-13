@@ -2,7 +2,7 @@ import FuncionariosDAO from "../Persistencia/FuncionariosDAO.js";
 
 export default class Funcionarios{
     #codigo;
-    #nome; 
+    #nome;
     #cpf;
     #cel;
     #email;
@@ -98,6 +98,11 @@ export default class Funcionarios{
     async excluir(){
         const funcionariosDAO = new FuncionariosDAO();
         await funcionariosDAO.excluir(this);
+    }
+
+    async consultarTodos(){
+        const funcionariosDAO = new FuncionariosDAO();
+        return await funcionariosDAO.consultarTodos();
     }
     
     async consultarNome(nome){

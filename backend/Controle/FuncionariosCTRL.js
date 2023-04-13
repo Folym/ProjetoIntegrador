@@ -64,6 +64,20 @@ export default class FuncionariosCTRL{
         }
     }
 
+    consultarTodos(req,resp){
+        resp.setHeader("Content-Type","application/json");
+        
+            const func = new Funcionarios();
+            func.consultarTodos().then((lista)=>{
+                resp.json(lista);
+//              resp.sendStatus(200);
+            }).catch((error)=>{
+                console.log(error);
+                resp.sendStatus(400);
+            });
+        
+    }
+
     consultarNome(req,resp)
     {
         resp.setHeader("Content-Type","application/json");
