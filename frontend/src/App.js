@@ -6,9 +6,24 @@ import ContextoUsuario from "./contexto/ContextoGlobal";
 import TelaCadastroJovens from "./interfaces/TelaCadastroJovens";
 import TelaCadastroDoacao from "./interfaces/TelaCadastroDoacao";
 import TelaCadastroFuncionarios from "./interfaces/TelaCadastroFuncionarios";
+import { useState } from "react";
+import TelaLogin from "./interfaces/TelaLogin";
 
 function App() {
-  
+  const [usuario, setUsuario] = useState({
+    nome: "",
+    logado: false
+  });
+
+  if (!usuario.logado) {
+    return (
+      <ContextoUsuario.Provider value={[usuario, setUsuario]}>
+        <Sistema>
+          <Route path="*" element={<TelaLogin />} />
+        </Sistema>
+      </ContextoUsuario.Provider>
+    );
+  }else{
     return (
       <ContextoUsuario.Provider >
         <Sistema>
@@ -20,6 +35,7 @@ function App() {
         </Sistema>
       </ContextoUsuario.Provider>
      );
+  }
   
 
 }
