@@ -11,7 +11,7 @@ export const STATUS = Object.freeze({
 export const buscarPretendentes = createAsyncThunk('pretendente/buscarPretendentes', async ()=>{
     const resposta = await fetch(urlBase,{method :'GET'})
     const dados = await resposta.json()
-    console.log(dados);
+    //console.log(dados);
     return dados;
 });
 
@@ -36,16 +36,18 @@ export const excluirPretendentes = createAsyncThunk('pretendente/excluirPretende
     })
     
     const dados = await resposta.json()
+    console.log("EXCLUIR :" + dados);
     return {
-        pretendente:pretendente,
+       // pretendente:pretendente,
         resposta : dados
     };
+    //return dados;
 });
 
 const pretendenteSlice = createSlice({
     name:'pretendentes', 
     initialState:{
-        status:STATUS.CARREGADO,
+        status:STATUS.OCIOSO,
         dados:[]
     }, 
 
@@ -86,6 +88,7 @@ const pretendenteSlice = createSlice({
             state.status= STATUS.OCIOSO;
         })
         .addCase(excluirPretendentes.fulfilled,(state,action)=>{
+        console.log("AQUI1")
             if (action.payload.status ===  false) {
                 state.status= STATUS.ERRO;
             } else {
