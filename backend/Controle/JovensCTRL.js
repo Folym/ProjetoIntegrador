@@ -7,14 +7,26 @@ export default class JovensCTRL{
         if(req.is("application/json")){
             const {nome,cpf, nomepai, nomemae, idade, sexo, status} = req.body;
             if(nome==undefined || nome==""){
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "Mensagem":"Erro ao excluir jovem"
+                });
             }
             const jovem = new Jovens(0,nome,cpf, nomepai, nomemae, idade, sexo, status);
             jovem.gravar().then(()=>{
-                resp.sendStatus(200);
+                resp.statusCode = 200;
+                resp.json({
+                    "status": true,
+                    "mensagem": "Jovem excluido com sucesso"
+                });
             }).catch((error)=>{
                 console.log(error);
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "Mensagem":"Erro ao excluir jovem"
+                });
             });
         }
     }
@@ -24,31 +36,55 @@ export default class JovensCTRL{
         if(req.is("application/json")){
             const {codigo,nome,cpf, nomepai, nomemae, idade, sexo, status} = req.body;
             if(codigo==undefined || !(typeof(codigo)=="number")){
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "Mensagem":"Erro ao excluir jovem"
+                });
             }
             const jovem = new Jovens(codigo,nome,cpf, nomepai, nomemae, idade, sexo, status);
             jovem.atualizar().then(()=>{
-                resp.sendStatus(200);
+                resp.statusCode = 200;
+                resp.json({
+                    "status": true,
+                    "mensagem": "Jovem excluido com sucesso"
+                });
             }).catch((error)=>{
                 console.log(error);
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "Mensagem":"Erro ao excluir jovem"
+                });
             });
         }
     }
 
+
     excluir(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {codigo} = req.body;
+            const dados = req.body;
+            const codigo = dados["jov_codigo"];
+            console.log(codigo)
             if(codigo==undefined || !(typeof(codigo)=="number")){
                 resp.sendStatus(400);
             }
             const jovem = new Jovens(codigo);
             jovem.excluir().then(()=>{
-                resp.sendStatus(200);
+                resp.statusCode = 200;
+                resp.json({
+                    "status": true,
+                    "mensagem": "Jovem excluido com sucesso"
+                });
             }).catch((error)=>{
+                console.log("ERRO");
                 console.log(error);
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "Mensagem":"Erro ao excluir jovem"
+                });
             });
         }
     }
@@ -62,7 +98,11 @@ export default class JovensCTRL{
 //              resp.sendStatus(200);
             }).catch((error)=>{
                 console.log(error);
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "Mensagem":"Erro ao excluir jovem"
+                });
             });
         
     }
@@ -72,14 +112,22 @@ export default class JovensCTRL{
         if(req.is("application/json")){
             const {codigo} = req.params;
             if(codigo==undefined || !(typeof(codigo)=="number")){
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "Mensagem":"Erro ao excluir jovem"
+                });
             }
             const jovem = new Jovens(codigo);
             jovem.consultarCodigo(codigo).then(()=>{
                 resp.sendStatus(200);
             }).catch((error)=>{
                 console.log(error);
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "Mensagem":"Erro ao excluir jovem"
+                });
             });
         }
     }

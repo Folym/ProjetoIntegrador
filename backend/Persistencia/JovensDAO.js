@@ -25,8 +25,8 @@ export default class JovemDAO{
     async excluir(jovem){
         if(jovem instanceof Jovens){
             const dao = new Dao();
-            const sql = "DELETE FROM Jovem WHERE jov_codigo="+jovem.codigo;
-            await dao.gravar(sql);
+            const sql = "DELETE FROM Jovem WHERE jov_codigo="+jovem.codigo+";";
+            await dao.excluir(sql);
         }   
     }
 
@@ -34,7 +34,7 @@ export default class JovemDAO{
     async  consultarNome() {
         const dao = new Dao();
         const sql = "SELECT * FROM Jovem";
-        return dao.consultar(sql);;
+        return dao.consultar(sql);
         
     }
 
