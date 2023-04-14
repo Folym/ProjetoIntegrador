@@ -75,7 +75,7 @@ export default class Doacao{
     set desc(desc){
         this.#desc = desc;
     }
-
+    
     toJSON(){
         return{
             codigo:this.#codigo,
@@ -111,9 +111,8 @@ export default class Doacao{
     
     async consultarDesc(){
         const doacaoDAO = new DoacaoDAO();
-        console.log("consultarDesc modelo");
         return await doacaoDAO.consultarDesc();
-    }
+    } 
 
     async consultarCodg(codigo){
         const doacaoDAO = new DoacaoDAO();

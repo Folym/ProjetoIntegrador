@@ -70,9 +70,8 @@ const doacaoSlice = createSlice({
                 state.status= STATUS.ERRO;
             } else {
                 state.status= STATUS.CARREGADO;
-                state.dados.push({...action.payload.doacao, codigo : action.payload.resposta.codigo});
+                state.dados.push({...action.payload.doacao, doac_codigo : action.payload.resposta.doac_codigo});
             }
-           
         })
         .addCase(adicionarDoacao.rejected,(state,action)=>{
             state.status= STATUS.ERRO;
@@ -85,9 +84,8 @@ const doacaoSlice = createSlice({
                 state.status= STATUS.ERRO;
             } else {
                 state.status= STATUS.CARREGADO;
-                state.dados.pop({...action.payload.doacao,codigo : action.payload.resposta.codigo});
+                state.dados.pop({...action.payload.doacao,doac_codigo : action.payload.resposta.doac_codigo});
             }
-           
         })
         .addCase(excluirDoacao.rejected,(state,action)=>{
             state.status= STATUS.ERRO;

@@ -9,7 +9,6 @@ export default class DoacaoDAO{
         if(doacao instanceof Doacao){
             const dao = new Dao();
             console.log(doacao.tipo);
-//            const sql = `INSERT INTO Doacao (doac_tipo,doac_end,doac_numend,doac_cep,doac_quantidade,doac_data,doac_desc) VALUES (${doacao.tipo},"${doacao.end}",${doacao.numend},${doacao.cep},${doacao.quant},"${doacao.data}","${doacao.desc}")`
             const sql = "INSERT INTO Doacao (doac_tipo,doac_end,doac_numend,doac_cep,doac_quantidade,doac_data,doac_desc) VALUES ('"+doacao.tipo+"','"+doacao.end+"',"+doacao.numend+","+doacao.cep+","+doacao.quant+",'"+doacao.data+"','"+doacao.desc+"')"
             console.log(sql);
             return await dao.gravar(sql);

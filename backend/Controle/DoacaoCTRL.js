@@ -6,15 +6,27 @@ export default class DoacaoCTRL{
         if(req.is("application/json")){
             const {tipo,end,numend,cep,quant,data,desc} = req.body;
             console.log(data);
-            if(tipo==undefined || tipo==""){
-                resp.sendStatus(400);
+            if(desc==undefined || desc==""){
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Gravação cancelada"
+                })
             }
             const doacao = new Doacao(0,tipo,end,numend,cep,quant,data,desc);
             doacao.gravar().then(()=>{
-                resp.sendStatus(200);
+                resp.statusCode = 200;
+                resp.json({
+                    "status":true,
+                    "mensagem":"Doação gravada"
+                })
             }).catch((error)=>{
                 console.log(error);
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Gravação cancelada"
+                })
             });
         }
     }
@@ -24,14 +36,26 @@ export default class DoacaoCTRL{
         if(req.is("application/json")){
             const {codigo,tipo,end,numend,cep,quant,data,desc} = req.body;
             if(codigo==undefined || !(typeof(codigo)=="number")){
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Erro ao atualizar a doação"
+                })
             }
             const doacao = new Doacao(codigo,tipo,end,numend,cep,quant,data,desc);
             doacao.atualizar().then(()=>{
-                resp.sendStatus(200);
+                resp.statusCode = 200;
+                resp.json({
+                    "status":true,
+                    "mensagem":"Doação atualizada"
+                })
             }).catch((error)=>{
                 console.log(error);
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Erro ao atualizar a doação"
+                })
             });
         }
     }
@@ -39,16 +63,30 @@ export default class DoacaoCTRL{
     excluir(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {codigo} = req.body;
+            const dados = req.body;
+            const codigo = dados["doac_codigo"];
             if(codigo==undefined || !(typeof(codigo)=="number")){
-                resp.sendStatus(400);
+                resp.statusCode= 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Doação rejeitada"
+                })
             }
             const doacao = new Doacao(codigo);
             doacao.excluir().then(()=>{
-                resp.sendStatus(200);
+                resp.statusCode = 200;
+                resp.json({
+                    "status":true,
+                    "mensagem": "Doacao excluida"
+                });
             }).catch((error)=>{
+                console.log("ERRO: ");
                 console.log(error);
-                resp.sendStatus(400);
+                resp.statusCode= 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Doação rejeitada"
+                })
             });
         }
     }
@@ -56,7 +94,6 @@ export default class DoacaoCTRL{
     consultarDesc(req,resp){
         resp.setHeader("Content-Type","application/json");
             const doacao = new Doacao();
-            console.log("consultarDesc ctrl");
             doacao.consultarDesc().then((lista)=>{
                 resp.json(lista);
             }).catch((error)=>{
