@@ -80,7 +80,6 @@ export default class DoacaoCTRL{
                     "mensagem": "Doacao excluida"
                 });
             }).catch((error)=>{
-                console.log("ERRO: ");
                 console.log(error);
                 resp.statusCode= 400;
                 resp.json({

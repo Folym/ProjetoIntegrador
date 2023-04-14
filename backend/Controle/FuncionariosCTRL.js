@@ -70,7 +70,8 @@ export default class FuncionariosCTRL{
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json"))
         {
-            const {codigo} = req.body;
+            const dados = req.body;
+            const codigo = dados["func_codigo"]
             if(codigo==undefined || !(typeof(codigo)=="number"))
             {
                 resp.statusCode = 400;
@@ -80,7 +81,6 @@ export default class FuncionariosCTRL{
                 })
             }
             const funcionarios = new Funcionarios(codigo);
-
             funcionarios.excluir().then(()=>{
                 resp.statusCode = 200;
                 resp.json({

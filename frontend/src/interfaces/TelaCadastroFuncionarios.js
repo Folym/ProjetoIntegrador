@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Pagina from "../templates/Pagina";
-import FormCadastroFunc from "../formularios/FormularioFuncionario"
-import ListaFuncionarios from "../tabelas/listaFuncionarios";
+import FormCadastroFunc from "../formularios/FormularioFuncionario.js";
+import ListaFuncionarios from "../tabelas/listaFuncionarios.js";
 export default function TelaCadastroFuncionarios(props) {
     const [exibirTabela,setExibirTabela] = useState(true);
     console.log(exibirTabela);

@@ -85,7 +85,7 @@ const funcionarioSlice = createSlice({
                 state.status= STATUS.ERRO;
             } else {
                 state.status= STATUS.CARREGADO;
-                state.dados.pop({...action.payload.funcionario,codigo : action.payload.resposta.codigo});// aqui espalha o objeto com os ... e depois redefine esse ojeot onde o id do cleinte recebe o id do payload
+                state.dados.pop({...action.payload.funcionario,codigo : action.payload.resposta.codigo});
             }
            
         })
@@ -93,7 +93,5 @@ const funcionarioSlice = createSlice({
             state.status= STATUS.ERRO;
         })
     }
-});// para criar uma fatia
-
-//export const{adicionar,remover} = clientesSlice.actions;
-export default funcionarioSlice.reducer;// exporta um redutor
+});
+export default funcionarioSlice.reducer;
