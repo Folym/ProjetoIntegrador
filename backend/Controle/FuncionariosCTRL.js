@@ -7,17 +7,28 @@ export default class FuncionariosCTRL{
         if(req.is("application/json"))
         {
             const {nome, cpf, cel, email, end, numend, cep} = req.body;
-            if(tipo==undefined || tipo=="")
+            if(nome==undefined || nome=="")
             {
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Gravação cancelada"
+                })
             }
-            const funcionarios = new Funcionarios(nome, cpf, cel, email, end, numend, cep);
+            const funcionarios = new Funcionarios(0,nome, cpf, cel, email, end, numend, cep);
 
             funcionarios.gravar().then(()=>{
-                resp.sendStatus(200);
+                resp.statusCode = 200;
+                resp.json({
+                    "status":true,
+                    "mensagem":"Funcionario gravado"
+                })
             }).catch((error)=>{
-                console.log(error);
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Gravação cancelada"
+                })
             });
         }
     }
@@ -30,15 +41,26 @@ export default class FuncionariosCTRL{
             const {codigo, nome, cpf, cel, email, end, numend, cep} = req.body;
             if(codigo==undefined || !(typeof(codigo)=="number"))
             {
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Atualização cancelada"
+                })
             }
             const funcionarios = new Funcionarios(codigo, nome, cpf, cel, email, end, numend, cep);
 
             funcionarios.atualizar().then(()=>{
-                resp.sendStatus(200);
+                resp.statusCode = 200;
+                resp.json({
+                    "status":true,
+                    "mensagem":"Funcionario atualizado"
+                })
             }).catch((error)=>{
-                console.log(error);
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Atualização cancelada"
+                })
             });
         }
     }
@@ -51,15 +73,27 @@ export default class FuncionariosCTRL{
             const {codigo} = req.body;
             if(codigo==undefined || !(typeof(codigo)=="number"))
             {
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Exclusão cancelada"
+                })
             }
             const funcionarios = new Funcionarios(codigo);
 
             funcionarios.excluir().then(()=>{
-                resp.sendStatus(200);
+                resp.statusCode = 200;
+                resp.json({
+                    "status":true,
+                    "mensagem":"Funcionario excluido"
+                })
             }).catch((error)=>{
                 console.log(error);
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Exclusão cancelada"
+                })
             });
         }
     }
@@ -70,7 +104,6 @@ export default class FuncionariosCTRL{
             const func = new Funcionarios();
             func.consultarTodos().then((lista)=>{
                 resp.json(lista);
-//              resp.sendStatus(200);
             }).catch((error)=>{
                 console.log(error);
                 resp.sendStatus(400);

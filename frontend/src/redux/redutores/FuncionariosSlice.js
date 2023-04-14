@@ -66,11 +66,6 @@ const funcionarioSlice = createSlice({
             state.status= STATUS.OCIOSO;
         })
         .addCase(adicionarFuncionarios.fulfilled,(state,action)=>{
-            // lemabrando que o status do payload é aquele de origem do backend(Controle){
-            //     status : true ou false
-            //     id: ?
-            //     mensagem: "Mensagem que vem de lá"
-            // }
             if (action.payload.status ===  false) {
                 state.status= STATUS.ERRO;
             } else {

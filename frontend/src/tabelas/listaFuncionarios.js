@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Container, Table, Button } from 'react-bootstrap';
 import {Spinner} from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-//import { remover } from '../redux/redutores/clientesSlice';
 import { buscarFuncionarios ,excluirFuncionarios} from '../redux/redutores/FuncionariosSlice';
 import { STATUS } from '../redux/redutores/FuncionariosSlice'
 //import { useEffect  } from 'react';

@@ -39,7 +39,7 @@ export default class DoacaoCTRL{
                 resp.statusCode = 400;
                 resp.json({
                     "status":false,
-                    "mensagem":"Erro ao atualizar a doação"
+                    "mensagem":"Atualização cancelada"
                 })
             }
             const doacao = new Doacao(codigo,tipo,end,numend,cep,quant,data,desc);
@@ -54,7 +54,7 @@ export default class DoacaoCTRL{
                 resp.statusCode = 400;
                 resp.json({
                     "status":false,
-                    "mensagem":"Erro ao atualizar a doação"
+                    "mensagem":"Atualização cancelada"
                 })
             });
         }
@@ -69,7 +69,7 @@ export default class DoacaoCTRL{
                 resp.statusCode= 400;
                 resp.json({
                     "status":false,
-                    "mensagem":"Doação rejeitada"
+                    "mensagem":"Exclusão cancelada"
                 })
             }
             const doacao = new Doacao(codigo);
@@ -85,7 +85,7 @@ export default class DoacaoCTRL{
                 resp.statusCode= 400;
                 resp.json({
                     "status":false,
-                    "mensagem":"Doação rejeitada"
+                    "mensagem":"Exclusão cancelada"
                 })
             });
         }

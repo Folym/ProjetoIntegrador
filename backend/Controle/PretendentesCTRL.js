@@ -11,7 +11,7 @@ export default class PretendentesCTRL{
                  resp.statusCode = 400;
                 resp.json({
                     "status":false,
-                    "Mensagem":"Erro ao excluir jovem"
+                    "Mensagem":"Erro ao excluir pretendentes"
                 });
             }
             const pret = new Pretendentes(0,nome,cpf, cel,email,end,numend,cep,status);
@@ -19,14 +19,14 @@ export default class PretendentesCTRL{
                 resp.statusCode = 200;
                 resp.json({
                     "status": true,
-                    "mensagem": "Jovem excluido com sucesso"
+                    "mensagem": "Pretendentes excluido com sucesso"
                 });
             }).catch((error)=>{
                 console.log(error);
-                 resp.statusCode = 400;
+                resp.statusCode = 400;
                 resp.json({
                     "status":false,
-                    "Mensagem":"Erro ao excluir jovem"
+                    "Mensagem":"Erro ao excluir pretendentes"
                 });
             });
         }
@@ -37,10 +37,10 @@ export default class PretendentesCTRL{
         if(req.is("application/json")){
             const {codigo,nome,cpf,cel,email,end,numend,cep,status} = req.body;
             if(codigo==undefined || !(typeof(codigo)=="number")){
-                 resp.statusCode = 400;
+                resp.statusCode = 400;
                 resp.json({
                     "status":false,
-                    "Mensagem":"Erro ao excluir jovem"
+                    "Mensagem":"Erro ao excluir pretendentes"
                 });
             }
             const pret = new Pretendentes(codigo,nome,cpf, cel,email,end,numend,cep,status);
@@ -48,14 +48,14 @@ export default class PretendentesCTRL{
                 resp.statusCode = 200;
                 resp.json({
                     "status": true,
-                    "mensagem": "Jovem excluido com sucesso"
+                    "mensagem": "Pretendentes excluido com sucesso"
                 });
             }).catch((error)=>{
                 console.log(error);
                  resp.statusCode = 400;
                 resp.json({
                     "status":false,
-                    "Mensagem":"Erro ao excluir jovem"
+                    "Mensagem":"Erro ao excluir pretendentes"
                 });
             });
         }
@@ -71,7 +71,7 @@ export default class PretendentesCTRL{
                 resp.statusCode = 400;
                 resp.json({
                     "status":false,
-                    "Mensagem":"Erro ao excluir jovem"
+                    "Mensagem":"Erro ao excluir pretendentes"
                 });
             }
             const pret = new Pretendentes(codigo);
@@ -79,7 +79,7 @@ export default class PretendentesCTRL{
                 resp.statusCode = 200;
                 resp.json({
                     "status": true,
-                    "mensagem": "Cliente excluido com sucesso"
+                    "mensagem": "Pretendentes excluido com sucesso"
                 });
             }).catch((error)=>{
                 console.log("ERRO");
@@ -87,7 +87,7 @@ export default class PretendentesCTRL{
                 resp.statusCode = 400;
                 resp.json({
                     "status":false,
-                    "Mensagem":"Erro ao excluir jovem"
+                    "Mensagem":"Erro ao excluir pretendentes"
                 });
             });
         }
