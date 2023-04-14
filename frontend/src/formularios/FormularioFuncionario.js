@@ -179,7 +179,7 @@ import { STATUS } from '../redux/redutores/FuncionariosSlice'
           </Form.Group>
         </Row>
         <Button type="submit">Cadastrar</Button>
-        <Button type ="button" style={{margin:"15px"}}  variant="secondary" onClick={()=> {props.onTabela(true)}}>Lista Pretendentes</Button>
+        <Button type ="button" style={{margin:"15px"}}  variant="secondary" onClick={()=> {props.onTabela(true)}}>Lista de Funcionários</Button>
       </Form>
     );
   }

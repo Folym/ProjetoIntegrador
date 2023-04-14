@@ -11,7 +11,6 @@ export default function TelaCadastroFuncionarios(props) {
                 <ListaFuncionarios onTabela={setExibirTabela}></ListaFuncionarios>
             </Pagina>
         );
-        //   O onCadastro passsa esse state setExibirTabela, como parametro para lsita de clientes, para poder mudar seu estado lá sem ter que criar contexto ou coisa do tipo
     }else{
         return(
             <Pagina>
