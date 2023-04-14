@@ -8,14 +8,26 @@ export default class PretendentesCTRL{
             const {nome,cpf, cel,email,end,numend,cep,status} = req.body;
             console.log({nome,cpf,cel,email,end,numend,cep,status})
             if(nome==undefined || nome==""){
-                resp.sendStatus(400);
+                 resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "Mensagem":"Erro ao excluir jovem"
+                });
             }
             const pret = new Pretendentes(0,nome,cpf, cel,email,end,numend,cep,status);
             pret.gravar().then(()=>{
-                resp.sendStatus(200);
+                resp.statusCode = 200;
+                resp.json({
+                    "status": true,
+                    "mensagem": "Jovem excluido com sucesso"
+                });
             }).catch((error)=>{
                 console.log(error);
-                resp.sendStatus(400);
+                 resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "Mensagem":"Erro ao excluir jovem"
+                });
             });
         }
     }
@@ -25,14 +37,26 @@ export default class PretendentesCTRL{
         if(req.is("application/json")){
             const {codigo,nome,cpf,cel,email,end,numend,cep,status} = req.body;
             if(codigo==undefined || !(typeof(codigo)=="number")){
-                resp.sendStatus(400);
+                 resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "Mensagem":"Erro ao excluir jovem"
+                });
             }
             const pret = new Pretendentes(codigo,nome,cpf, cel,email,end,numend,cep,status);
             pret.atualizar().then(()=>{
-                resp.sendStatus(200);
+                resp.statusCode = 200;
+                resp.json({
+                    "status": true,
+                    "mensagem": "Jovem excluido com sucesso"
+                });
             }).catch((error)=>{
                 console.log(error);
-                resp.sendStatus(400);
+                 resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "Mensagem":"Erro ao excluir jovem"
+                });
             });
         }
     }
@@ -44,15 +68,27 @@ export default class PretendentesCTRL{
             const codigo = dados["pret_codigo"];
             console.log(codigo)
             if(codigo==undefined || !(typeof(codigo)=="number")){
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "Mensagem":"Erro ao excluir jovem"
+                });
             }
             const pret = new Pretendentes(codigo);
             pret.excluir().then(()=>{
-                resp.sendStatus(200);
+                resp.statusCode = 200;
+                resp.json({
+                    "status": true,
+                    "mensagem": "Cliente excluido com sucesso"
+                });
             }).catch((error)=>{
                 console.log("ERRO");
                 console.log(error);
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "Mensagem":"Erro ao excluir jovem"
+                });
             });
         }
     }
