@@ -5,12 +5,11 @@ export default class DoacaoCTRL{
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
             const {tipo,end,numend,cep,quant,data,desc} = req.body;
-            console.log(data);
             if(desc==undefined || desc==""){
                 resp.statusCode = 400;
                 resp.json({
                     "status":false,
-                    "mensagem":"Gravação cancelada"
+                    "mensagem":"Doação cancelada"
                 })
             }
             const doacao = new Doacao(0,tipo,end,numend,cep,quant,data,desc);
@@ -18,14 +17,14 @@ export default class DoacaoCTRL{
                 resp.statusCode = 200;
                 resp.json({
                     "status":true,
-                    "mensagem":"Doação gravada"
+                    "mensagem":"Doação concluída"
                 })
             }).catch((error)=>{
                 console.log(error);
                 resp.statusCode = 400;
                 resp.json({
                     "status":false,
-                    "mensagem":"Gravação cancelada"
+                    "mensagem":"Doação cancelada"
                 })
             });
         }
@@ -65,6 +64,7 @@ export default class DoacaoCTRL{
         if(req.is("application/json")){
             const dados = req.body;
             const codigo = dados["doac_codigo"];
+            console.log(dados);
             if(codigo==undefined || !(typeof(codigo)=="number")){
                 resp.statusCode= 400;
                 resp.json({

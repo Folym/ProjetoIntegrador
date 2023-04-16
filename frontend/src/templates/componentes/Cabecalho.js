@@ -1,5 +1,4 @@
 import { Container } from "react-bootstrap";
-import Button from 'react-bootstrap/Button';
 //import {useContext } from "react";//para poder usar o contexto
 //import ContextoUsuario from "../../contextos/ContextoGlobal";// qual contexto vai usar
 
