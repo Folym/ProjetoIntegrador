@@ -35,6 +35,21 @@ jov_status varchar(30),
 constraint pk_jov primary key(jov_codigo)
 );
 
+create table campanhadoacao(
+camp_codigo integer NOT NULL,
+camp_nome varchar(50) not null,
+camp_desc varchar(150) not null,
+camp_finalizado varchar(1) not null,
+
+constraint pk_campdoacao primary key(camp_codigo)
+);
+
+create table Produto(
+    prod_codigo integer not null,
+    prod_nome varchar(50) not null,
+    constraint pk_prod primary key (prod_codigo)
+);
+
 create table Doacao(
 doac_codigo integer not null ,
 prod_codigo integer not null,
@@ -46,13 +61,10 @@ doac_quantidade integer,
 doac_valor decimal(8,2),
 doac_data date,
 doac_desc varchar(100),
+camp_codigo integer,
 constraint pk_doac primary key(doac_codigo),
 constraint fk_prod foreign key(prod_codigo) references produto(prod_codigo)
-);
-
-create table Produto(
-prod_codigo integer not null,
-prod_nome integer not null,
+constraint fk_campDaocao foreign key(camp_codigo) references campanhadoacao(camp_codigo)
 );
 
 create table Adocao(
@@ -106,3 +118,23 @@ ALTER TABLE jovem ALTER COLUMN jov_codigo SET DEFAULT NEXTVAL('seq_jovem');
 
 CREATE SEQUENCE seq_pretendente INCREMENT 1 MINVALUE 1 MAXVALUE 9999 START 1 CACHE 1;
 ALTER TABLE pretendente ALTER COLUMN pret_codigo SET DEFAULT NEXTVAL('seq_pretendente');
+
+CREATE SEQUENCE seq_produto INCREMENT 1 MINVALUE 1 MAXVALUE 9999 START 1 CACHE 1;
+ALTER TABLE produto ALTER COLUMN prod_codigo SET DEFAULT NEXTVAL('seq_produto');
+
+CREATE SEQUENCE seq_campanhadoacao INCREMENT 1 MINVALUE 1 MAXVALUE 9999 START 1 CACHE 1;
+ALTER TABLE campanhadoacao ALTER COLUMN camp_codigo SET DEFAULT NEXTVAL('seq_campanhadoacao');
+
+create table login(
+log_codigo integer NOT NULL,
+log_nome varchar(50) not null,
+log_senha varchar(10) not null,
+log_cpf varchar(11) not null,
+log_cel varchar(11),
+log_email varchar(100) not null,
+
+constraint pk_log primary key(log_codigo)
+);
+
+CREATE SEQUENCE seq_login INCREMENT 1 MINVALUE 1 MAXVALUE 9999 START 1 CACHE 1;
+ALTER TABLE login ALTER COLUMN log_codigo SET DEFAULT NEXTVAL('seq_login');
