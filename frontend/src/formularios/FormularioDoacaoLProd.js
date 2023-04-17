@@ -8,13 +8,12 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { buscarProduto } from '../redux/redutores/ProdutoSlice.js';
 import { useDispatch, useSelector } from "react-redux";
-import { adicionarDoacao } from "../redux/redutores/DoacaoSlice.js";
-import { STATUS } from '../redux/redutores/DoacaoSlice.js'
+import { adicionarDoacao } from "../redux/redutores/DoacaoSliceLProd.js";
+import { STATUS } from '../redux/redutores/DoacaoSliceLProd.js'
 
 export default function FormCadastroDoac(props) {
   const [validado, setValidado] = useState(false);
   const dispatch = useDispatch();
-  const {statusp,dadosp} = useSelector(state => state.produto);
 
   const componenteSelecao = useRef();
 
@@ -28,7 +27,6 @@ export default function FormCadastroDoac(props) {
     end: "",
     numend: "",
     cep: "",
-    quant: "",
     valor: "",
     data: "",
     desc: "",
@@ -36,8 +34,8 @@ export default function FormCadastroDoac(props) {
   });
 
 
-
-  const { status,dados } = useSelector(state => state.doacao)
+  const { dados } = useSelector(state => state.produto);
+  const { status } = useSelector(state => state.doacao);
 
   
   const manipularMudanca = (evento) => {
@@ -54,7 +52,6 @@ export default function FormCadastroDoac(props) {
         end: "",
         numend: "",
         cep: "",
-        quant: "",
         valor: "",
         data: "",
         desc: "",
@@ -157,22 +154,6 @@ export default function FormCadastroDoac(props) {
                   />
                   <Form.Control.Feedback>Ok!</Form.Control.Feedback>
                   <Form.Control.Feedback type='invalid'>Informe seu CEP</Form.Control.Feedback>
-                </Form.Group>
-              </Row>
-              <Row className="mb-2">
-                <Form.Group as={Col}>
-                  <Form.Label>Quantidade</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Informe a quantidade de produtos"
-                    required
-                    id='quant'
-                    name='quant'
-                    value={doacao.quant}
-                    onChange={manipularMudanca}
-                  />
-                  <Form.Control.Feedback>Ok!</Form.Control.Feedback>
-                  <Form.Control.Feedback type='invalid'>Informe uma quantidade valida</Form.Control.Feedback>
                 </Form.Group>
               </Row>
               <Row className="mb-2">

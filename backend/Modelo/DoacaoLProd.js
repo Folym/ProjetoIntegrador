@@ -1,5 +1,5 @@
-import DoacaoDAO from "../Persistencia/DoacaoDAO.js";
-//Criação dos atributos da classe Tipo de Doação
+import DoacaoDAO from "../Persistencia/DoacaoLProdDAO.js";
+
 export default class Doacao{
     #codigo;
     #prodcod;
@@ -7,17 +7,15 @@ export default class Doacao{
     #end;
     #numend;
     #cep;
-    #quant;
     #data;
     #desc;
-    constructor(codigo=0,prodcod=0,campcod = 0,end="",numend=0,cep=0,quant=0,data="",desc=""){
+    constructor(codigo=0,prodcod=0,campcod = 0,end="",numend=0,cep=0,data="",desc=""){
         this.#codigo = codigo;
         this.#prodcod = prodcod;
         this.#campcod = campcod;
         this.#end = end;
         this.#numend = numend;
         this.#cep = cep;
-        this.#quant = quant;
         this.#data = data;
         this.#desc = desc;
     }
@@ -64,13 +62,6 @@ export default class Doacao{
         this.#cep = cep;
     }
 
-    get quant(){
-        return this.#quant;
-    }
-    set quant(quant){
-        this.#quant = quant;
-    }
-
     get data(){
         return this.#data;
     }
@@ -93,7 +84,6 @@ export default class Doacao{
             end:this.#end,
             numend:this.#numend,
             cep:this.#cep,
-            quant:this.#quant,
             data:this.#data,
             desc:this.#desc
         }

@@ -1,10 +1,10 @@
-import Doacao from "../Modelo/Doacao.js";
+import Doacao from "../Modelo/DoacaoLProd.js";
 
 export default class DoacaoCTRL{
     gravar(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {prodcod,end,numend,cep,quant,data,desc,campcod} = req.body;
+            const {prodcod,end,numend,cep,data,desc,campcod} = req.body;
             if(desc==undefined || desc==""){
                 resp.statusCode = 400;
                 resp.json({
@@ -12,7 +12,7 @@ export default class DoacaoCTRL{
                     "mensagem":"Doação cancelada"
                 })
             }
-            const doacao = new Doacao(0,prodcod,end,numend,cep,quant,data,desc,campcod);
+            const doacao = new Doacao(0,prodcod,end,numend,cep,data,desc,campcod);
             doacao.gravar().then(()=>{
                 resp.statusCode = 200;
                 resp.json({
@@ -33,7 +33,7 @@ export default class DoacaoCTRL{
     atualizar(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {codigo,prodcod,end,numend,cep,quant,data,desc,campcod} = req.body;
+            const {codigo,prodcod,end,numend,cep,data,desc,campcod} = req.body;
             if(codigo==undefined || !(typeof(codigo)=="number")){
                 resp.statusCode = 400;
                 resp.json({
@@ -41,7 +41,7 @@ export default class DoacaoCTRL{
                     "mensagem":"Atualização cancelada"
                 })
             }
-            const doacao = new Doacao(codigo,prodcod,end,numend,cep,quant,data,desc,campcod);
+            const doacao = new Doacao(codigo,prodcod,end,numend,cep,data,desc,campcod);
             doacao.atualizar().then(()=>{
                 resp.statusCode = 200;
                 resp.json({

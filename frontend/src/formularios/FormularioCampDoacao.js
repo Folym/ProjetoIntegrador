@@ -113,7 +113,7 @@ export default function FormCadastroCampDoacao(props){
                 />
                 </Form.Group>
             <Button type="submit">Adicionar Campanha</Button>
-            <Button type ="button" style={{margin:"15px"}}  variant="secondary" onClick={()=> {props.onTabela(true)}}>Lista Pretendentes</Button>
+            <Button type ="button" style={{margin:"15px"}}  variant="secondary" onClick={()=> {props.onTabela(true)}}>Lista de Campanhas</Button>
             </Form>
             </Card.Body>
         </Card>

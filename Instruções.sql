@@ -38,15 +38,25 @@ constraint pk_jov primary key(jov_codigo)
 create table campanhadoacao(
 camp_codigo integer NOT NULL,
 camp_nome varchar(50) not null,
-camp_desc varchar(150) not null,
+camp_desc varchar(500) not null,
 camp_finalizado varchar(1) not null,
 
 constraint pk_campdoacao primary key(camp_codigo)
 );
 
+create table DoacProd(
+    prod_codigo integer not null,
+    doac_codigo integer not null,
+    proddoac_quant integer not null,
+    constraint pk_dc primary key (prod_codigo,doac_codigo),
+    constraint fk_dprod foreign key(prod_codigo) references produto(prod_codigo),
+    constraint fk_pdoac foreign key(doac_codigo) references doacao(doac_codigo)
+);
+
 create table Produto(
     prod_codigo integer not null,
     prod_nome varchar(50) not null,
+    prod_desc varchar(200),
     constraint pk_prod primary key (prod_codigo)
 );
 
@@ -57,13 +67,12 @@ doac_tipo varchar(1) not null,
 doac_end varchar(50),
 doac_numend integer,
 doac_cep integer,
-doac_quantidade integer,
 doac_valor decimal(8,2),
 doac_data date,
-doac_desc varchar(100),
+doac_desc varchar(200),
 camp_codigo integer,
 constraint pk_doac primary key(doac_codigo),
-constraint fk_prod foreign key(prod_codigo) references produto(prod_codigo)
+constraint fk_prod foreign key(prod_codigo) references produto(prod_codigo),
 constraint fk_campDaocao foreign key(camp_codigo) references campanhadoacao(camp_codigo)
 );
 
@@ -97,6 +106,9 @@ constraint pk_agendaDoacao primary key(agd_codigo),
 constraint fk_doac foreign key(doac_codigo) references Doacao(doac_codigo)
 );
 
+
+CREATE SEQUENCE seq_doacprod INCREMENT 1 MINVALUE 1 MAXVALUE 9999 START 1 CACHE 1;
+ALTER TABLE doacprod ALTER COLUMN doacprod_codigo SET DEFAULT NEXTVAL('seq_doacprod');
 
 CREATE SEQUENCE seq_adocao INCREMENT 1 MINVALUE 1 MAXVALUE 9999 START 1 CACHE 1;
 ALTER TABLE adocao ALTER COLUMN adoc_codigo SET DEFAULT NEXTVAL('seq_adocao');

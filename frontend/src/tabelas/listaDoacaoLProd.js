@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { Container, Table, Button } from 'react-bootstrap';
 import {Spinner} from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { buscarDoacao,excluirDoacao } from '../redux/redutores/DoacaoSlice.js';
-import { STATUS } from '../redux/redutores/DoacaoSlice.js';
+import { buscarDoacao,excluirDoacao } from '../redux/redutores/DoacaoSliceLProd.js';
+import { STATUS } from '../redux/redutores/DoacaoSliceLProd.js';
 
 export default function ListaDoacao(props) {
     const dispatch = useDispatch();
@@ -40,7 +40,6 @@ export default function ListaDoacao(props) {
                             <th>Endereço</th>
                             <th>Numero de Endereço</th>
                             <th>CEP</th>
-                            <th>Quantidade</th>
                             <th>Data</th>
                             <th>Descricao</th>
                             <th>Campanha</th>
@@ -58,8 +57,6 @@ export default function ListaDoacao(props) {
                                     <td>{doacao.doac_numend}</td>
 
                                     <td>{doacao.doac_cep}</td>
-
-                                    <td>{doacao.doac_quantidade}</td>
 
                                     <td>{doacao.doac_data}</td>
 

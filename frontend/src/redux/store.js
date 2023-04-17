@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit"
 import PretendentesSlice from "./redutores/PretendentesSlice";
 import JovensSlice from "./redutores/JovensSlice";
-import DoacaoSlice from "./redutores/DoacaoSlice";
+import DoacaoSlice from "./redutores/DoacaoSliceLProd";
 import FuncionariosSlice from "./redutores/FuncionariosSlice";
 import ProdutoSlice from "./redutores/ProdutoSlice.js";
 import CampanhasSlice from "./redutores/CampDoacaoSlice";
