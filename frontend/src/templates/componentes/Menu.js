@@ -28,8 +28,8 @@ export default function Menu(props) {
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <Nav className="justify-content-end flex-grow-1 pe-3">
-                        <Nav.Link href="#action1">Home</Nav.Link>
-                        <Nav.Link href="#action2">Link</Nav.Link>
+                        <Nav.Link href="*">Home</Nav.Link>
+                        <Nav.Link> <Link to="/cadCampanhaDoacao" >Campanhas de Doação </Link></Nav.Link>
                         <NavDropdown
                             title="Cadastros"
                             id={`offcanvasNavbarDropdown-expand-${expand}`}
@@ -38,13 +38,18 @@ export default function Menu(props) {
                             <NavDropdown.Divider />
                             <NavDropdown.Item ><Link to="/cadJovens" > Jovens </Link></NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item ><Link to="/cadDoacao" > Doação </Link></NavDropdown.Item>
+                            <NavDropdown.Item ><Link to="/cadProduto" > Produto </Link></NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item ><Link to="/cadFuncionarios" > Funcionários </Link></NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action5">
-                            Something else here
-                            </NavDropdown.Item>
+                            
+                        </NavDropdown>
+                        <NavDropdown
+                            title="Registros"
+                            id={`offcanvasNavbarDropdown-expand-${expand}`}
+                        >
+                            <NavDropdown.Item ><Link to="/regDoacao"> Doacao </Link></NavDropdown.Item>
+                            <NavDropdown.Divider />
                         </NavDropdown>
                         </Nav>
                         <Form className="d-flex">

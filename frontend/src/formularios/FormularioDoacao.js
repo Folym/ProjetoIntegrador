@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState,useRef } from 'react';
 import { Container, Modal } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
@@ -6,27 +6,40 @@ import Col from 'react-bootstrap/Col';
 import Stack from 'react-bootstrap/Stack';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import { buscarProduto } from '../redux/redutores/ProdutoSlice.js';
 import { useDispatch, useSelector } from "react-redux";
 import { adicionarDoacao } from "../redux/redutores/DoacaoSlice.js";
 import { STATUS } from '../redux/redutores/DoacaoSlice.js'
 
 export default function FormCadastroDoac(props) {
   const [validado, setValidado] = useState(false);
-
   const dispatch = useDispatch();
+  const {statusp,dadosp} = useSelector(state => state.produto);
+
+  const componenteSelecao = useRef();
+
+  useEffect(()=>{
+    dispatch(buscarProduto());
+  },[]);
+
+
   const [doacao, setDoacao] = useState({
-    tipo: "",
+    prodcod: "",
     end: "",
     numend: "",
     cep: "",
     quant: "",
     valor: "",
     data: "",
-    desc: ""
+    desc: "",
+    campcod:""
   });
 
-  const { status } = useSelector(state => state.doacao)
 
+
+  const { status,dados } = useSelector(state => state.doacao)
+
+  
   const manipularMudanca = (evento) => {
     setDoacao({ ...doacao, [evento.target.name]: evento.target.value })
 
@@ -35,18 +48,17 @@ export default function FormCadastroDoac(props) {
   const manipularEnvioDados = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === true) {
-
-
       dispatch(adicionarDoacao(doacao));
       setDoacao({
-        tipo: "",
+        prodcod: "",
         end: "",
         numend: "",
         cep: "",
         quant: "",
         valor: "",
         data: "",
-        desc: ""
+        desc: "",
+        campcod:""
       })
       setValidado(false)
     } else {
@@ -54,7 +66,6 @@ export default function FormCadastroDoac(props) {
     }
     event.preventDefault();
     event.stopPropagation();
-
   };
 
   if (status === STATUS.OCIOSO) {
@@ -84,19 +95,17 @@ export default function FormCadastroDoac(props) {
             <Modal.Body>
               <Row className="mb-2">
                 <Form.Group as={Col}>
-                  <Form.Label column sm={2}>Tipo</Form.Label>
-                  <Form.Control
-                    required
-                    type="text"
-                    placeholder="Informe o tipo da doação"
-                    defaultValue=""
-                    id='tipo'
-                    name='tipo'
-                    value={doacao.tipo}
-                    onChange={manipularMudanca}
-                  />
-                  <Form.Control.Feedback>Ok!</Form.Control.Feedback>
-                  <Form.Control.Feedback type='invalid'>Tipo invalido</Form.Control.Feedback>
+                  <Form.Label column sm={2}>Produto</Form.Label>
+                  <Form.Select ref={componenteSelecao}>
+                        {
+                            dados.map((produto) => {
+                                return <option key={produto.prod_codigo} value={produto.prod_codigo}>
+                                      {produto.prod_nome}  
+                                </option>
+                            })
+                        }
+                    </Form.Select>
+                  <Form.Control.Feedback type='invalid'>Produto invalido</Form.Control.Feedback>
                 </Form.Group>
               </Row>
               <Row className="mb-2">
@@ -192,6 +201,21 @@ export default function FormCadastroDoac(props) {
                   <Form.Control.Feedback type='invalid'>Informe uma descrição</Form.Control.Feedback>
                 </Form.Group>
               </Row>
+              {/* <Row className="mb-2">
+                <Form.Group as={Col}>
+                  <Form.Label column sm={2}>Campanha</Form.Label>
+                  <Form.Select ref={componenteSelecao}>
+                        {
+                            dados.map((camp) => {
+                                return <option key={camp.camp_codigo} value={camp.camp_codigo}>
+                                      {camp.camp_nome}  
+                                </option>
+                            })
+                        }
+                    </Form.Select>
+                  <Form.Control.Feedback type='invalid'>Campanha invalida</Form.Control.Feedback>
+                </Form.Group>
+              </Row> */}
               <Stack gap={2}>
                 <Button type="submit" className="col-md-5 mx-auto" style={{ margin: "5px" }}>Registrar Doação</Button>
                 <Button type="button" className="col-md-5 mx-auto" style={{ margin: "5px" }} variant="secondary" onClick={() => { props.onTabela(true) }}>Lista Doacao</Button>

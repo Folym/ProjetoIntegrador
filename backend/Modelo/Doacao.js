@@ -2,16 +2,18 @@ import DoacaoDAO from "../Persistencia/DoacaoDAO.js";
 //Criação dos atributos da classe Tipo de Doação
 export default class Doacao{
     #codigo;
-    #tipo;
+    #prodcod;
+    #campcod
     #end;
     #numend;
     #cep;
     #quant;
     #data;
     #desc;
-    constructor(codigo=0,tipo="",end="",numend=0,cep=0,quant=0,data="",desc=""){
+    constructor(codigo=0,prodcod=0,campcod = 0,end="",numend=0,cep=0,quant=0,data="",desc=""){
         this.#codigo = codigo;
-        this.#tipo = tipo;
+        this.#prodcod = prodcod;
+        this.#campcod = campcod;
         this.#end = end;
         this.#numend = numend;
         this.#cep = cep;
@@ -27,11 +29,18 @@ export default class Doacao{
         this.#codigo = codigo;
     }
 
-    get tipo(){
-        return this.#tipo;
+    get prodcod(){
+        return this.#codigo;
     }
-    set tipo(tipo){
-        this.#tipo = tipo;
+    set prodcod(prodcod){
+        this.prodcod = prodcod;
+    }
+
+    get campcod(){
+        return this.#campcod;
+    }
+    set campcod(campcod){
+        this.#campcod = campcod;
     }
 
     get end(){
@@ -79,7 +88,8 @@ export default class Doacao{
     toJSON(){
         return{
             codigo:this.#codigo,
-            tipo:this.#tipo,
+            prodcod:this.#prodcod,
+            campcod:this.#campcod,
             end:this.#end,
             numend:this.#numend,
             cep:this.#cep,
@@ -90,7 +100,7 @@ export default class Doacao{
     }
 
     toString(){
-        return "Tipo: "+this.#tipo;
+        return "Descricao: "+this.#desc;
     }
 
     async gravar(){

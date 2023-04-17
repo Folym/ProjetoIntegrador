@@ -3,6 +3,9 @@ import rotaDoacao from "./Rotas/rotaDoacao.js";
 import rotaPret from "./Rotas/rotaPretendente.js";
 import rotaJovem from "./Rotas/rotaJovem.js";
 import rotaFunc from "./Rotas/rotaFuncionario.js";
+import rotaProd from "./Rotas/rotaProduto.js";
+import rotaCamp from "./Rotas/rotaCampanhaDoacao.js";
+
 import cors from "cors";
 
 
@@ -19,6 +22,9 @@ app.use("/doacao",rotaDoacao);
 app.use("/pretendente",rotaPret);
 app.use("/jovem",rotaJovem);
 app.use("/funcionario",rotaFunc);
+app.use("/produto",rotaProd);
+app.use("/campanhas",rotaCamp);
+
 app.listen(8080,()=>{
     console.log("Executando");
 });

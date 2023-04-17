@@ -1,6 +1,6 @@
 
 import {createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-const urlBase = 'http://localhost:8080/doacao'
+const urlBase = 'http://localhost:8080/produto'
 
 export const STATUS = Object.freeze({ 
     'OCIOSO': 'idle',
@@ -8,40 +8,40 @@ export const STATUS = Object.freeze({
     'ERRO':'reajected'
 })
 
-export const buscarDoacao = createAsyncThunk('doacao/buscarDoacao', async ()=>{
-    const resposta = await fetch(urlBase,{method :'GET'});
+export const buscarProduto = createAsyncThunk('produto/buscarProduto', async ()=>{
+    const resposta = await fetch(urlBase,{method :'GET'})
     const dados = await resposta.json();
     return dados;
 });
 
-export const adicionarDoacao = createAsyncThunk('doacao/adicionarDoacao', async(doacao)=>{
+export const adicionarProduto = createAsyncThunk('produto/adicionarProduto', async(produto)=>{
     const resposta = await fetch(urlBase,{
         method :'POST',
         headers : {'Content-Type': 'application/json'},
-        body : JSON.stringify(doacao)
+        body : JSON.stringify(produto)
     })
-  
     const dados = await resposta.json()
     return {
         resposta : dados
-    };
+    }
 });
 
-export const excluirDoacao = createAsyncThunk('doacao/excluirDoacao', async(doacao)=>{
+export const excluirProduto = createAsyncThunk('produto/excluirProduto', async(produto)=>{
     const resposta = await fetch(urlBase,{
         method :'DELETE',
         headers : {'Content-Type': 'application/json'},
-        body : JSON.stringify(doacao)
+        body : JSON.stringify(produto)
     })
+    
     const dados = await resposta.json()
+    console.log("EXCLUIR :" + dados);
     return {
-        doacao:doacao,
         resposta : dados
     };
 });
 
-const doacaoSlice = createSlice({
-    name:'doacao', 
+const produtoSlice = createSlice({
+    name:'produto', 
     initialState:{
         status:STATUS.CARREGADO,
         dados:[]
@@ -50,45 +50,48 @@ const doacaoSlice = createSlice({
     reducers:{
     },
     extraReducers:(builder)=>  {
-        builder.addCase(buscarDoacao.pending,(state,action)=>{
+        builder.addCase(buscarProduto.pending,(state,action)=>{
             state.status= STATUS.OCIOSO;
         })
-        .addCase(buscarDoacao.fulfilled,(state,action)=>{
+        .addCase(buscarProduto.fulfilled,(state,action)=>{
             state.status= STATUS.CARREGADO;
             state.dados = action.payload;
         })
-        .addCase(buscarDoacao.rejected,(state,action)=>{
+        .addCase(buscarProduto.rejected,(state,action)=>{
             state.status= STATUS.ERRO;
         })
-        .addCase(adicionarDoacao.pending,(state,action)=>{
+        .addCase(adicionarProduto.pending,(state,action)=>{
             state.status= STATUS.OCIOSO;
         })
-        .addCase(adicionarDoacao.fulfilled,(state,action)=>{
-
+        .addCase(adicionarProduto.fulfilled,(state,action)=>{
             if (action.payload.status ===  false) {
                 state.status= STATUS.ERRO;
             } else {
                 state.status= STATUS.CARREGADO;
-                state.dados.push({...action.payload.doacao, doac_codigo : action.payload.resposta.doac_codigo});
+                state.dados.push({...action.payload.produto, prod_codigo : action.payload.resposta.prod_codigo});
             }
+           
         })
-        .addCase(adicionarDoacao.rejected,(state,action)=>{
+        .addCase(adicionarProduto.rejected,(state,action)=>{
             state.status= STATUS.ERRO;
         })
-        .addCase(excluirDoacao.pending,(state,action)=>{
+        .addCase(excluirProduto.pending,(state,action)=>{
             state.status= STATUS.OCIOSO;
         })
-        .addCase(excluirDoacao.fulfilled,(state,action)=>{
+        .addCase(excluirProduto.fulfilled,(state,action)=>{
             if (action.payload.status ===  false) {
                 state.status= STATUS.ERRO;
             } else {
                 state.status= STATUS.CARREGADO;
-                state.dados.pop({...action.payload.doacao,doac_codigo : action.payload.resposta.doac_codigo});
+                state.dados.pop({...action.payload.produto,prod_codigo : action.payload.resposta.prod_codigo});
             }
+           
         })
-        .addCase(excluirDoacao.rejected,(state,action)=>{
+        .addCase(excluirProduto.rejected,(state,action)=>{
             state.status= STATUS.ERRO;
         })
     }
 });
-export default doacaoSlice.reducer;
+
+
+export default produtoSlice.reducer;
