@@ -14,19 +14,23 @@ export default class DoacaoCTRL{
                 })
             }
             const doacao = new Doacao(0,tipo,end,numend,cep,quant,data,desc);
+            //criar a DAo generica, conectar com o banco, abrir uma transação
             doacao.gravar().then(()=>{
                 resp.statusCode = 200;
+                //comitt e desconecta
                 resp.json({
                     "status":true,
                     "mensagem":"Doação gravada"
                 })
             }).catch((error)=>{
+                //rollback e desconecta
                 console.log(error);
                 resp.statusCode = 400;
                 resp.json({
                     "status":false,
                     "mensagem":"Gravação cancelada"
                 })
+
             });
         }
     }

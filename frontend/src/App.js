@@ -6,6 +6,7 @@ import ContextoUsuario from "./contexto/ContextoGlobal";
 import TelaCadastroJovens from "./interfaces/TelaCadastroJovens";
 import TelaCadastroDoacao from "./interfaces/TelaCadastroDoacao";
 import TelaCadastroFuncionarios from "./interfaces/TelaCadastroFuncionarios";
+import TelaCadastroAdocao from "./interfaces/TelaCadastroAdocao";
 
 import { useState } from "react";
 import TelaLogin from "./interfaces/TelaLogin";
@@ -33,12 +34,12 @@ function App() {
           <Route path="/cadJovens" element ={<TelaCadastroJovens/>}></Route>
           <Route path="/cadDoacao" element ={<TelaCadastroDoacao/>}></Route>
           <Route path="/cadFuncionarios" element ={<TelaCadastroFuncionarios/>}></Route>
+          <Route path="/cadAdocoes" element ={<TelaCadastroAdocao/>}></Route>
         </Sistema>
       </ContextoUsuario.Provider>
      );
   }
   
-
 }
 
 export default App;

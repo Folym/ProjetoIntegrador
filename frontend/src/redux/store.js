@@ -3,6 +3,7 @@ import PretendentesSlice from "./redutores/PretendentesSlice";
 import JovensSlice from "./redutores/JovensSlice";
 import DoacaoSlice from "./redutores/DoacaoSlice";
 import FuncionariosSlice from "./redutores/FuncionariosSlice";
+import AdocaoSlice from "./redutores/AdocaoSlice";
 
 const store = configureStore({
     reducer:{
@@ -10,6 +11,7 @@ const store = configureStore({
         jovens: JovensSlice,
         doacao: DoacaoSlice,
         funcionarios: FuncionariosSlice,
+        adocoes: AdocaoSlice,
     }
 
 })
