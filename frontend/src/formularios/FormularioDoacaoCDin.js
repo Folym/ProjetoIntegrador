@@ -8,8 +8,8 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { buscarProduto } from '../redux/redutores/ProdutoSlice.js';
 import { useDispatch, useSelector } from "react-redux";
-import { adicionarDoacao } from "../redux/redutores/DoacaoLProdSlice.js";
-import { STATUS } from '../redux/redutores/DoacaoLProdSlice.js'
+import { adicionarDoacao } from "../redux/redutores/DoacaoCDinSlice.js";
+import { STATUS } from '../redux/redutores/DoacaoCDinSlice.js'
 
 export default function FormCadastroDoac(props) {
   const [validado, setValidado] = useState(false);
@@ -24,6 +24,9 @@ export default function FormCadastroDoac(props) {
 
   const [doacao, setDoacao] = useState({
     prodcod: "",
+    end: "",
+    numend: "",
+    cep: "",
     quant: "",
     data: "",
     desc: "",
@@ -46,6 +49,10 @@ export default function FormCadastroDoac(props) {
       dispatch(adicionarDoacao(doacao));
       setDoacao({
         prodcod: "",
+        end: "",
+        numend: "",
+        cep: "",
+        quant: "",
         data: "",
         desc: "",
         campcod:""
@@ -100,6 +107,57 @@ export default function FormCadastroDoac(props) {
               </Row>
               <Row className="mb-2">
                 <Form.Group as={Col}>
+                  <Form.Label>Endereço</Form.Label>
+                  <Form.Control
+                    required
+                    type="text"
+                    placeholder="Informe seu endereço"
+                    defaultValue=""
+                    id='end'
+                    name='end'
+                    value={doacao.end}
+                    onChange={manipularMudanca}
+                  />
+                  <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+                  <Form.Control.Feedback type='invalid'>Informe seu endereço</Form.Control.Feedback>
+                </Form.Group>
+              </Row>
+              <Row className="mb-2">
+                <Form.Group as={Col}>
+                  <Form.Label>Numero de Endereço</Form.Label>
+                  <Form.Control
+                    required
+                    type="text"
+                    placeholder="Informe o numero do seu endereço"
+                    defaultValue=""
+                    id='numend'
+                    name='numend'
+                    value={doacao.numend}
+                    onChange={manipularMudanca}
+                  />
+                  <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+                  <Form.Control.Feedback type='invalid'>Informe o numero do endereço</Form.Control.Feedback>
+                </Form.Group>
+              </Row>
+              <Row className="mb-2">
+                <Form.Group as={Col}>
+                  <Form.Label>CEP</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Informe seu CEP"
+                    required
+                    id='cep'
+                    name='cep'
+                    value={doacao.cep}
+                    onChange={manipularMudanca}
+
+                  />
+                  <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+                  <Form.Control.Feedback type='invalid'>Informe seu CEP</Form.Control.Feedback>
+                </Form.Group>
+              </Row>
+              <Row className="mb-2">
+                <Form.Group as={Col}>
                   <Form.Label>Quantidade</Form.Label>
                   <Form.Control
                     type="text"
@@ -124,7 +182,7 @@ export default function FormCadastroDoac(props) {
                     onChange={manipularMudanca}
                   />
                   <Form.Control.Feedback>Ok!</Form.Control.Feedback>
-                  <Form.Control.Feedback type='invalid'>Informe a data de entrega</Form.Control.Feedback>
+                  <Form.Control.Feedback type='invalid'>Informe a data para busca</Form.Control.Feedback>
                 </Form.Group>
               </Row>
               <Row className="mb">
