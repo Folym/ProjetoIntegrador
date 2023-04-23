@@ -8,13 +8,12 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { buscarProduto } from '../redux/redutores/ProdutoSlice.js';
 import { useDispatch, useSelector } from "react-redux";
-import { adicionarDoacao } from "../redux/redutores/DoacaoSlice.js";
-import { STATUS } from '../redux/redutores/DoacaoSlice.js'
+import { adicionarDoacao } from "../redux/redutores/DoacaoCProdSlice.js";
+import { STATUS } from '../redux/redutores/DoacaoCProdSlice.js'
 
 export default function FormCadastroDoac(props) {
   const [validado, setValidado] = useState(false);
   const dispatch = useDispatch();
-  const {statusp,dadosp} = useSelector(state => state.produto);
 
   const componenteSelecao = useRef();
 
@@ -29,7 +28,6 @@ export default function FormCadastroDoac(props) {
     numend: "",
     cep: "",
     quant: "",
-    valor: "",
     data: "",
     desc: "",
     campcod:""
@@ -55,7 +53,6 @@ export default function FormCadastroDoac(props) {
         numend: "",
         cep: "",
         quant: "",
-        valor: "",
         data: "",
         desc: "",
         campcod:""
@@ -185,7 +182,7 @@ export default function FormCadastroDoac(props) {
                     onChange={manipularMudanca}
                   />
                   <Form.Control.Feedback>Ok!</Form.Control.Feedback>
-                  <Form.Control.Feedback type='invalid'>Informe a data atual</Form.Control.Feedback>
+                  <Form.Control.Feedback type='invalid'>Informe a data para busca</Form.Control.Feedback>
                 </Form.Group>
               </Row>
               <Row className="mb">

@@ -1,5 +1,4 @@
 import DoacaoDAO from "../Persistencia/DoacaoDAO.js";
-//Criação dos atributos da classe Tipo de Doação
 export default class Doacao{
     #codigo;
     #prodcod;
@@ -18,6 +17,7 @@ export default class Doacao{
         this.#numend = numend;
         this.#cep = cep;
         this.#quant = quant;
+        this.#valor = valor;
         this.#data = data;
         this.#desc = desc;
     }
@@ -85,6 +85,13 @@ export default class Doacao{
         this.#desc = desc;
     }
     
+    get valor(){
+        return this.#valor;
+    }
+    set valor(valor){
+        this.#valor = valor;
+    }
+
     toJSON(){
         return{
             codigo:this.#codigo,
@@ -95,6 +102,7 @@ export default class Doacao{
             cep:this.#cep,
             quant:this.#quant,
             data:this.#data,
+            valor:this.#valor,
             desc:this.#desc
         }
     }

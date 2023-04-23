@@ -40,7 +40,7 @@ export const excluirDoacao = createAsyncThunk('doacao/excluirDoacao', async(doac
     };
 });
 
-const doacaoSlice = createSlice({
+const doacaoLProdSlice = createSlice({
     name:'doacao', 
     initialState:{
         status:STATUS.CARREGADO,
@@ -91,4 +91,4 @@ const doacaoSlice = createSlice({
         })
     }
 });
-export default doacaoSlice.reducer;
+export default doacaoLProdSlice.reducer;

@@ -51,9 +51,9 @@ create table Produto(
 );
 
 create table Doacao(
-doac_codigo integer not null ,
-prod_codigo integer not null,
-doac_tipo varchar(1) not null,
+doac_codigo integer not null,
+prod_codigo integer,
+camp_codigo integer,
 doac_end varchar(50),
 doac_numend integer,
 doac_cep integer,
@@ -61,7 +61,6 @@ doac_quantidade integer,
 doac_valor decimal(8,2),
 doac_data date,
 doac_desc varchar(100),
-camp_codigo integer,
 constraint pk_doac primary key(doac_codigo),
 constraint fk_prod foreign key(prod_codigo) references produto(prod_codigo)
 constraint fk_campDaocao foreign key(camp_codigo) references campanhadoacao(camp_codigo)
@@ -86,15 +85,6 @@ aga_data date not null,
 aga_relatorio varchar(1000) not null,
 constraint pk_agendaAdocao primary key(aga_codigo,adoc_codigo),
 constraint fk_adoc foreign key(adoc_codigo) references Adocao(adoc_codigo)
-);
-
-create table AgendaDoacao(
-agd_codigo integer not null ,
-doac_codigo integer not null,
-agd_data date not null,
-
-constraint pk_agendaDoacao primary key(agd_codigo),
-constraint fk_doac foreign key(doac_codigo) references Doacao(doac_codigo)
 );
 
 

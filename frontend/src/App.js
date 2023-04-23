@@ -5,13 +5,14 @@ import {Route} from "react-router-dom";
 import ContextoUsuario from "./contexto/ContextoGlobal";
 import TelaCadastroProduto from "./interfaces/TelaCadastroProduto.js";
 import TelaCadastroJovens from "./interfaces/TelaCadastroJovens.js";
-import TelaCadastroDoacao from "./interfaces/TelaCadastroDoacao.js";
+import TelaCadastroDoacoes from "./interfaces/TelaCadastroDoacoes";
 import TelaCadastroFuncionarios from "./interfaces/TelaCadastroFuncionarios.js";
 import TelaCadastroCampDoacao from "./interfaces/TelaCadastroCampanha";
 
 
 import { useState } from "react";
 import TelaLogin from "./interfaces/TelaLogin";
+import TelaCadastroDoacoes from "./interfaces/TelaCadastroDoacoes";
 
 function App() {
   const [usuario, setUsuario] = useState({
@@ -37,7 +38,7 @@ function App() {
           <Route path="/cadProduto" element ={<TelaCadastroProduto/>}></Route>
           <Route path="/cadFuncionarios" element ={<TelaCadastroFuncionarios/>}></Route>
           <Route path="/cadCampanhaDoacao" element ={<TelaCadastroCampDoacao/>}></Route>
-          <Route path="/regDoacao" element ={<TelaCadastroDoacao/>}></Route>
+          <Route path="/regDoacao" element ={<TelaCadastroDoacoes/>}></Route>
         </Sistema>
       </ContextoUsuario.Provider>
      );
