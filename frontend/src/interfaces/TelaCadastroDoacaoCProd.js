@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Pagina from "../templates/Pagina";
-import FormCadastroDoac from "../formularios/FormularioDoacaoLProd";
+import FormCadastroDoac from "../formularios/FormularioDoacaoCProd";
 import ListaDoacao from "../tabelas/listaDoacaoCProd.js";
-export default function TelaCadastroDoacaoLProd(props) {
+export default function TelaCadastroDoacaoCProd(props) {
     const [exibirTabela,setExibirTabela] = useState(false);
     console.log(exibirTabela);
     if (exibirTabela) {
