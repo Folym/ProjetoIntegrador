@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { Container, Table, Button } from 'react-bootstrap';
 import {Spinner} from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { buscarDoacao,excluirDoacao } from '../redux/redutores/DoacaoLProdSlice.js';
-import { STATUS } from '../redux/redutores/DoacaoLProdSlice.js';
+import { buscarDoacao,excluirDoacao } from '../redux/redutores/DoacaoCDinSlice.js';
+import { STATUS } from '../redux/redutores/DoacaoCDinSlice.js';
 
 export default function ListaDoacao(props) {
     const dispatch = useDispatch();
@@ -12,7 +12,6 @@ export default function ListaDoacao(props) {
     useEffect(()=>{
         dispatch(buscarDoacao());
     }, []);
-
    
     if (status === STATUS.OCIOSO) {
         return(
@@ -36,8 +35,10 @@ export default function ListaDoacao(props) {
                 <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>Produto</th>
-                            <th>Quantidade</th>
+                            <th>Endereço</th>
+                            <th>Numero de Endereço</th>
+                            <th>CEP</th>
+                            <th>Valor</th>
                             <th>Data</th>
                             <th>Descricao</th>
                             <th>Campanha</th>
@@ -48,9 +49,13 @@ export default function ListaDoacao(props) {
                             dados.map(doacao =>
                                 <tr>
 
-                                    <td>{doacao.prod_codigo}</td>
+                                    <td>{doacao.doac_end}</td>
 
-                                    <td>{doacao.doac_quantidade}</td>
+                                    <td>{doacao.doac_numend}</td>
+
+                                    <td>{doacao.doac_cep}</td>
+
+                                    <td>{doacao.doac_valor}</td>
 
                                     <td>{doacao.doac_data}</td>
 
