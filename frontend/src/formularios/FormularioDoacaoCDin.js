@@ -48,11 +48,7 @@ export default function FormCadastroDoac(props) {
     if (form.checkValidity() === true) {
       dispatch(adicionarDoacao(doacao));
       setDoacao({
-        prodcod: "",
-        end: "",
-        numend: "",
-        cep: "",
-        quant: "",
+        valor: "",
         data: "",
         desc: "",
         campcod:""
@@ -90,19 +86,20 @@ export default function FormCadastroDoac(props) {
           </Modal.Header>
           <Form method="POST" action="/doacao" className="m-3 p-3" noValidate validated={validado} onSubmit={manipularEnvioDados}>
             <Modal.Body>
-              <Row className="mb-2">
+            <Row className="mb-2">
                 <Form.Group as={Col}>
-                  <Form.Label column sm={2}>Produto</Form.Label>
-                  <Form.Select ref={componenteSelecao}>
-                        {
-                            dados.map((produto) => {
-                                return <option key={produto.prod_codigo} value={produto.prod_codigo}>
-                                      {produto.prod_nome}  
-                                </option>
-                            })
-                        }
-                    </Form.Select>
-                  <Form.Control.Feedback type='invalid'>Produto invalido</Form.Control.Feedback>
+                  <Form.Label>Valor</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Informe o valor que irá doar"
+                    required
+                    id='valor'
+                    name='valor'
+                    value={doacao.valor}
+                    onChange={manipularMudanca}
+                  />
+                  <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+                  <Form.Control.Feedback type='invalid'>Informe um valor valido</Form.Control.Feedback>
                 </Form.Group>
               </Row>
               <Row className="mb-2">
@@ -150,26 +147,9 @@ export default function FormCadastroDoac(props) {
                     name='cep'
                     value={doacao.cep}
                     onChange={manipularMudanca}
-
                   />
                   <Form.Control.Feedback>Ok!</Form.Control.Feedback>
                   <Form.Control.Feedback type='invalid'>Informe seu CEP</Form.Control.Feedback>
-                </Form.Group>
-              </Row>
-              <Row className="mb-2">
-                <Form.Group as={Col}>
-                  <Form.Label>Quantidade</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Informe a quantidade de produtos"
-                    required
-                    id='quant'
-                    name='quant'
-                    value={doacao.quant}
-                    onChange={manipularMudanca}
-                  />
-                  <Form.Control.Feedback>Ok!</Form.Control.Feedback>
-                  <Form.Control.Feedback type='invalid'>Informe uma quantidade valida</Form.Control.Feedback>
                 </Form.Group>
               </Row>
               <Row className="mb-2">

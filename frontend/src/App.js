@@ -5,7 +5,10 @@ import {Route} from "react-router-dom";
 import ContextoUsuario from "./contexto/ContextoGlobal";
 import TelaCadastroProduto from "./interfaces/TelaCadastroProduto.js";
 import TelaCadastroJovens from "./interfaces/TelaCadastroJovens.js";
-import TelaCadastroDoacao from "./interfaces/TelaCadastroDoacaoLProd.js";
+import TelaCadastroDoacaoLProd from "./interfaces/TelaCadastroDoacaoLProd.js";
+import TelaCadastroDoacaoCProd from "./interfaces/TelaCadastroDoacaoCProd.js";
+import TelaCadastroDoacaoLDin from "./interfaces/TelaCadastroDoacaoLDin.js";
+import TelaCadastroDoacaoCDin from "./interfaces/TelaCadastroDoacaoCDin.js";
 import TelaCadastroFuncionarios from "./interfaces/TelaCadastroFuncionarios.js";
 import TelaCadastroCampDoacao from "./interfaces/TelaCadastroCampanha";
 
@@ -37,12 +40,16 @@ function App() {
           <Route path="/cadProduto" element ={<TelaCadastroProduto/>}></Route>
           <Route path="/cadFuncionarios" element ={<TelaCadastroFuncionarios/>}></Route>
           <Route path="/cadCampanhaDoacao" element ={<TelaCadastroCampDoacao/>}></Route>
-          <Route path="/regDoacao" element ={<TelaCadastroDoacao/>}></Route>
+          <Route path="/regDoacaoLProd" element ={<TelaCadastroDoacaoLProd/>}></Route>
+          <Route path="/regDoacaoCProd" element ={<TelaCadastroDoacaoCProd/>}></Route>
+          <Route path="/regDoacaoLDin" element ={<TelaCadastroDoacaoLDin/>}></Route>
+          <Route path="/regDoacaoCDin" element ={<TelaCadastroDoacaoCDin/>}></Route>
         </Sistema>
       </ContextoUsuario.Provider>
      );
   }
   
+
 
 }
 

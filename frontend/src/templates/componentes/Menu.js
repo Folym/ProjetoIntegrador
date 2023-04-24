@@ -48,8 +48,18 @@ export default function Menu(props) {
                             title="Registros"
                             id={`offcanvasNavbarDropdown-expand-${expand}`}
                         >
-                            <NavDropdown.Item ><Link to="/regDoacao"> Doacao </Link></NavDropdown.Item>
-                            <NavDropdown.Divider />
+                            <NavDropdown title="Doação" id={`offcanvasNavbarDropdown-expand-${expand}`}>
+                                <NavDropdown title="Doação de Produtos" id={`offcanvasNavbarDropdown-expand-${expand}`}>
+                                        <NavDropdown.Item ><Link to="/regDoacaoLProd"> Doacao Presencial </Link></NavDropdown.Item>
+                                    <NavDropdown.Divider />
+                                        <NavDropdown.Item ><Link to="/regDoacaoCProd"> Doacao Remota </Link></NavDropdown.Item>
+                                </NavDropdown>
+                                <NavDropdown title="Doação de Dinheiro" id={`offcanvasNavbarDropdown-expand-${expand}`}>
+                                        <NavDropdown.Item ><Link to="/regDoacaoLDin"> Doacao Presencial </Link></NavDropdown.Item>
+                                    <NavDropdown.Divider/>
+                                        <NavDropdown.Item ><Link to="/regDoacaoCDin"> Doacao Remota </Link></NavDropdown.Item>
+                                </NavDropdown>
+                            </NavDropdown>
                         </NavDropdown>
                         </Nav>
                         <Form className="d-flex">
