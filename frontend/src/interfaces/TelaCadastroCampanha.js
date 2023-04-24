@@ -4,7 +4,7 @@ import ListaCampDoacao from "../tabelas/listaCampDoacao";
 import Pagina from "../templates/Pagina";
 
 export default function TelaCadastroCampDoacao(props) {
-    const [exibirTabela,setExibirTabela] = useState(false);
+    const [exibirTabela,setExibirTabela] = useState(true);
     console.log(exibirTabela);
     if (exibirTabela) {
         return(  

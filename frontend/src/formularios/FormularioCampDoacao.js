@@ -20,6 +20,9 @@ export default function FormCadastroCampDoacao(props){
       nome:"",
       descri:"",
       finalizado:"N",
+      dtInicio :"",
+      dtFim:"",
+      img :""
     });
   
     const {status}= useSelector(state=>state.campanhas)
@@ -40,6 +43,9 @@ export default function FormCadastroCampDoacao(props){
             nome:"",
             descri:"",
             finalizado:"N",
+            dtInicio :"",
+            dtFim:"",
+            img :""
         })
         setValidado(false)
       }else{
@@ -103,6 +109,47 @@ export default function FormCadastroCampDoacao(props){
                 
                 </Form.Group>
             </Row>
+            <Row className="mb-3">
+                <Form.Group as={Col} md="6" >
+                <Form.Label>Data Inicio</Form.Label>
+                <Form.Control type="date" placeholder="Data de Inicio da Campanha" required
+                    id='dtInicio'
+                    name='dtInicio'
+                    value={campanha.dtInicio}
+                    onChange={manipularMudanca}
+                />
+                <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+                <Form.Control.Feedback type='invalid'>Informe a Data de Inicio da Campanha</Form.Control.Feedback>
+                
+                </Form.Group>
+                <Form.Group as={Col} md="6" >
+                <Form.Label>Data Fim</Form.Label>
+                <Form.Control type="date" placeholder="Data do Fim da Campanha" required
+                    id='dtFim'
+                    name='dtFim'
+                    value={campanha.dtFim}
+                    onChange={manipularMudanca}
+                />
+                <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+                <Form.Control.Feedback type='invalid'>Informe a Data do Fim da Campanha</Form.Control.Feedback>
+                
+                </Form.Group>
+            </Row>
+            <Row className="mb-3">
+                <Form.Group as={Col} md="8" >
+                <Form.Label>Insira a Imagem de capa da campanha</Form.Label>
+                <Form.Control type="file" placeholder="Imagem da Campanha" required
+                    id='img'
+                    name='img'
+                    value={campanha.img}
+                    onChange={manipularMudanca}
+                />
+                <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+                <Form.Control.Feedback type='invalid'>Informe a Imagem da Campanha</Form.Control.Feedback>
+                
+                </Form.Group>
+            </Row>
+            <Row className="mb-3"></Row>
             <Form.Group as={Col} md="6" style={{display :"none"}} >
                 <Form.Label>finalizado</Form.Label>
                 <Form.Control type="text" placeholder="" required
