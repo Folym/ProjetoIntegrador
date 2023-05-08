@@ -1,18 +1,20 @@
-import Doacao from "../Modelo/DoacaoLProd.js";
+import Doacao from "../Modelo/Doacao.js";
 
 export default class DoacaoCTRL{
     gravar(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {prodcod,end,numend,cep,data,desc,campcod} = req.body;
-            if(desc==undefined || desc==""){
+            
+            const {prodcod,tipo,end,numend,cep,quant,valor,data,desc,campcod} = req.body;
+            console.log({prodcod,tipo,end,numend,cep,quant,valor,data,desc,campcod});
+            if(tipo==undefined || tipo==""){
                 resp.statusCode = 400;
                 resp.json({
                     "status":false,
                     "mensagem":"Doação cancelada"
                 })
             }
-            const doacao = new Doacao(0,prodcod,end,numend,cep,data,desc,campcod);
+            const doacao = new Doacao(0,prodcod,tipo,end,numend,cep,quant,valor,data,desc,campcod);
             doacao.gravar().then(()=>{
                 resp.statusCode = 200;
                 resp.json({
@@ -33,7 +35,7 @@ export default class DoacaoCTRL{
     atualizar(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {codigo,prodcod,end,numend,cep,data,desc,campcod} = req.body;
+            const {codigo,prodcod,tipo,end,numend,cep,quant,valor,data,desc,campcod} = req.body;
             if(codigo==undefined || !(typeof(codigo)=="number")){
                 resp.statusCode = 400;
                 resp.json({
@@ -41,7 +43,7 @@ export default class DoacaoCTRL{
                     "mensagem":"Atualização cancelada"
                 })
             }
-            const doacao = new Doacao(codigo,prodcod,end,numend,cep,data,desc,campcod);
+            const doacao = new Doacao(codigo,prodcod,tipo,end,numend,cep,quant,valor,data,desc,campcod);
             doacao.atualizar().then(()=>{
                 resp.statusCode = 200;
                 resp.json({

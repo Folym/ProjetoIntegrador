@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import DoacaoCTRL from '../Controle/DoacaoLProdCTRL.js';
+import DoacaoCTRL from '../Controle/DoacaoCTRL.js';
 
 const rotaDoacao = new Router();
 const controleDoacao = new DoacaoCTRL();

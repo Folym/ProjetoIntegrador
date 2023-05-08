@@ -24,6 +24,7 @@ export default function FormCadastroDoac(props) {
 
   const [doacao, setDoacao] = useState({
     prodcod: "",
+    tipo:"CP",
     end: "",
     numend: "",
     cep: "",
@@ -49,6 +50,7 @@ export default function FormCadastroDoac(props) {
       dispatch(adicionarDoacao(doacao));
       setDoacao({
         prodcod: "",
+        tipo:"CP",
         end: "",
         numend: "",
         cep: "",

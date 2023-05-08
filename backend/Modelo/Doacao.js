@@ -1,23 +1,29 @@
-import DoacaoDAO from "../Persistencia/DoacaoLProdDAO.js";
+import DoacaoDAO from "../Persistencia/DoacaoDAO.js";
 
 export default class Doacao{
     #codigo;
     #prodcod;
-    #campcod
+    #tipo
     #end;
     #numend;
     #cep;
+    #quant;
+    #valor;
     #data;
     #desc;
-    constructor(codigo=0,prodcod=0,campcod = 0,end="",numend=0,cep=0,data="",desc=""){
+    #campcod
+    constructor(codigo=0,prodcod=null,tipo ="",end="",numend=0,cep=0,quant=0,valor=0,data="",desc="",campcod = null){
         this.#codigo = codigo;
         this.#prodcod = prodcod;
-        this.#campcod = campcod;
+        this.#tipo = tipo;
         this.#end = end;
         this.#numend = numend;
         this.#cep = cep;
+        this.#quant = quant;
+        this.#valor = valor;
         this.#data = data;
         this.#desc = desc;
+        this.#campcod = campcod;
     }
 
     get codigo(){
@@ -28,17 +34,17 @@ export default class Doacao{
     }
 
     get prodcod(){
-        return this.#codigo;
+        return this.#prodcod;
     }
     set prodcod(prodcod){
         this.prodcod = prodcod;
     }
 
-    get campcod(){
-        return this.#campcod;
+    get tipo(){
+        return this.#tipo;
     }
-    set campcod(campcod){
-        this.#campcod = campcod;
+    set tipo(tipo){
+        this.#tipo = tipo;
     }
 
     get end(){
@@ -62,6 +68,20 @@ export default class Doacao{
         this.#cep = cep;
     }
 
+    get quant(){
+        return this.#quant;
+    }
+    set quant(quant){
+        this.#quant = quant;
+    }
+
+    get valor(){
+        return this.#valor;
+    }
+    set valor(valor){
+        this.#valor = valor;
+    }
+
     get data(){
         return this.#data;
     }
@@ -76,21 +96,31 @@ export default class Doacao{
         this.#desc = desc;
     }
     
+    get campcod(){
+        return this.#campcod;
+    }
+    set campcod(campcod){
+        this.#campcod = campcod;
+    }
+
     toJSON(){
         return{
             codigo:this.#codigo,
             prodcod:this.#prodcod,
-            campcod:this.#campcod,
+            tipo:this.#tipo,
             end:this.#end,
             numend:this.#numend,
             cep:this.#cep,
+            quant:this.#quant,
+            valor:this.#valor,
             data:this.#data,
-            desc:this.#desc
+            desc:this.#desc,
+            campcod:this.#campcod
         }
     }
 
     toString(){
-        return "Descricao: "+this.#desc;
+        return "Descricao: "+this.#prodcod;
     }
 
     async gravar(){
@@ -111,7 +141,7 @@ export default class Doacao{
     
     async consultarDesc(){
         const doacaoDAO = new DoacaoDAO();
-        return await doacaoDAO.consultarDesc();
+        return await doacaoDAO.consultarDesc(this);
     } 
 
     async consultarCodg(codigo){

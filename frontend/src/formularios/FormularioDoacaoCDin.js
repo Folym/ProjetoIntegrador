@@ -23,14 +23,13 @@ export default function FormCadastroDoac(props) {
 
 
   const [doacao, setDoacao] = useState({
-    prodcod: "",
+    tipo:"CD",
     end: "",
     numend: "",
     cep: "",
-    quant: "",
+    valor: "",
     data: "",
-    desc: "",
-    campcod:""
+    desc: ""
   });
 
 
@@ -48,10 +47,13 @@ export default function FormCadastroDoac(props) {
     if (form.checkValidity() === true) {
       dispatch(adicionarDoacao(doacao));
       setDoacao({
+        tipo:"CD",
+        end: "",
+        numend: "",
+        cep: "",
         valor: "",
         data: "",
-        desc: "",
-        campcod:""
+        desc: ""
       })
       setValidado(false)
     } else {
@@ -178,21 +180,6 @@ export default function FormCadastroDoac(props) {
                   <Form.Control.Feedback type='invalid'>Informe uma descrição</Form.Control.Feedback>
                 </Form.Group>
               </Row>
-              {/* <Row className="mb-2">
-                <Form.Group as={Col}>
-                  <Form.Label column sm={2}>Campanha</Form.Label>
-                  <Form.Select ref={componenteSelecao}>
-                        {
-                            dados.map((camp) => {
-                                return <option key={camp.camp_codigo} value={camp.camp_codigo}>
-                                      {camp.camp_nome}  
-                                </option>
-                            })
-                        }
-                    </Form.Select>
-                  <Form.Control.Feedback type='invalid'>Campanha invalida</Form.Control.Feedback>
-                </Form.Group>
-              </Row> */}
               <Stack gap={2}>
                 <Button type="submit" className="col-md-5 mx-auto" style={{ margin: "5px" }}>Registrar Doação</Button>
                 <Button type="button" className="col-md-5 mx-auto" style={{ margin: "5px" }} variant="secondary" onClick={() => { props.onTabela(true) }}>Lista Doacao</Button>

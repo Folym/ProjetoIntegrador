@@ -23,10 +23,10 @@ export default function FormCadastroDoac(props) {
 
 
   const [doacao, setDoacao] = useState({
+    tipo:"LD",
     valor: "",
     data: "",
-    desc: "",
-    campcod:""
+    desc: ""
   });
 
 
@@ -44,10 +44,10 @@ export default function FormCadastroDoac(props) {
     if (form.checkValidity() === true) {
       dispatch(adicionarDoacao(doacao));
       setDoacao({
-        valor:"",
+        tipo:"LD",
+        valor: "",
         data: "",
-        desc: "",
-        campcod:""
+        desc: ""
       })
       setValidado(false)
     } else {
