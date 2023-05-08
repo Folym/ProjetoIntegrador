@@ -10,9 +10,9 @@ export const STATUS = Object.freeze({
 
 export const buscarCampanhas = createAsyncThunk('campanhas/buscarCampanhas', async ()=>{
     const resposta = await fetch(urlBase,{method :'GET'})
-    const dados = await resposta.json()
+    const dadosCamp = await resposta.json()
     //console.log(dados);
-    return dados;
+    return dadosCamp;
 });
 
 export const adicionarCampanhas = createAsyncThunk('campanhas/adicionarCampanhas', async(campanhas)=>{
@@ -60,25 +60,25 @@ export const excluirCampanhas = createAsyncThunk('campanhas/excluirCampanhas', a
 const campanhasSlice = createSlice({
     name:'campanhas', 
     initialState:{
-        status:STATUS.OCIOSO,
-        dados:[]
+        statusCamp:STATUS.OCIOSO,
+        dadosCamp:[]
     }, 
 
     reducers:{
     },
     extraReducers:(builder)=>  {
         builder.addCase(buscarCampanhas.pending,(state,action)=>{
-            state.status= STATUS.OCIOSO;
+            state.statusCamp= STATUS.OCIOSO;
         })
         .addCase(buscarCampanhas.fulfilled,(state,action)=>{
-            state.status= STATUS.CARREGADO;
-            state.dados = action.payload;// aqii o esta os dados do return do buscarClientes
+            state.statusCamp= STATUS.CARREGADO;
+            state.dadosCamp = action.payload;// aqii o esta os dados do return do buscarClientes
         })
         .addCase(buscarCampanhas.rejected,(state,action)=>{
-            state.status= STATUS.ERRO;
+            state.statusCamp= STATUS.ERRO;
         })
         .addCase(adicionarCampanhas.pending,(state,action)=>{
-            state.status= STATUS.OCIOSO;
+            state.statusCamp= STATUS.OCIOSO;
         })
         .addCase(adicionarCampanhas.fulfilled,(state,action)=>{
             // lemabrando que o status do payload é aquele de origem do backend(Controle){
@@ -87,31 +87,31 @@ const campanhasSlice = createSlice({
             //     mensagem: "Mensagem que vem de lá"
             // }
             if (action.payload.status ===  false) {
-                state.status= STATUS.ERRO;
+                state.statusCamp= STATUS.ERRO;
             } else {
-                state.status= STATUS.CARREGADO;
-                state.dados.push({...action.payload.campanhas, codigo : action.payload.resposta.codigo});// aqui espalha o objeto com os ... e depois redefine esse ojeot onde o id do cleinte recebe o id do payload
+                state.statusCamp= STATUS.CARREGADO;
+                state.dadosCamp.push({...action.payload.campanhas, codigo : action.payload.resposta.codigo});// aqui espalha o objeto com os ... e depois redefine esse ojeot onde o id do cleinte recebe o id do payload
             }
            
         })
         .addCase(adicionarCampanhas.rejected,(state,action)=>{
-            state.status= STATUS.ERRO;
+            state.statusCamp= STATUS.ERRO;
         })
         .addCase(excluirCampanhas.pending,(state,action)=>{
-            state.status= STATUS.OCIOSO;
+            state.statusCamp= STATUS.OCIOSO;
         })
         .addCase(excluirCampanhas.fulfilled,(state,action)=>{
         console.log("AQUI1")
             if (action.payload.status ===  false) {
-                state.status= STATUS.ERRO;
+                state.statusCamp= STATUS.ERRO;
             } else {
-                state.status= STATUS.CARREGADO;
-                state.dados.pop({...action.payload.campanhas,codigo : action.payload.resposta.codigo});// aqui espalha o objeto com os ... e depois redefine esse ojeot onde o id do cleinte recebe o id do payload
+                state.statusCamp= STATUS.CARREGADO;
+                state.dadosCamp.pop({...action.payload.campanhas,codigo : action.payload.resposta.codigo});// aqui espalha o objeto com os ... e depois redefine esse ojeot onde o id do cleinte recebe o id do payload
             }
            
         })
         .addCase(excluirCampanhas.rejected,(state,action)=>{
-            state.status= STATUS.ERRO;
+            state.statusCamp= STATUS.ERRO;
         })
     }
 });// para criar uma fatia

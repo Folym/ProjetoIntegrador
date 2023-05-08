@@ -6,7 +6,7 @@ export default class CampanhaDoacaoCTRL{
     gravar(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {nome,descri,finalizado} = req.body;
+            const {nome,descri,dtInicio,dtFim,local,finalizado} = req.body;
             if(nome==undefined || nome==""){
                  resp.statusCode = 400;
                 resp.json({
@@ -14,7 +14,7 @@ export default class CampanhaDoacaoCTRL{
                     "Mensagem":"Erro ao gravar a campanha"
                 });
             }
-            const camp = new CampanhaDoacao(0,nome,descri,finalizado);
+            const camp = new CampanhaDoacao(0,nome,descri,dtInicio,dtFim,local,finalizado);
             camp.gravar().then(()=>{
                 resp.statusCode = 200;
                 resp.json({
@@ -32,10 +32,11 @@ export default class CampanhaDoacaoCTRL{
         }
     }
 
-    atualizar(req,resp){
+    finalizar(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {codigo,nome,descri,finalizado} = req.body;
+            const dados = req.body;
+            const codigo = dados["camp_codigo"];
             if(codigo==undefined || !(typeof(codigo)=="number")){
                 resp.statusCode = 400;
                 resp.json({
@@ -43,8 +44,8 @@ export default class CampanhaDoacaoCTRL{
                     "Mensagem":"Erro ao atualizar Campanha"
                 });
             }
-            const camp = new CampanhaDoacao(codigo,nome,descri,finalizado);
-            camp.atualizar().then(()=>{
+            const camp = new CampanhaDoacao(codigo);
+            camp.finalizar().then(()=>{
                 resp.statusCode = 200;
                 resp.json({
                     "status": true,

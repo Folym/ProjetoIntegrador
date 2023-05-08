@@ -3,14 +3,20 @@ export default class CampanhaDoacao{
     #codigo 
     #nome 
     #descri
+    #dtInicio
+    #dtFim
+    #local
     #finalizado 
    
 
-    constructor(codigo=0,nome="",descri="",finalizado=""){
+    constructor(codigo=0,nome="",descri="",dtInicio="",dtFim="",local="",finalizado=""){
         this.#codigo = codigo;
         this.#nome = nome;
         this.#descri = descri
         this.#finalizado = finalizado;
+        this.#dtInicio = dtInicio;
+        this.#dtFim = dtFim;
+        this.#local = local;
         
     }
 
@@ -38,8 +44,28 @@ export default class CampanhaDoacao{
     get finalizado(){
         return this.#finalizado;
     }
-    set findalizao(finalizado){
+    set finalizado(finalizado){
         this.#finalizado = finalizado;
+    }
+
+    get dtInicio (){
+        return this.#dtInicio;
+    }
+    set dtInicio(dtInicio){
+        this.#dtInicio = dtInicio;
+    }
+
+    get dtFim(){
+        return this.#dtFim;
+    }
+    set dtFim(dtFim){
+        this.#dtFim = dtFim;
+    }
+    get local(){
+        return this.#local;
+    }
+    set local(local){
+        this.#local = local;
     }
     
   
@@ -63,9 +89,9 @@ export default class CampanhaDoacao{
         this.#codigo = codigo;
     }
 
-    async atualizar(){
+    async finalizar(){
         const campDAO = new CampanhaDoacaoDAO();
-        await campDAO.atualizar(this);
+        await campDAO.finalizar(this);
     }
 
     async excluir(){

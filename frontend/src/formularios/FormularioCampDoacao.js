@@ -22,13 +22,16 @@ export default function FormCadastroCampDoacao(props){
       finalizado:"N",
       dtInicio :"",
       dtFim:"",
+      local:"",
       img :""
     });
   
-    const {status}= useSelector(state=>state.campanhas)
+    const {statusCamp}= useSelector(state=>state.campanhas)
   
     const manipularMudanca = (evento) =>{
+
       setCampanha({...campanha,[evento.target.name]:evento.target.value})// esse ... faz um copia da cosntante cliente, podendo adiconar novos valores ou até atualizar, ou seja, a cada letra ele atualiza
+     
       // [evento.target.name]:evento.target.value}
       // cpf:""  --  é isso que signfica esse parte do evento
     }
@@ -36,8 +39,7 @@ export default function FormCadastroCampDoacao(props){
     const manipularEnvioDados = (event) => {
       const form = event.currentTarget;
       if (form.checkValidity() === true) {
-        
-        
+
         dispatch(adicionarCampanhas(campanha));
         setCampanha({
             nome:"",
@@ -45,6 +47,7 @@ export default function FormCadastroCampDoacao(props){
             finalizado:"N",
             dtInicio :"",
             dtFim:"",
+            local:"",
             img :""
         })
         setValidado(false)
@@ -133,6 +136,19 @@ export default function FormCadastroCampDoacao(props){
                 <Form.Control.Feedback>Ok!</Form.Control.Feedback>
                 <Form.Control.Feedback type='invalid'>Informe a Data do Fim da Campanha</Form.Control.Feedback>
                 
+                </Form.Group>
+            </Row>
+            <Row className="mb-3">
+                <Form.Group as={Col} md="8" >
+                <Form.Label>Local de Entrega</Form.Label>
+                <Form.Control type="text" placeholder="Local de Doação dos Produtos" required
+                    id='local'
+                    name='local'
+                    value={campanha.local}
+                    onChange={manipularMudanca}
+                />
+                <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+                <Form.Control.Feedback type='invalid'>Informe o Local de Doação dos Produtos</Form.Control.Feedback>
                 </Form.Group>
             </Row>
             <Row className="mb-3">

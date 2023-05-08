@@ -8,15 +8,15 @@ export default class LoginDAO{
     async  gravar(camp) {
         if(camp instanceof CampanhaDoacao){
             const dao = new Dao();
-            const sql = "INSERT INTO campanhadoacao(camp_nome, camp_desc, camp_finalizado)  VALUES ('"+camp.nome+"','"+camp.descri+"','"+camp.finalizado+"');"
+            const sql = "INSERT INTO campanhadoacao(camp_nome, camp_desc,camp_dtInicio,camp_dtFim,camp_local,camp_finalizado)  VALUES ('"+camp.nome+"','"+camp.descri+"','"+ camp.dtInicio+"','"+ camp.dtFim+"','"+ camp.local+"','"+camp.finalizado+"');"
             return await dao.gravar(sql);
         }
     }
 
-    async  atualizar(camp) {
+    async  finalizar(camp) {
         if(camp instanceof CampanhaDoacao){
             const dao = new Dao();
-            const sql = "UPDATE campanhadoacao SET camp_nome ='"+login.nome+"',camp_desc='"+camp.descri+"',camp_finalizado= '"+camp.finalizado+"';";
+            const sql = "UPDATE campanhadoacao SET camp_finalizado = 'S' where camp_codigo="+ camp.codigo+";";
              await dao.atualizar(sql);
         }   
     }
