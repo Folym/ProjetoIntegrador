@@ -144,3 +144,41 @@ constraint pk_log primary key(log_codigo)
 
 CREATE SEQUENCE seq_login INCREMENT 1 MINVALUE 1 MAXVALUE 9999 START 1 CACHE 1;
 ALTER TABLE login ALTER COLUMN log_codigo SET DEFAULT NEXTVAL('seq_login');
+
+create table Despesas(
+    desp_codigo integer not null ,
+    desp_vencimento date not null,
+    desp_valor decimal(8,2),
+    desp_numparcelas integer,
+    desp_desconto decimal(8,2),
+
+    constraint pk_despesas primary key(desp_codigo)
+
+);
+
+CREATE SEQUENCE seq_despesas INCREMENT 1 MINVALUE 1 MAXVALUE 9999 START 1 CACHE 1;
+ALTER TABLE Despesas ALTER COLUMN desp_codigo SET DEFAULT NEXTVAL('seq_despesas');
+
+create table TipoDespesas(
+    tipo_desp_codigo integer not null ,
+    tipo_desp_descricao varchar(50) not null,
+
+    constraint pk_tipo_despesas primary key(tipo_desp_codigo)
+
+);
+
+CREATE SEQUENCE seq_tipo_desp INCREMENT 1 MINVALUE 1 MAXVALUE 9999 START 1 CACHE 1;
+ALTER TABLE TipoDespesas ALTER COLUMN tipo_desp_codigo SET DEFAULT NEXTVAL('seq_tipo_desp');
+
+create table Parcelas(
+    parc_codigo integer not null ,
+    desp_codigo integer not null,
+    parc_valor decimal(8,2),
+    parc_vencimento date not null,
+
+    constraint pk_parcelas primary key(parc_codigo),
+    constraint fk_despesa foreign key(desp_codigo) references Despesas(desp_codigo)
+);
+
+CREATE SEQUENCE seq_parcelas INCREMENT 1 MINVALUE 1 MAXVALUE 9999 START 1 CACHE 1;
+ALTER TABLE Parcelas ALTER COLUMN parc_codigo SET DEFAULT NEXTVAL('seq_parcelas');
