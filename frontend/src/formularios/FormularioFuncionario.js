@@ -30,9 +30,7 @@ import { STATUS } from '../redux/redutores/FuncionariosSlice'
   const {status}= useSelector(state=>state.funcionarios)
 
   const manipularMudanca = (evento) =>{
-    setFuncionario({...funcionario,[evento.target.name]:evento.target.value})// esse ... faz um copia da cosntante cliente, podendo adiconar novos valores ou até atualizar, ou seja, a cada letra ele atualiza
-    // [evento.target.name]:evento.target.value}
-    // cpf:""  --  é isso que signfica esse parte do evento
+    setFuncionario({...funcionario,[evento.target.name]:evento.target.value})
   }
 
   const manipularEnvioDados = (event) => {

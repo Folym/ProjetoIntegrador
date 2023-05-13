@@ -51,7 +51,8 @@ export default class Despesas{
             codigo:this.#codigo,
             vencimento:this.#vencimento,
             numparcelas:this.#numparcelas,
-            desconto:this.#desconto
+            desconto:this.#desconto,
+            valor:this.#valor
         }
     }
 
