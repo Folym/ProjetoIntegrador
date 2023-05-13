@@ -133,4 +133,26 @@ export default class DespesasCTRL{
         }
     }
 
+    consultarParcelas(req,resp)
+    {
+        resp.setHeader("Content-Type","application/json");
+        if(req.is("application/json"))
+        {
+            const {desp_codigo} = req.params;
+            if(desp_codigo==undefined || desp_codigo=="")
+            {
+                resp.sendStatus(400);
+            }
+            const despesas = new Despesas(desp_codigo);
+
+            despesas.consultarParcelas(desp_codigo).then(()=>{
+                resp.json(desp_codigo);
+                resp.sendStatus(200);
+            }).catch((error)=>{
+                console.log(error);
+                resp.sendStatus(400);
+            });
+        }
+    }
+
 }

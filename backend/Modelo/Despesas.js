@@ -81,4 +81,9 @@ export default class Despesas{
         return await despesasDAO.consultarVencimento(vencimento);
     }
 
+    async consultarParcelas(codigo){
+        const despesasDAO = new DespesasDAO();
+        return await despesasDAO.consultarParcelas(codigo);
+    }
+
 }
