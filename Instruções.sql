@@ -1,12 +1,12 @@
 create table Funcionario(
     func_codigo integer NOT NULL,
     func_nome varchar(50) not null,
-    func_cpf varchar(11) not null,
-    func_cel varchar(11),
-    func_email varchar(100),
-    func_end varchar(30),
+    func_cpf varchar(14) not null,
+    func_cel varchar(14),
+    func_email varchar(45),
+    func_end varchar(50),
     func_numend integer,
-    func_cep integer,
+    func_cep varchar(9),
     constraint pk_func primary key(func_codigo)
 );
 
