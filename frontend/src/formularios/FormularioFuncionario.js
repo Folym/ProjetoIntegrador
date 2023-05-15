@@ -8,6 +8,8 @@ import Row from 'react-bootstrap/Row';
 import { useDispatch, useSelector } from "react-redux";
 import { adicionarFuncionarios} from "../redux/redutores/FuncionariosSlice";
 import { STATUS } from '../redux/redutores/FuncionariosSlice'
+import { IMaskInput } from "react-imask";
+
 
  export default function FormCadastroFunc(props) {
   const [validado, setValidado] = useState(false);
@@ -30,15 +32,18 @@ import { STATUS } from '../redux/redutores/FuncionariosSlice'
   const {status}= useSelector(state=>state.funcionarios)
 
   const manipularMudanca = (evento) =>{
-    setFuncionario({...funcionario,[evento.target.name]:evento.target.value})// esse ... faz um copia da cosntante cliente, podendo adiconar novos valores ou até atualizar, ou seja, a cada letra ele atualiza
-    // [evento.target.name]:evento.target.value}
-    // cpf:""  --  é isso que signfica esse parte do evento
+    setFuncionario({...funcionario,[evento.target.name]:evento.target.value})
+  }
+  const apenasLetras = (evento) =>{
+    setFuncionario({...funcionario,[evento.target.name]:evento.target.value.replace(/[^a-z \u00C0-\u00FF]/gi, '').toUpperCase()})
+    //Codigo regex para aceitar apenas letras espaço e acentos
   }
 
   const manipularEnvioDados = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === true) {
-      
+
+      //funcionario.cel.replace(/[^0-9]/g, '');
       
       dispatch(adicionarFuncionarios(funcionario));
       setFuncionario({
@@ -84,6 +89,9 @@ import { STATUS } from '../redux/redutores/FuncionariosSlice'
               <Form.Control
                   required
                   type="text"
+                  maxlength="14"
+                  as={IMaskInput}
+                  mask="000.000.000-00"
                   placeholder="Informe seu CPF"
                   defaultValue=""
                   id='cpf'
@@ -91,7 +99,7 @@ import { STATUS } from '../redux/redutores/FuncionariosSlice'
                   value ={funcionario.cpf}
                   onChange={manipularMudanca}
               />
-              <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+              <Form.Control.Feedback>Ok</Form.Control.Feedback>
               <Form.Control.Feedback type='invalid'>Informe seu CPF</Form.Control.Feedback>
               </Form.Group>
           </Row>
@@ -101,14 +109,15 @@ import { STATUS } from '../redux/redutores/FuncionariosSlice'
             <Form.Control
               required
               type="text"
+              maxlength="50"
               placeholder="Informe seu nome"
               defaultValue=""
               id='nome'
               name='nome'
               value={funcionario.nome}
-              onChange={manipularMudanca}
+              onChange={apenasLetras}
             />
-            <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+            <Form.Control.Feedback>Ok</Form.Control.Feedback>
             <Form.Control.Feedback type='invalid'>Informe seu Nome</Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="4" >
@@ -116,21 +125,25 @@ import { STATUS } from '../redux/redutores/FuncionariosSlice'
             <Form.Control
               required
               type="text"
+              maxlength="50"
               placeholder="Informe seu Endereço"
               defaultValue=""
               id='end'
               name='end'
               value={funcionario.end}
-              onChange={manipularMudanca}
+              onChange={apenasLetras}
             />
-            <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+            <Form.Control.Feedback>Ok</Form.Control.Feedback>
             <Form.Control.Feedback type='invalid'>Informe seu Endereço</Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="4" >
             <Form.Label>Nº Endereço</Form.Label>
               <Form.Control
                   type="text"
+                  maxlength="6"
                   placeholder="Informe seu Numero de Endereço"
+                  as={IMaskInput}
+                  mask="000000"
                   required
                   id='numend'
                   name='numend'
@@ -138,32 +151,42 @@ import { STATUS } from '../redux/redutores/FuncionariosSlice'
                   onChange={manipularMudanca}
                   
               />
-              <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+              <Form.Control.Feedback>Ok</Form.Control.Feedback>
               <Form.Control.Feedback type='invalid'>Informe seu Nº Endereço</Form.Control.Feedback>
           </Form.Group>
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} md="6" >
             <Form.Label>Email</Form.Label>
-            <Form.Control type="text" placeholder="Email" required
+            <Form.Control 
+              type="text"
+              placeholder="Email"
+              required
+              maxlength="100"
               id='email'
               name='email'
               value={funcionario.email}
               onChange={manipularMudanca}
             />
-            <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+            <Form.Control.Feedback>Ok</Form.Control.Feedback>
               <Form.Control.Feedback type='invalid'>Informe seu Email</Form.Control.Feedback>
             
           </Form.Group>
           <Form.Group as={Col} md="3" >
             <Form.Label>Nº de Telefone</Form.Label>
-            <Form.Control type="text" placeholder="Celular" required 
+            <Form.Control 
+              type="text" 
+              placeholder="Celular" 
+              required 
               id='cel'
               name='cel'
-              value={funcionario.cel}
+              maxlength="14"
+              as={IMaskInput}
+              mask="(00)00000-0000"
+              value={funcionario.cel} //.replace(/[^\d]/g, '') regex pra tirar a mascara
               onChange={manipularMudanca}
             />
-            <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+            <Form.Control.Feedback>Ok</Form.Control.Feedback>
               <Form.Control.Feedback type='invalid'>Informe seu Nº de Telefone</Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="3" >
@@ -171,10 +194,13 @@ import { STATUS } from '../redux/redutores/FuncionariosSlice'
             <Form.Control type="text" placeholder="CEP" required 
               id='cep'
               name='cep'
+              as={IMaskInput}
+              maxlength="9"
+              mask="00000-000"
               value={funcionario.cep}
               onChange={manipularMudanca}
             />
-            <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+            <Form.Control.Feedback>Ok</Form.Control.Feedback>
               <Form.Control.Feedback type='invalid'>Informe seu CEP</Form.Control.Feedback>
           </Form.Group>
         </Row>

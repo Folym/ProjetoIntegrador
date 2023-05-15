@@ -10,7 +10,7 @@ export default class Funcionarios{
     #numend;
     #cep;
 
-    constructor(codigo=0,nome="",cpf="",cel="",email="",end="",numend=0,cep=0){
+    constructor(codigo=0,nome="",cpf="",cel="",email="",end="",numend=0,cep=""){
         this.#codigo = codigo;
         this.#nome = nome;
         this.#cpf = cpf;

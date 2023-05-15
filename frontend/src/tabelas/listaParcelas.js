@@ -2,17 +2,17 @@ import { useEffect } from 'react';
 import { Container, Table, Button } from 'react-bootstrap';
 import {Spinner} from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { buscarFuncionarios ,excluirFuncionarios} from '../redux/redutores/FuncionariosSlice';
-import { STATUS } from '../redux/redutores/FuncionariosSlice'
+import { buscarParcelas ,excluirParcelas} from '../redux/redutores/ParcelasSlice';
+import { STATUS } from '../redux/redutores/ParcelasSlice'
 
-export default function ListaFuncionarios(props) {
+export default function ListaParcelas(props) {
 
     
     const dispatch = useDispatch();
-    const {status,dados} = useSelector(state => state.funcionarios)
+    const {status,dados} = useSelector(state => state.parcelas)
 
     useEffect(()=>{
-        dispatch(buscarFuncionarios());
+        dispatch(buscarParcelas());
     }, []);
 
    
@@ -27,7 +27,7 @@ export default function ListaFuncionarios(props) {
                             role="status"
                             aria-hidden="true"
                             />
-                             { } Retornando Funcionários.
+                             { } Buscando Parcelas.
                     </Button>
             </Container>
         )
@@ -38,37 +38,22 @@ export default function ListaFuncionarios(props) {
                 <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>CPF</th>
-                            <th>Celular</th>
-                            <th>Email</th>
-                            <th>Endereço</th>
-                            <th>Nº Endereço</th>
-                            <th>CEP</th>
+                            <th>Valor</th>
+                            <th>Vencimento</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            dados.map(funcionario =>
+                            dados.map(parcela =>
                                 <tr>
 
-                                    <td>{funcionario.func_nome}</td>
+                                    <td>{parcela.valor}</td>
 
-                                    <td>{funcionario.func_cpf}</td>
-
-                                    <td>{funcionario.func_cel}</td>
-
-                                    <td>{funcionario.func_email}</td>
-
-                                    <td>{funcionario.func_end}</td>
-
-                                    <td>{funcionario.func_numend}</td>
-
-                                    <td>{funcionario.func_cep}</td>
+                                    <td>{parcela.vencimento}</td>
 
                                     <td>
                                         <Button  onClick={() => {
-                                             dispatch(excluirFuncionarios(funcionario));
+                                             dispatch(excluirParcelas(parcela));
                                         }}>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                                                 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
@@ -81,17 +66,14 @@ export default function ListaFuncionarios(props) {
                             )
                         }
                     </tbody>
-
-
                 </Table>
-                <Button onClick={() => props.onTabela(false)}>Cadastrar Funcionario</Button>
             </Container>
 
         );
     }else if(status === STATUS.ERRO){
         return(
             <Container>
-                <p> <strong>DEU CACA</strong></p>
+                <p> <strong>DEU RUIM</strong></p>
             </Container>
         );
         

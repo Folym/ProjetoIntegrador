@@ -11,6 +11,7 @@ import TelaCadastroDoacaoLDin from "./interfaces/TelaCadastroDoacaoLDin.js";
 import TelaCadastroDoacaoCDin from "./interfaces/TelaCadastroDoacaoCDin.js";
 import TelaCadastroFuncionarios from "./interfaces/TelaCadastroFuncionarios.js";
 import TelaCadastroCampDoacao from "./interfaces/TelaCadastroCampanha";
+import TelaDespesas from "./interfaces/TelaDespesas";
 
 
 import { useState } from "react";
@@ -39,6 +40,7 @@ function App() {
           <Route path="/cadJovens" element ={<TelaCadastroJovens/>}></Route>
           <Route path="/cadProduto" element ={<TelaCadastroProduto/>}></Route>
           <Route path="/cadFuncionarios" element ={<TelaCadastroFuncionarios/>}></Route>
+          <Route path="/despesas" element ={<TelaDespesas/>}></Route>
           <Route path="/cadCampanhaDoacao" element ={<TelaCadastroCampDoacao/>}></Route>
           <Route path="/regDoacaoLProd" element ={<TelaCadastroDoacaoLProd/>}></Route>
           <Route path="/regDoacaoCProd" element ={<TelaCadastroDoacaoCProd/>}></Route>

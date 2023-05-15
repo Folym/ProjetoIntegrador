@@ -43,6 +43,7 @@ export default function Menu(props) {
                             <NavDropdown.Item ><Link to="/cadFuncionarios" > Funcionários </Link></NavDropdown.Item>
                             <NavDropdown.Divider />
                             
+                            
                         </NavDropdown>
                         <NavDropdown
                             title="Registros"
@@ -60,6 +61,8 @@ export default function Menu(props) {
                                         <NavDropdown.Item ><Link to="/regDoacaoCDin"> Doacao Remota </Link></NavDropdown.Item>
                                 </NavDropdown>
                             </NavDropdown>
+                            <NavDropdown.Item ><Link to="/despesas" > Despesas </Link></NavDropdown.Item>
+                            <NavDropdown.Divider />
                         </NavDropdown>
                         </Nav>
                         <Form className="d-flex">

@@ -8,7 +8,7 @@ export default class FuncionariosDAO{
     async gravar(funcionarios){
         if(funcionarios instanceof Funcionarios){
             const dao = new Dao();
-            const sql = "INSERT INTO Funcionario (func_nome, func_cpf, func_cel, func_email, func_end, func_numend, func_cep) VALUES ( '"+funcionarios.nome+"','"+funcionarios.cpf+"',"+funcionarios.cel+",'"+funcionarios.email+"','"+funcionarios.end+"',"+funcionarios.numend+",'"+funcionarios.cep+"');"
+            const sql = "INSERT INTO Funcionario (func_nome, func_cpf, func_cel, func_email, func_end, func_numend, func_cep) VALUES ( '"+funcionarios.nome+"','"+funcionarios.cpf+"','"+funcionarios.cel+"','"+funcionarios.email+"','"+funcionarios.end+"',"+funcionarios.numend+",'"+funcionarios.cep+"');"
             return await dao.gravar(sql);
         }
     }
