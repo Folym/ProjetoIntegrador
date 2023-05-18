@@ -1,6 +1,6 @@
 import Parcelas from "../Modelo/Parcelas.js"
 
-export default class DespesasCTRL{
+export default class ParcelasCTRL{
     gravar(req,resp)
     {
         resp.setHeader("Content-Type","application/json");
@@ -142,4 +142,16 @@ export default class DespesasCTRL{
         }
     }
 
+    consultarTodos(req,resp){
+        resp.setHeader("Content-Type","application/json");
+            console.log('chamou')
+            const parc = new Parcelas();
+            parc.consultarTodos().then((lista)=>{
+                resp.json(lista);
+            }).catch((error)=>{
+                console.log(error);
+                resp.sendStatus(400);
+            });
+        
+    }
 }

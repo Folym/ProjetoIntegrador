@@ -1,6 +1,6 @@
 
 import {createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-const urlBase = 'http://localhost:8080/parcelas'
+const urlBase = 'http://localhost:8080/tipodespesa'
 
 export const STATUS = Object.freeze({ 
     'OCIOSO': 'idle',
@@ -8,14 +8,14 @@ export const STATUS = Object.freeze({
     'ERRO':'reajected'
 })
 
-export const buscarParcelas = createAsyncThunk('parcelas/buscarParcelas', async ()=>{
+export const buscarTipoDesp = createAsyncThunk('tipodespesa/buscarTipoDesp', async ()=>{
     const resposta = await fetch(urlBase,{method :'GET'})
-    console.log('CHAMOU SLICE')
-    const dados = await resposta.json()
+    const dados = await resposta.json();
+    console.log(dados)
     return dados;
 });
 
-export const adicionarParcelas = createAsyncThunk('parcelas/adicionarParcelas', async(parcela)=>{
+/*export const adicionarParcelas = createAsyncThunk('parcelas/adicionarParcelas', async(parcela)=>{
     const resposta = await fetch(urlBase,{
         method :'POST',
         headers : {'Content-Type': 'application/json'},
@@ -40,37 +40,37 @@ export const excluirParcelas = createAsyncThunk('parcelas/excluirParcelas', asyn
         parcela:parcela,
         resposta : dados
     };
-});
+});*/
 
-const parcelaSlice = createSlice({
-    name:'parcelas', 
+const tipoDespSlice = createSlice({
+    name:'tiposdesp', 
     initialState:{
-        status_parcela:STATUS.CARREGADO,
-        dados_parcela:[]
+        status_tipo:STATUS.CARREGADO,
+        dados_tipo:[]
     }, 
 
     reducers:{
     },
     extraReducers:(builder)=>  {
-        builder.addCase(buscarParcelas.pending,(state,action)=>{
-            state.status_parcela= STATUS.OCIOSO;
+        builder.addCase(buscarTipoDesp.pending,(state,action)=>{
+            state.status_tipo= STATUS.OCIOSO;
         })
-        .addCase(buscarParcelas.fulfilled,(state,action)=>{
-            state.status_parcela= STATUS.CARREGADO;
-            state.dados_parcela = action.payload;
+        .addCase(buscarTipoDesp.fulfilled,(state,action)=>{
+            state.status_tipo= STATUS.CARREGADO;
+            state.dados_tipo = action.payload;
         })
-        .addCase(buscarParcelas.rejected,(state,action)=>{
-            state.status_parcela= STATUS.ERRO;
+        .addCase(buscarTipoDesp.rejected,(state,action)=>{
+            state.status_tipo= STATUS.ERRO;
         })
-        .addCase(adicionarParcelas.pending,(state,action)=>{
-            state.status_parcela= STATUS.OCIOSO;
+        /*.addCase(adicionarParcelas.pending,(state,action)=>{
+            state.status= STATUS.OCIOSO;
         })
         .addCase(adicionarParcelas.fulfilled,(state,action)=>{
             if (action.payload.status ===  false) {
                 state.status= STATUS.ERRO;
             } else {
                 state.status= STATUS.CARREGADO;
-                state.dados_parcela.push({...action.payload.parcela, codigo : action.payload.resposta.codigo});
+                state.dados.push({...action.payload.parcela, codigo : action.payload.resposta.codigo});
             }
            
         })
@@ -91,7 +91,7 @@ const parcelaSlice = createSlice({
         })
         .addCase(excluirParcelas.rejected,(state,action)=>{
             state.status= STATUS.ERRO;
-        })
+        })*/
     }
 });
-export default parcelaSlice.reducer;
+export default tipoDespSlice.reducer;

@@ -16,7 +16,6 @@ import { IMaskInput } from "react-imask";
 
   const dispatch =useDispatch();//despacha ações para redutores da store
 
-//PRincipal estado do componente formulario de cadastro de cleinte- quando inicai a pagina, vem com esse valores
   const [funcionario,setFuncionario] = useState({
     codigo:"",
     nome:"",
@@ -42,8 +41,6 @@ import { IMaskInput } from "react-imask";
   const manipularEnvioDados = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === true) {
-
-      //funcionario.cel.replace(/[^0-9]/g, '');
       
       dispatch(adicionarFuncionarios(funcionario));
       setFuncionario({
@@ -91,6 +88,7 @@ import { IMaskInput } from "react-imask";
                   type="text"
                   maxlength="14"
                   as={IMaskInput}
+                  autocomplete="off"
                   mask="000.000.000-00"
                   placeholder="Informe seu CPF"
                   defaultValue=""

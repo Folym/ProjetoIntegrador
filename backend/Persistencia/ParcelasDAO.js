@@ -40,4 +40,10 @@ export default class ParcelasDAO{
         const sql = `SELECT * FROM Parcelas WHERE desp_codigo = ${parcela.desp_codigo}`;
         return await dao.consultar(sql);
 }
+
+    async consultarTodos(){
+        const dao = new Dao();
+        const sql = `SELECT * FROM Parcelas`;
+        return await dao.consultar(sql);
+    }
 }
