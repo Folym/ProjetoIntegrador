@@ -1,6 +1,6 @@
 import React, { useEffect,useState,useRef } from 'react';
 import Stack from 'react-bootstrap/Stack';
-import { Container, Modal } from 'react-bootstrap';
+import { Container, Modal, Table } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -8,9 +8,10 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { useDispatch, useSelector } from "react-redux";
 import { adicionarDespesas} from "../redux/redutores/DespesasSlice.js";
-import { buscarParcelas} from "../redux/redutores/ParcelasSlice.js";
+import { buscarParcelas} from "../redux/redutores/ParcelasSlice.js";  
 import { STATUS } from '../redux/redutores/DespesasSlice.js'
 import ListaParcelas from "../tabelas/listaParcelas.js";
+import { buscarTipoDesp } from "../redux/redutores/TipoDespesaSlice.js";
 
  export default function FormCadastroDespesas(props) {
   const [validado, setValidado] = useState(false);
@@ -19,18 +20,23 @@ import ListaParcelas from "../tabelas/listaParcelas.js";
 
   const componenteSelecao = useRef();
 
-  const [exibirParcelas,setExibirParcelas] = useState(true);
+  const [exibirParcelas, setExibirParcelas] = useState(true);
+  //const [exibirTipoDesp, setExibirTipoDesp] = useState(true);
 
   useEffect(()=>{
-    dispatch(buscarParcelas());
+    dispatch(buscarTipoDesp());
+  },[]);
+
+  useEffect(()=>{
+    dispatch(buscarParcelas(1));
   },[]);
 
   const [despesa, setDespesa] = useState({
     codigo:"",
     vencimento:"",
-    numparcelas:"",
+    numparcelas:1,
     desconto:"",
-    valor:""
+    valor:0
   });
 
   const [parcela, setParcela] = useState({
@@ -40,10 +46,19 @@ import ListaParcelas from "../tabelas/listaParcelas.js";
     vencimento:""
   });
 
-  const {status}= useSelector(state=>state.despesas)
+  const [modalShow, setModalShow] = useState(true);
+  const {status, dados}= useSelector(state=>state.despesas)
+  const {status_tipo, dados_tipo}= useSelector(state=>state.tiposdesp)
+  const {status_parcela, dados_parcela} = useSelector(state=>state.parcelas)
 
   const manipularMudanca = (evento) =>{
     setDespesa({...despesa,[evento.target.name]:evento.target.value})
+
+    if(evento.target.name === 'valor' || evento.target.name === 'desconto')
+    {
+      setDespesa({...despesa,[evento.target.name]:evento.target.value.replace(/^-\d*\.?\d+$/, "")});
+    }
+
   }
 
   const manipularEnvioDados = (event) => {
@@ -54,9 +69,9 @@ import ListaParcelas from "../tabelas/listaParcelas.js";
       setDespesa({
         codigo:"",
         vencimento:"",
-        numparcelas:"",
+        numparcelas:1,
         desconto:"",
-        valor:""
+        valor:1
       })
       setValidado(false)
     }else{
@@ -85,30 +100,28 @@ import ListaParcelas from "../tabelas/listaParcelas.js";
   } else  if (status === STATUS.CARREGADO) {
     return (
 
-      <div className="modal show" style={{ display: 'block', position: 'initial' }}>
-        <Modal.Dialog>
+      <div className="modal show" style={{ display: 'block', position: 'initial'}}>
+        <Modal.Dialog size="lg">
           <Modal.Header>
             <Modal.Title classname="col-md-5 mx-auto">Lançar Despesas</Modal.Title>
           </Modal.Header>
           <Form method="POST" action="/despesa" className="m-3 p-3" noValidate validated={validado} onSubmit={manipularEnvioDados}>
             <Modal.Body>
-              {/* <Row className="mb-2">
-                <Form.Group as={Col}>
-                  <Form.Label column sm={2}>Tipo da Despesa</Form.Label>
+              { <Row className="mb-3">
+                <Form.Group as={Col} md="8">
+                  <Form.Label>Tipo de Despesa</Form.Label>
                   <Form.Select ref={componenteSelecao}>
                         {
-                            dados.map((tipo_desp) => {
-                                return <option key={tipo_desp.tipo_desp_codigo} value={tipo_desp.tipo_desp_codigo}>
-                                      {tipo_desp.tipo_desp_descricao}  
+                            dados_tipo.map((tipo) => {
+                                return <option key={tipo.tipo_desp_codigo} value={tipo.tipo_desp_codigo}>
+                                      {tipo.tipo_desp_descricao}  
                                 </option>
                             })
                         }
                     </Form.Select>
                   <Form.Control.Feedback type='invalid'>Tipo invalido.</Form.Control.Feedback>
                 </Form.Group>
-              </Row> */}
-              <Row className="mb-2">  
-                <Form.Group as={Col}>
+                <Form.Group as={Col} md="4">
                   <Form.Label>Valor</Form.Label>
                   <Form.Control
                     required
@@ -123,8 +136,23 @@ import ListaParcelas from "../tabelas/listaParcelas.js";
                   <Form.Control.Feedback>Ok</Form.Control.Feedback>
                   <Form.Control.Feedback type='invalid'>Valor inválido.</Form.Control.Feedback>
                 </Form.Group>
-              </Row>
+              </Row> }
               <Row className="mb-2">
+                <Form.Group as={Col} md="2">
+                  <Form.Label>Parcelas</Form.Label>
+                  <Form.Control
+                    type="number"
+                    placeholder="1"
+                    required
+                    defaultValue="1"
+                    id='numparcelas'
+                    name='numparcelas'
+                    value={despesa.numparcelas}
+                    onChange={manipularMudanca}
+                  />
+                  <Form.Control.Feedback>Ok</Form.Control.Feedback>
+                  <Form.Control.Feedback type='invalid'>Quantidade inválida.</Form.Control.Feedback>
+                </Form.Group>
                 <Form.Group as={Col}>
                   <Form.Label>Desconto</Form.Label>
                   <Form.Control
@@ -141,7 +169,8 @@ import ListaParcelas from "../tabelas/listaParcelas.js";
                   <Form.Control.Feedback type='invalid'>Valor inválido</Form.Control.Feedback>
                 </Form.Group>
               </Row>
-              <Row className="mb-2">
+              <Row className="mb-2" md="12">
+                
                 <Form.Group as={Col}>
                   <Form.Label>Valor Final</Form.Label>
                   <Form.Control
@@ -150,7 +179,8 @@ import ListaParcelas from "../tabelas/listaParcelas.js";
                     required
                     id='val_final'
                     name='val_final'
-                    value={despesa.valor - despesa.desconto} //TEM QUE VER SE PODE ISSO
+                    disabled = 'disabled'
+                    value={(despesa.valor - despesa.desconto)}
                     onChange={manipularMudanca}
 
                   />
@@ -158,23 +188,7 @@ import ListaParcelas from "../tabelas/listaParcelas.js";
                   <Form.Control.Feedback type='invalid'></Form.Control.Feedback>
                 </Form.Group>
               </Row>
-              <Row className="mb-2">
-                <Form.Group as={Col}>
-                  <Form.Label>Parcelas</Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder="1"
-                    required
-                    defaultValue="1"
-                    id='numparcelas'
-                    name='numparcelas'
-                    value={despesa.numparcelas}
-                    onChange={manipularMudanca}
-                  />
-                  <Form.Control.Feedback>Ok</Form.Control.Feedback>
-                  <Form.Control.Feedback type='invalid'>Quantidade inválida.</Form.Control.Feedback>
-                </Form.Group>
-              </Row>
+              
               <Row className="mb-2">
                 <Form.Group as={Col}>
                   <Form.Label>Vencimento</Form.Label>
@@ -201,14 +215,49 @@ import ListaParcelas from "../tabelas/listaParcelas.js";
                   <Form.Control.Feedback type='invalid'>Valor de parcela inválido</Form.Control.Feedback>
                 </Form.Group>
               </Row>
-              <ListaParcelas onTabela={setExibirParcelas}></ListaParcelas>
+              <Container>
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Valor</th>
+                            <th>Vencimento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            dados_parcela.map(parcela =>
+                                <tr>
+
+                                    <td>{parcela.parc_valor}</td>
+
+                                    <td>{parcela.parc_vencimento}</td>
+
+                                    <td>
+                                        <Button  onClick={() => {
+                                             //dispatch(excluirParcelas(parcela));
+                                        }}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                            </svg>
+                                        
+                                        </Button>
+                                    </td>
+                                </tr>
+
+                            )
+                        }
+                    </tbody>
+                </Table>
+            </Container>
               <Stack gap={2}>
                 <Button type="submit" className="col-md-5 mx-auto" style={{ margin: "5px" }}>+</Button>
-                <Button type="button" className="col-md-5 mx-auto" style={{ margin: "5px" }} variant="secondary" onClick={() => { props.onTabela(true) }}>Listar Despesas</Button>
+                <Button type="button" className="col-md-5 mx-auto" style={{ margin: "5px" }} variant="secondary" onClick={()=>{dispatch(buscarParcelas(1))}}>Listar Despesas</Button>
               </Stack>
             </Modal.Body>
           </Form>
         </Modal.Dialog>
+
+        
       </div>
     );
   }

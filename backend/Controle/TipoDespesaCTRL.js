@@ -1,13 +1,13 @@
-import Despesas from "../Modelo/Despesas.js";
+import TipoDespesa from "../Modelo/TipoDespesa.js";
 
-export default class DespesasCTRL{
+export default class TipoDespesaCTRL{
     gravar(req,resp)
     {
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json"))
         {
-            const {codigo, vencimento, numparcelas, desconto, valor} = req.body;
-            if(valor==undefined || valor=="" || valor<0)
+            const {codigo, descricao} = req.body;
+            if(descricao==undefined || descricao=="")
             {
                 resp.statusCode = 400;
                 resp.json({
@@ -15,19 +15,19 @@ export default class DespesasCTRL{
                     "mensagem":"Gravação cancelada"
                 })
             }
-            const despesas = new Despesas(0, vencimento, numparcelas, desconto, valor);
+            const tipoDespesa = new TipoDespesa(0, descricao);
 
-            despesas.gravar().then(()=>{
+            tipoDespesa.gravar().then(()=>{
                 resp.statusCode = 200;
                 resp.json({
                     "status":true,
-                    "mensagem":"Despesa gravada"
+                    "mensagem":"Tipo gravado"
                 })
             }).catch((error)=>{
                 resp.statusCode = 400;
                 resp.json({
                     "status":false,
-                    "mensagem":"Gravação de despesa cancelada"
+                    "mensagem":"Gravação de tipo cancelada"
                 })
             });
         }
@@ -38,7 +38,7 @@ export default class DespesasCTRL{
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json"))
         {
-            const {codigo, vencimento, numparcelas, desconto, valor} = req.body;
+            const {codigo, descricao} = req.body;
             if(codigo==undefined || !(typeof(codigo)=="number"))
             {
                 resp.statusCode = 400;
@@ -47,19 +47,19 @@ export default class DespesasCTRL{
                     "mensagem":"Atualização cancelada"
                 })
             }
-            const despesas = new Despesas(codigo, vencimento, numparcelas, desconto, valor);
+            const tipoDespesa = new TipoDespesa(codigo, descricao);
 
-            despesas.atualizar().then(()=>{
+            tipoDespesa.atualizar().then(()=>{
                 resp.statusCode = 200;
                 resp.json({
                     "status":true,
-                    "mensagem":"Despesa atualizada"
+                    "mensagem":"Tipo atualizado"
                 })
             }).catch((error)=>{
                 resp.statusCode = 400;
                 resp.json({
                     "status":false,
-                    "mensagem":"Atualização de despesa cancelada"
+                    "mensagem":"Atualização de tipo cancelada"
                 })
             });
         }
@@ -71,7 +71,7 @@ export default class DespesasCTRL{
         if(req.is("application/json"))
         {
             const dados = req.body;
-            const codigo = dados["desp_codigo"]
+            const codigo = dados["tipo_desp_codigo"]
             if(codigo==undefined || !(typeof(codigo)=="number"))
             {
                 resp.statusCode = 400;
@@ -80,19 +80,19 @@ export default class DespesasCTRL{
                     "mensagem":"Exclusão cancelada"
                 })
             }
-            const despesas = new Despesas(codigo);
-            despesas.excluir().then(()=>{
+            const tipoDespesa = new TipoDespesa(codigo);
+            tipoDespesa.excluir().then(()=>{
                 resp.statusCode = 200;
                 resp.json({
                     "status":true,
-                    "mensagem":"Despesa excluida"
+                    "mensagem":"Tipo excluido"
                 })
             }).catch((error)=>{
                 console.log(error);
                 resp.statusCode = 400;
                 resp.json({
                     "status":false,
-                    "mensagem":"Exclusão de despesa cancelada"
+                    "mensagem":"Exclusão de tipo cancelada"
                 })
             });
         }
@@ -100,15 +100,13 @@ export default class DespesasCTRL{
 
     consultarTodos(req,resp){
         resp.setHeader("Content-Type","application/json");
-        
-            const desp = new Despesas();
-            desp.consultarTodos().then((lista)=>{
+            const tipoDespesa = new TipoDespesa();
+            tipoDespesa.consultarTodos().then((lista)=>{
+                
                 resp.json(lista);
             }).catch((error)=>{
                 console.log(error);
                 resp.sendStatus(400);
             });
-        
     }
-
 }

@@ -7,6 +7,7 @@ import ProdutoSlice from "./redutores/ProdutoSlice.js";
 import CampanhasSlice from "./redutores/CampDoacaoSlice";
 import DespesasSlice from "./redutores/DespesasSlice";
 import ParcelasSlice from "./redutores/ParcelasSlice.js";
+import TipoDespesaSlice from "./redutores/TipoDespesaSlice.js";
 
 const store = configureStore({
     reducer:{
@@ -17,7 +18,8 @@ const store = configureStore({
         produto: ProdutoSlice,
         campanhas : CampanhasSlice,
         despesas: DespesasSlice,
-        parcelas: ParcelasSlice
+        parcelas: ParcelasSlice,
+        tiposdesp: TipoDespesaSlice
     }
 
 })

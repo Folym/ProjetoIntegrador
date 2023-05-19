@@ -72,5 +72,9 @@ export default class Parcelas{
         const parcelasDAO = new ParcelasDAO();
         return await parcelasDAO.consultarParcelas(desp_codigo);
     }
+    async consultarTodos(){
+        const parcelasDAO = new ParcelasDAO();
+        return await parcelasDAO.consultarTodos();
+    }
 
 }

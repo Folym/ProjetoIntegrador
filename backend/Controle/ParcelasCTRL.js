@@ -1,6 +1,6 @@
 import Parcelas from "../Modelo/Parcelas.js"
 
-export default class DespesasCTRL{
+export default class ParcelasCTRL{
     gravar(req,resp)
     {
         resp.setHeader("Content-Type","application/json");
@@ -106,7 +106,11 @@ export default class DespesasCTRL{
             const {parc_venc} = req.params;
             if(parc_venc==undefined || parc_venc=="")
             {
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Exclusão de parcela cancelada"
+                })
             }
             const parcela = new Parcelas(parc_venc);
 
@@ -115,31 +119,57 @@ export default class DespesasCTRL{
                 resp.sendStatus(200);
             }).catch((error)=>{
                 console.log(error);
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Exclusão de parcela cancelada"
+                })
             });
         }
     }
 
     consultarParcelas(req,resp)
     {
+        console.log("controle parc")
         resp.setHeader("Content-Type","application/json");
-        if(req.is("application/json"))
-        {
-            const {desp_codigo} = req.params;
+        //if(req.is("application/json"))
+       // {
+            console.log("controle")
+            const desp_codigo = req.params['cod'];
+            console.log("controle :" + desp_codigo)
             if(desp_codigo==undefined || desp_codigo=="")
             {
-                resp.sendStatus(400);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Consulta de parcela cancelada"
+                })
             }
             const parcela = new Parcelas(desp_codigo);
 
-            parcela.consultarParcelas(desp_codigo).then(()=>{
-                resp.json(desp_codigo);
-                resp.sendStatus(200);
+            parcela.consultarParcelas(desp_codigo).then((lista)=>{
+                resp.json(lista);
+            }).catch((error)=>{
+                console.log(error);
+                resp.statusCode = 400;
+                resp.json({
+                    "status":false,
+                    "mensagem":"Exclusão de parcela cancelada"
+                })
+            });
+      // }
+    }
+
+    consultarTodos(req,resp){
+        resp.setHeader("Content-Type","application/json");
+            console.log('chamou')
+            const parc = new Parcelas();
+            parc.consultarTodos().then((lista)=>{
+                resp.json(lista);
             }).catch((error)=>{
                 console.log(error);
                 resp.sendStatus(400);
             });
-        }
+        
     }
-
 }
