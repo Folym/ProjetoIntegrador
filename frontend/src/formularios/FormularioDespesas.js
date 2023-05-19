@@ -28,7 +28,7 @@ import { buscarTipoDesp } from "../redux/redutores/TipoDespesaSlice.js";
   },[]);
 
   useEffect(()=>{
-    dispatch(buscarParcelas());
+    dispatch(buscarParcelas(1));
   },[]);
 
   const [despesa, setDespesa] = useState({
@@ -137,7 +137,22 @@ import { buscarTipoDesp } from "../redux/redutores/TipoDespesaSlice.js";
                   <Form.Control.Feedback type='invalid'>Valor inválido.</Form.Control.Feedback>
                 </Form.Group>
               </Row> }
-              <Row className="mb-2" md="6">
+              <Row className="mb-2">
+                <Form.Group as={Col} md="2">
+                  <Form.Label>Parcelas</Form.Label>
+                  <Form.Control
+                    type="number"
+                    placeholder="1"
+                    required
+                    defaultValue="1"
+                    id='numparcelas'
+                    name='numparcelas'
+                    value={despesa.numparcelas}
+                    onChange={manipularMudanca}
+                  />
+                  <Form.Control.Feedback>Ok</Form.Control.Feedback>
+                  <Form.Control.Feedback type='invalid'>Quantidade inválida.</Form.Control.Feedback>
+                </Form.Group>
                 <Form.Group as={Col}>
                   <Form.Label>Desconto</Form.Label>
                   <Form.Control
@@ -153,6 +168,9 @@ import { buscarTipoDesp } from "../redux/redutores/TipoDespesaSlice.js";
                   <Form.Control.Feedback>Ok</Form.Control.Feedback>
                   <Form.Control.Feedback type='invalid'>Valor inválido</Form.Control.Feedback>
                 </Form.Group>
+              </Row>
+              <Row className="mb-2" md="12">
+                
                 <Form.Group as={Col}>
                   <Form.Label>Valor Final</Form.Label>
                   <Form.Control
@@ -170,23 +188,7 @@ import { buscarTipoDesp } from "../redux/redutores/TipoDespesaSlice.js";
                   <Form.Control.Feedback type='invalid'></Form.Control.Feedback>
                 </Form.Group>
               </Row>
-              <Row className="mb-2">
-                <Form.Group as={Col}>
-                  <Form.Label>Parcelas</Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder="1"
-                    required
-                    defaultValue="1"
-                    id='numparcelas'
-                    name='numparcelas'
-                    value={despesa.numparcelas}
-                    onChange={manipularMudanca}
-                  />
-                  <Form.Control.Feedback>Ok</Form.Control.Feedback>
-                  <Form.Control.Feedback type='invalid'>Quantidade inválida.</Form.Control.Feedback>
-                </Form.Group>
-              </Row>
+              
               <Row className="mb-2">
                 <Form.Group as={Col}>
                   <Form.Label>Vencimento</Form.Label>
@@ -249,7 +251,7 @@ import { buscarTipoDesp } from "../redux/redutores/TipoDespesaSlice.js";
             </Container>
               <Stack gap={2}>
                 <Button type="submit" className="col-md-5 mx-auto" style={{ margin: "5px" }}>+</Button>
-                <Button type="button" className="col-md-5 mx-auto" style={{ margin: "5px" }} variant="secondary">Listar Despesas</Button>
+                <Button type="button" className="col-md-5 mx-auto" style={{ margin: "5px" }} variant="secondary" onClick={()=>{dispatch(buscarParcelas(1))}}>Listar Despesas</Button>
               </Stack>
             </Modal.Body>
           </Form>

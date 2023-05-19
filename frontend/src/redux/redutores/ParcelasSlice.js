@@ -8,8 +8,8 @@ export const STATUS = Object.freeze({
     'ERRO':'reajected'
 })
 
-export const buscarParcelas = createAsyncThunk('parcelas/buscarParcelas', async ()=>{
-    const resposta = await fetch(urlBase,{method :'GET'})
+export const buscarParcelas = createAsyncThunk('parcelas/buscarParcelas', async (parcela)=>{
+    const resposta = await fetch(urlBase+"/"+parcela,{method :'GET'})
     console.log('CHAMOU SLICE')
     const dados = await resposta.json()
     return dados;
