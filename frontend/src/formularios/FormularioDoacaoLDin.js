@@ -1,4 +1,4 @@
-import React, { useEffect,useState,useRef } from 'react';
+import React, { useState } from 'react';
 import { Container, Modal } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
@@ -6,7 +6,6 @@ import Col from 'react-bootstrap/Col';
 import Stack from 'react-bootstrap/Stack';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import { buscarProduto } from '../redux/redutores/ProdutoSlice.js';
 import { useDispatch, useSelector } from "react-redux";
 import { adicionarDoacao } from "../redux/redutores/DoacaoLDinSlice.js";
 import { STATUS } from '../redux/redutores/DoacaoLDinSlice.js';
@@ -15,11 +14,8 @@ export default function FormCadastroDoac(props) {
   const [validado, setValidado] = useState(false);
   const dispatch = useDispatch();
 
-  const componenteSelecao = useRef();
 
-  useEffect(()=>{
-    dispatch(buscarProduto());
-  },[]);
+
 
 
   const [doacao, setDoacao] = useState({
@@ -31,7 +27,7 @@ export default function FormCadastroDoac(props) {
 
 
 
-  const { status,dados } = useSelector(state => state.doacao)
+  const { statusLDin } = useSelector(state => state.doacaoLDin)
 
   
   const manipularMudanca = (evento) => {
@@ -57,7 +53,7 @@ export default function FormCadastroDoac(props) {
     event.stopPropagation();
   };
 
-  if (status === STATUS.OCIOSO) {
+  if (statusLDin === STATUS.OCIOSO) {
     return (
       <Container>
         <Button variant="primary" disabled>
@@ -72,7 +68,7 @@ export default function FormCadastroDoac(props) {
         </Button>
       </Container>
     )
-  } else if (status === STATUS.CARREGADO) {
+  } else if (statusLDin === STATUS.CARREGADO) {
     return (
 
       <div className="modal show" style={{ display: 'block', position: 'initial' }}>
@@ -124,21 +120,6 @@ export default function FormCadastroDoac(props) {
                   <Form.Control.Feedback type='invalid'>Informe uma descrição</Form.Control.Feedback>
                 </Form.Group>
               </Row>
-              {/* <Row className="mb-2">
-                <Form.Group as={Col}>
-                  <Form.Label column sm={2}>Campanha</Form.Label>
-                  <Form.Select ref={componenteSelecao}>
-                        {
-                            dados.map((camp) => {
-                                return <option key={camp.camp_codigo} value={camp.camp_codigo}>
-                                      {camp.camp_nome}  
-                                </option>
-                            })
-                        }
-                    </Form.Select>
-                  <Form.Control.Feedback type='invalid'>Campanha invalida</Form.Control.Feedback>
-                </Form.Group>
-              </Row> */}
               <Stack gap={2}>
                 <Button type="submit" className="col-md-5 mx-auto" style={{ margin: "5px" }}>Registrar Doação</Button>
                 <Button type="button" className="col-md-5 mx-auto" style={{ margin: "5px" }} variant="secondary" onClick={() => { props.onTabela(true) }}>Lista Doacao</Button>

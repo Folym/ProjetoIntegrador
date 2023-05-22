@@ -2,9 +2,11 @@ import ProdutoDAO from "../Persistencia/ProdutoDAO.js";
 export default class Produto{
     #codigo;
     #nome;
-    constructor(codigo=0,nome=""){
+    #desc;
+    constructor(codigo=0,nome="",desc=""){
         this.#codigo = codigo;
         this.#nome = nome;
+        this.#desc = desc;
     }
 
     get codigo(){
@@ -15,16 +17,24 @@ export default class Produto{
     }
 
     get nome(){
-        return this.#nome
+        return this.#nome;
     }
     set nome(nome){
         this.#nome = nome;
     }
     
+    get desc(){
+        return this.#desc;
+    }
+    set desc(desc){
+        this.#desc = desc;
+    }
+
     toJSON(){
         return{
             codigo:this.#codigo,
-            nome:this.#nome
+            nome:this.#nome,
+            desc:this.#desc
         }
     }
 

@@ -1,4 +1,4 @@
-import React, { useEffect,useState,useRef } from 'react';
+import React, { useState } from 'react';
 import { Container, Modal } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
@@ -6,20 +6,15 @@ import Col from 'react-bootstrap/Col';
 import Stack from 'react-bootstrap/Stack';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import { buscarProduto } from '../redux/redutores/ProdutoSlice.js';
 import { useDispatch, useSelector } from "react-redux";
 import { adicionarDoacao } from "../redux/redutores/DoacaoCDinSlice.js";
 import { STATUS } from '../redux/redutores/DoacaoCDinSlice.js'
 
 export default function FormCadastroDoac(props) {
-  const [validado, setValidado] = useState(false);
   const dispatch = useDispatch();
+  const [validado, setValidado] = useState(false);
 
-  const componenteSelecao = useRef();
 
-  useEffect(()=>{
-    dispatch(buscarProduto());
-  },[]);
 
 
   const [doacao, setDoacao] = useState({
@@ -32,9 +27,8 @@ export default function FormCadastroDoac(props) {
     desc: ""
   });
 
+  const { statusCDin,dadosCDin } = useSelector(state => state.doacaoCDin)
 
-
-  const { status,dados } = useSelector(state => state.doacao)
 
   
   const manipularMudanca = (evento) => {
@@ -47,7 +41,7 @@ export default function FormCadastroDoac(props) {
     if (form.checkValidity() === true) {
       dispatch(adicionarDoacao(doacao));
       setDoacao({
-        tipo:"CD",
+        tipo:"",
         end: "",
         numend: "",
         cep: "",
@@ -63,7 +57,7 @@ export default function FormCadastroDoac(props) {
     event.stopPropagation();
   };
 
-  if (status === STATUS.OCIOSO) {
+  if (statusCDin === STATUS.OCIOSO) {
     return (
       <Container>
         <Button variant="primary" disabled>
@@ -78,7 +72,7 @@ export default function FormCadastroDoac(props) {
         </Button>
       </Container>
     )
-  } else if (status === STATUS.CARREGADO) {
+  } else if (statusCDin === STATUS.CARREGADO) {
     return (
 
       <div className="modal show" style={{ display: 'block', position: 'initial' }}>

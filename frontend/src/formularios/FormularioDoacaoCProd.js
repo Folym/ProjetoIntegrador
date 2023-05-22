@@ -10,16 +10,24 @@ import { buscarProduto } from '../redux/redutores/ProdutoSlice.js';
 import { useDispatch, useSelector } from "react-redux";
 import { adicionarDoacao } from "../redux/redutores/DoacaoCProdSlice.js";
 import { STATUS } from '../redux/redutores/DoacaoCProdSlice.js'
+import { buscarCampanhas } from '../redux/redutores/CampDoacaoSlice.js';
 
 export default function FormCadastroDoac(props) {
-  const [validado, setValidado] = useState(false);
   const dispatch = useDispatch();
+  const [validado, setValidado] = useState(false);
 
   const componenteSelecao = useRef();
+  const { statusCProd } = useSelector(state => state.doacaoCProd)
+  const { dadosPr } = useSelector(state => state.produto)
+  const { dadosCamp} = useSelector(state => state.campanhas)
 
   useEffect(()=>{
     dispatch(buscarProduto());
   },[]);
+
+  useEffect(()=>{
+    dispatch(buscarCampanhas());
+  },[])
 
 
   const [doacao, setDoacao] = useState({
@@ -36,7 +44,7 @@ export default function FormCadastroDoac(props) {
 
 
 
-  const { status,dados } = useSelector(state => state.doacao)
+
 
   
   const manipularMudanca = (evento) => {
@@ -67,7 +75,7 @@ export default function FormCadastroDoac(props) {
     event.stopPropagation();
   };
 
-  if (status === STATUS.OCIOSO) {
+  if (statusCProd === STATUS.OCIOSO) {
     return (
       <Container>
         <Button variant="primary" disabled>
@@ -82,7 +90,7 @@ export default function FormCadastroDoac(props) {
         </Button>
       </Container>
     )
-  } else if (status === STATUS.CARREGADO) {
+  } else if (statusCProd === STATUS.CARREGADO) {
     return (
 
       <div className="modal show" style={{ display: 'block', position: 'initial' }}>
@@ -95,9 +103,9 @@ export default function FormCadastroDoac(props) {
               <Row className="mb-2">
                 <Form.Group as={Col}>
                   <Form.Label column sm={2}>Produto</Form.Label>
-                  <Form.Select ref={componenteSelecao}>
+                  <Form.Select aria-label="Produto" ref={componenteSelecao}>
                         {
-                            dados.map((produto) => {
+                            dadosPr.map((produto) => {
                                 return <option key={produto.prod_codigo} value={produto.prod_codigo}>
                                       {produto.prod_nome}  
                                 </option>
@@ -200,12 +208,12 @@ export default function FormCadastroDoac(props) {
                   <Form.Control.Feedback type='invalid'>Informe uma descrição</Form.Control.Feedback>
                 </Form.Group>
               </Row>
-              {/* <Row className="mb-2">
+              <Row className="mb-2">
                 <Form.Group as={Col}>
                   <Form.Label column sm={2}>Campanha</Form.Label>
-                  <Form.Select ref={componenteSelecao}>
+                  <Form.Select aria-label="Campanha" ref={componenteSelecao}>
                         {
-                            dados.map((camp) => {
+                            dadosCamp.map((camp) => {
                                 return <option key={camp.camp_codigo} value={camp.camp_codigo}>
                                       {camp.camp_nome}  
                                 </option>
@@ -214,7 +222,7 @@ export default function FormCadastroDoac(props) {
                     </Form.Select>
                   <Form.Control.Feedback type='invalid'>Campanha invalida</Form.Control.Feedback>
                 </Form.Group>
-              </Row> */}
+              </Row> 
               <Stack gap={2}>
                 <Button type="submit" className="col-md-5 mx-auto" style={{ margin: "5px" }}>Registrar Doação</Button>
                 <Button type="button" className="col-md-5 mx-auto" style={{ margin: "5px" }} variant="secondary" onClick={() => { props.onTabela(true) }}>Lista Doacao</Button>

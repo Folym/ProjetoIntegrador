@@ -51,7 +51,6 @@ create table campanhadoacao(
 create table Produto(
     prod_codigo integer not null,
     prod_nome varchar(50) not null,
-    prod_sigla varchar(1) not null,
     prod_desc varchar(200),
     constraint pk_prod primary key (prod_codigo)
 );

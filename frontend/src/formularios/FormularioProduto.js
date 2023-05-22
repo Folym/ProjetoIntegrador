@@ -15,10 +15,11 @@ import { STATUS } from '../redux/redutores/ProdutoSlice.js'
 
 
   const [produto,setProduto] = useState({
-        nome:""
+        nome:"",
+        desc:""
   });
   
-  const {status} = useSelector(state=>state.produto);
+  const {statusPr} = useSelector(state=>state.produto);
   
   const manipularMudanca = (evento) =>{
     setProduto({...produto,[evento.target.name]:evento.target.value})
@@ -30,7 +31,8 @@ import { STATUS } from '../redux/redutores/ProdutoSlice.js'
         if (form.checkValidity() === true) {
         dispatch(adicionarProduto(produto));
         setProduto({
-            nome:""
+            nome:"",
+            desc:""
         })
         setValidado(false)
         }else{
@@ -39,7 +41,7 @@ import { STATUS } from '../redux/redutores/ProdutoSlice.js'
         event.preventDefault();
         event.stopPropagation();
     };
-  if (status === STATUS.OCIOSO) {
+  if (statusPr === STATUS.OCIOSO) {
     return(
       <Container>
               <Button variant="primary" disabled>
@@ -54,7 +56,7 @@ import { STATUS } from '../redux/redutores/ProdutoSlice.js'
               </Button>
       </Container>
   )
-  } else  if (status === STATUS.CARREGADO) {
+  } else  if (statusPr === STATUS.CARREGADO) {
     return (
       <Form method ="POST" action="/produto" className="m-3 p-3" noValidate validated={validado} onSubmit={manipularEnvioDados}>
 
@@ -75,11 +77,28 @@ import { STATUS } from '../redux/redutores/ProdutoSlice.js'
             <Form.Control.Feedback type='invalid'>Informe o Nome do produto</Form.Control.Feedback>
           </Form.Group>
         </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="4">
+            <Form.Label>Insira uma descrição do produto</Form.Label>
+            <Form.Control
+              required
+              type="text"
+              placeholder="Informe a descrição do produto"
+              defaultValue=""
+              id='desc'
+              name='desc'
+              value={produto.desc}
+              onChange={manipularMudanca}
+            />
+            <Form.Control.Feedback>Ok!</Form.Control.Feedback>
+            <Form.Control.Feedback type='invalid'>Informe a Descrição</Form.Control.Feedback>
+          </Form.Group>
+        </Row>
         <Button type="submit">Cadastrar</Button>
         <Button type ="button" style={{margin:"15px"}}  variant="secondary" onClick={()=> {props.onTabela(true)}}>Lista Produto</Button>
       </Form>
     );
-  }else if(status === STATUS.ERRO){
+  }else if(statusPr === STATUS.ERRO){
     console.log("erro");
   }
 }
