@@ -43,6 +43,7 @@ create table campanhadoacao(
     camp_dtFim date,
     camp_local varchar(60),
     camp_finalizado varchar(1) not null,
+    camp_img varchar(50),
 
     constraint pk_campdoacao primary key(camp_codigo)
 );

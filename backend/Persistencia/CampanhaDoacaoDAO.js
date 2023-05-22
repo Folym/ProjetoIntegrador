@@ -8,7 +8,7 @@ export default class LoginDAO{
     async  gravar(camp) {
         if(camp instanceof CampanhaDoacao){
             const dao = new Dao();
-            const sql = "INSERT INTO campanhadoacao(camp_nome, camp_desc,camp_dtInicio,camp_dtFim,camp_local,camp_finalizado)  VALUES ('"+camp.nome+"','"+camp.descri+"','"+ camp.dtInicio+"','"+ camp.dtFim+"','"+ camp.local+"','"+camp.finalizado+"');"
+            const sql = "INSERT INTO campanhadoacao(camp_nome, camp_desc,camp_dtInicio,camp_dtFim,camp_local,camp_finalizado,camp_img)  VALUES ('"+camp.nome+"','"+camp.descri+"','"+ camp.dtInicio+"','"+ camp.dtFim+"','"+ camp.local+"','"+camp.finalizado+"','"+camp.img+"');"
             return await dao.gravar(sql);
         }
     }

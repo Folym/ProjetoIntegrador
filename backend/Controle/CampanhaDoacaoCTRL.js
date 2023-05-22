@@ -6,7 +6,7 @@ export default class CampanhaDoacaoCTRL{
     gravar(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {nome,descri,dtInicio,dtFim,local,finalizado} = req.body;
+            const {nome,descri,dtInicio,dtFim,local,finalizado,img} = req.body;
             if(nome==undefined || nome==""){
                  resp.statusCode = 400;
                 resp.json({
@@ -14,7 +14,8 @@ export default class CampanhaDoacaoCTRL{
                     "Mensagem":"Erro ao gravar a campanha"
                 });
             }
-            const camp = new CampanhaDoacao(0,nome,descri,dtInicio,dtFim,local,finalizado);
+            console.log({nome,descri,dtInicio,dtFim,local,finalizado,img})
+            const camp = new CampanhaDoacao(0,nome,descri,dtInicio,dtFim,local,finalizado,img);
             camp.gravar().then(()=>{
                 resp.statusCode = 200;
                 resp.json({

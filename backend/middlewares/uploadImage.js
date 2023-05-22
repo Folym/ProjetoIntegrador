@@ -3,10 +3,10 @@ import multer from "multer";
 const upload = (multer({
     storage: multer.diskStorage({
         destination: (req, file, cb) => {
-            cb(null, './public/upload/users')
+            cb(null, './public/upload/imagens')
         },
         filename: (req, file, cb) => {
-            cb(null, Date.now().toString() + "_" + file.originalname)  
+            cb(null,file.originalname)  
         }
     }),
     fileFilter: (req, file, cb) => {
