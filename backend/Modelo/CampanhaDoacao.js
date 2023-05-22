@@ -7,9 +7,10 @@ export default class CampanhaDoacao{
     #dtFim
     #local
     #finalizado 
+    #img
    
 
-    constructor(codigo=0,nome="",descri="",dtInicio="",dtFim="",local="",finalizado=""){
+    constructor(codigo=0,nome="",descri="",dtInicio="",dtFim="",local="",finalizado="",img=""){
         this.#codigo = codigo;
         this.#nome = nome;
         this.#descri = descri
@@ -17,6 +18,7 @@ export default class CampanhaDoacao{
         this.#dtInicio = dtInicio;
         this.#dtFim = dtFim;
         this.#local = local;
+        this.#img = img
         
     }
 
@@ -66,6 +68,13 @@ export default class CampanhaDoacao{
     }
     set local(local){
         this.#local = local;
+    }
+
+    get img(){
+        return this.#img;
+    }
+    set img(img){
+        this.#img = img;
     }
     
   

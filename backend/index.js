@@ -10,12 +10,22 @@ import rotaParcelas from "./Rotas/rotaParcelas.js";
 
 import cors from "cors";
 
+//import path1 from 'path'
+//const path = path1;
+// const path = require(path1);
+import path from 'path';
+
+
+
 
 const app = express();
+
+app.use('/files', express.static(path.resolve("","public", "upload")));
 
 app.use(cors({
     origin:'*'
 }));
+
 
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
