@@ -7,13 +7,13 @@ import { STATUS } from '../redux/redutores/DoacaoCDinSlice.js';
 
 export default function ListaDoacao(props) {
     const dispatch = useDispatch();
-    const {status,dados} = useSelector(state => state.doacao)
+    const {statusCDin,dadosCDin} = useSelector(state => state.doacao)
 
     useEffect(()=>{
         dispatch(buscarDoacao());
     }, []);
    
-    if (status === STATUS.OCIOSO) {
+    if (statusCDin === STATUS.OCIOSO) {
         return(
             <Container>
                     <Button variant="primary" disabled>
@@ -28,8 +28,7 @@ export default function ListaDoacao(props) {
                     </Button>
             </Container>
         )
-    }else if (status === STATUS.CARREGADO) {
-        
+    }else if (statusCDin === STATUS.CARREGADO) {
         return (
             <Container>
                 <Table striped bordered hover>
@@ -46,7 +45,7 @@ export default function ListaDoacao(props) {
                     </thead>
                     <tbody>
                         {
-                            dados.map(doacao =>
+                            dadosCDin.map(doacao =>
                                 <tr>
 
                                     <td>{doacao.doac_end}</td>
@@ -84,7 +83,7 @@ export default function ListaDoacao(props) {
             </Container>
 
         );
-    }else if(status === STATUS.ERRO){
+    }else if(statusCDin === STATUS.ERRO){
         return(
             <Container>
                 <p> <strong>ERRO</strong></p>

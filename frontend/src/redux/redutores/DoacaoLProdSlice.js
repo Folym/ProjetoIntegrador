@@ -10,8 +10,8 @@ export const STATUS = Object.freeze({
 
 export const buscarDoacao = createAsyncThunk('doacao/buscarDoacao', async ()=>{
     const resposta = await fetch(urlBase,{method :'GET'});
-    const dados = await resposta.json();
-    return dados;
+    const dadosLProd = await resposta.json();
+    return dadosLProd;
 });
 
 export const adicionarDoacao = createAsyncThunk('doacao/adicionarDoacao', async(doacao)=>{
@@ -21,9 +21,9 @@ export const adicionarDoacao = createAsyncThunk('doacao/adicionarDoacao', async(
         body : JSON.stringify(doacao)
     })
   
-    const dados = await resposta.json()
+    const dadosLProd = await resposta.json()
     return {
-        resposta : dados
+        resposta : dadosLProd
     };
 });
 
@@ -33,61 +33,61 @@ export const excluirDoacao = createAsyncThunk('doacao/excluirDoacao', async(doac
         headers : {'Content-Type': 'application/json'},
         body : JSON.stringify(doacao)
     })
-    const dados = await resposta.json()
+    const dadosLProd = await resposta.json()
     return {
         doacao:doacao,
-        resposta : dados
+        resposta : dadosLProd
     };
 });
 
 const doacaoLProdSlice = createSlice({
-    name:'doacao', 
+    name:'doacaoLProd', 
     initialState:{
-        status:STATUS.CARREGADO,
-        dados:[]
+        statusLProd:STATUS.CARREGADO,
+        dadosLProd:[]
     }, 
 
     reducers:{
     },
     extraReducers:(builder)=>  {
         builder.addCase(buscarDoacao.pending,(state,action)=>{
-            state.status= STATUS.OCIOSO;
+            state.statusLProd= STATUS.OCIOSO;
         })
         .addCase(buscarDoacao.fulfilled,(state,action)=>{
-            state.status= STATUS.CARREGADO;
-            state.dados = action.payload;
+            state.statusLProd= STATUS.CARREGADO;
+            state.dadosLProd = action.payload;
         })
         .addCase(buscarDoacao.rejected,(state,action)=>{
-            state.status= STATUS.ERRO;
+            state.statusLProd= STATUS.ERRO;
         })
         .addCase(adicionarDoacao.pending,(state,action)=>{
-            state.status= STATUS.OCIOSO;
+            state.statusLProd= STATUS.OCIOSO;
         })
         .addCase(adicionarDoacao.fulfilled,(state,action)=>{
 
-            if (action.payload.status ===  false) {
-                state.status= STATUS.ERRO;
+            if (action.payload.statusLProd ===  false) {
+                state.statusLProd= STATUS.ERRO;
             } else {
-                state.status= STATUS.CARREGADO;
-                state.dados.push({...action.payload.doacao, doac_codigo : action.payload.resposta.doac_codigo});
+                state.statusLProd= STATUS.CARREGADO;
+                state.dadosLProd.push({...action.payload.doacao, doac_codigo : action.payload.resposta.doac_codigo});
             }
         })
         .addCase(adicionarDoacao.rejected,(state,action)=>{
-            state.status= STATUS.ERRO;
+            state.statusLProd= STATUS.ERRO;
         })
         .addCase(excluirDoacao.pending,(state,action)=>{
-            state.status= STATUS.OCIOSO;
+            state.statusLProd= STATUS.OCIOSO;
         })
         .addCase(excluirDoacao.fulfilled,(state,action)=>{
-            if (action.payload.status ===  false) {
-                state.status= STATUS.ERRO;
+            if (action.payload.statusLProd ===  false) {
+                state.statusLProd= STATUS.ERRO;
             } else {
-                state.status= STATUS.CARREGADO;
-                state.dados.pop({...action.payload.doacao,doac_codigo : action.payload.resposta.doac_codigo});
+                state.statusLProd= STATUS.CARREGADO;
+                state.dadosLProd.pop({...action.payload.doacao,doac_codigo : action.payload.resposta.doac_codigo});
             }
         })
         .addCase(excluirDoacao.rejected,(state,action)=>{
-            state.status= STATUS.ERRO;
+            state.statusLProd= STATUS.ERRO;
         })
     }
 });

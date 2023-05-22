@@ -7,9 +7,8 @@ export default class ProdutoDAO{
 
     async gravar(produto){
         if(produto instanceof Produto){
-            const dao = new Dao();
-            console.log(produto.codigo);            
-            const sql = "INSERT INTO Produto (prod_nome) VALUES ('"+produto.nome+"')"
+            const dao = new Dao();           
+            const sql = "INSERT INTO Produto (prod_nome,prod_desc) VALUES ('"+produto.nome+"','"+produto.desc+"')"
             console.log(sql);
             return await dao.gravar(sql);
         }
@@ -18,7 +17,7 @@ export default class ProdutoDAO{
     async atualizar(produto){
         if(produto instanceof Produto){
             const dao = new Dao();
-            const sql = "UPDATE Produto SET prod_nome="+produto.nome+" WHERE prod_codigo='"+produto.codigo;
+            const sql = "UPDATE Produto SET prod_nome="+produto.nome+",prod_desc="+produto.desc+" WHERE prod_codigo='"+produto.codigo;
             await dao.atualizar(sql);
         }
     }

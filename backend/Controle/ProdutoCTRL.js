@@ -4,7 +4,7 @@ export default class ProdutoCTRL{
     gravar(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {nome} = req.body;
+            const {nome,desc} = req.body;
             if(nome==undefined || nome==""){
                 resp.statusCode = 400;
                 resp.json({
@@ -12,7 +12,7 @@ export default class ProdutoCTRL{
                     "mensagem":"Produto cancelado"
                 })
             }
-            const produto = new Produto(0,nome);
+            const produto = new Produto(0,nome,desc);
             produto.gravar().then(()=>{
                 resp.statusCode = 200;
                 resp.json({
@@ -33,7 +33,7 @@ export default class ProdutoCTRL{
     atualizar(req,resp){
         resp.setHeader("Content-Type","application/json");
         if(req.is("application/json")){
-            const {codigo,nome} = req.body;
+            const {codigo,nome,desc} = req.body;
             if(codigo==undefined || !(typeof(codigo)=="number")){
                 resp.statusCode = 400;
                 resp.json({
@@ -41,7 +41,7 @@ export default class ProdutoCTRL{
                     "mensagem":"Atualização cancelada"
                 })
             }
-            const produto = new Produto(codigo,nome);
+            const produto = new Produto(codigo,nome,desc);
             produto.atualizar().then(()=>{
                 resp.statusCode = 200;
                 resp.json({

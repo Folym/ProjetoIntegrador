@@ -7,7 +7,7 @@ import { STATUS } from '../redux/redutores/ProdutoSlice.js';
 
 export default function ListaProduto(props) {
     const dispatch = useDispatch();
-    const {status,dados} = useSelector(state => state.produto)
+    const {status,dadosPr} = useSelector(state => state.produto)
 
     useEffect(()=>{
         dispatch(buscarProduto());
@@ -38,15 +38,17 @@ export default function ListaProduto(props) {
                         <tr>
                             <th>Codigo</th>
                             <th>Nome</th>
+                            <th>Descricao</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            dados.map(produto =>
+                            dadosPr.map(produto =>
                                 <tr>
 
                                     <td>{produto.prod_codigo}</td>
                                     <td>{produto.prod_nome}</td>
+                                    <td>{produto.prod_desc}</td>
                                     <td>
                                         <Button  onClick={() => {
                                             dispatch(excluirProduto(produto));

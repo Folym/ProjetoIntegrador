@@ -7,14 +7,14 @@ import { STATUS } from '../redux/redutores/DoacaoLProdSlice.js';
 
 export default function ListaDoacao(props) {
     const dispatch = useDispatch();
-    const {status,dados} = useSelector(state => state.doacao)
+    const {statusLProd,dadosLProd} = useSelector(state => state.doacao)
 
     useEffect(()=>{
         dispatch(buscarDoacao());
     }, []);
 
    
-    if (status === STATUS.OCIOSO) {
+    if (statusLProd === STATUS.OCIOSO) {
         return(
             <Container>
                     <Button variant="primary" disabled>
@@ -29,7 +29,7 @@ export default function ListaDoacao(props) {
                     </Button>
             </Container>
         )
-    }else if (status === STATUS.CARREGADO) {
+    }else if (statusLProd === STATUS.CARREGADO) {
         
         return (
             <Container>
@@ -45,7 +45,7 @@ export default function ListaDoacao(props) {
                     </thead>
                     <tbody>
                         {
-                            dados.map(doacao =>
+                            dadosLProd.map(doacao =>
                                 <tr>
 
                                     <td>{doacao.prod_codigo}</td>
@@ -68,18 +68,15 @@ export default function ListaDoacao(props) {
                                         </Button>
                                     </td>
                                 </tr>
-
                             )
                         }
                     </tbody>
-
-
                 </Table>
                 <Button onClick={() => props.onTabela(false)}>Nova Doacao</Button>
             </Container>
 
         );
-    }else if(status === STATUS.ERRO){
+    }else if(statusLProd === STATUS.ERRO){
         return(
             <Container>
                 <p> <strong>ERRO</strong></p>

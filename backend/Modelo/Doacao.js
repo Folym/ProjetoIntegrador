@@ -11,7 +11,7 @@ export default class Doacao{
     #valor;
     #data;
     #desc;
-    #campcod
+    #campcod;
     constructor(codigo=0,prodcod=null,tipo ="",end="",numend=0,cep=0,quant=0,valor=0,data="",desc="",campcod = null){
         this.#codigo = codigo;
         this.#prodcod = prodcod;
