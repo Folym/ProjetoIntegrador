@@ -10,7 +10,6 @@ export const STATUS = Object.freeze({
 
 export const buscarParcelas = createAsyncThunk('parcelas/buscarParcelas', async (parcela)=>{
     const resposta = await fetch(urlBase+"/"+parcela,{method :'GET'})
-    console.log('CHAMOU SLICE')
     const dados = await resposta.json()
     return dados;
 });

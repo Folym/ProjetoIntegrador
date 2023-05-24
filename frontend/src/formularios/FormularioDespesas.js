@@ -16,9 +16,7 @@ import { buscarTipoDesp } from "../redux/redutores/TipoDespesaSlice.js";
  export default function FormCadastroDespesas(props) {
   const [validado, setValidado] = useState(false);
 
-  const dispatch =useDispatch();
-
-  const componenteSelecao = useRef();
+  const dispatch = useDispatch();
 
   const [exibirParcelas, setExibirParcelas] = useState(true);
   //const [exibirTipoDesp, setExibirTipoDesp] = useState(true);
@@ -35,14 +33,14 @@ import { buscarTipoDesp } from "../redux/redutores/TipoDespesaSlice.js";
     codigo:"",
     vencimento:"",
     numparcelas:1,
-    desconto:"",
+    desconto:0,
     valor:0
   });
 
   const [parcela, setParcela] = useState({
     codigo:"",
     desp_codigo:"",
-    valor:"",
+    valor:0,
     vencimento:""
   });
 
@@ -52,14 +50,26 @@ import { buscarTipoDesp } from "../redux/redutores/TipoDespesaSlice.js";
   const {status_parcela, dados_parcela} = useSelector(state=>state.parcelas)
 
   const manipularMudanca = (evento) =>{
-    setDespesa({...despesa,[evento.target.name]:evento.target.value})
-
+    
     if(evento.target.name === 'valor' || evento.target.name === 'desconto')
     {
       setDespesa({...despesa,[evento.target.name]:evento.target.value.replace(/^-\d*\.?\d+$/, "")});
+      
     }
+    if(evento.target.name === 'val_final')
+    {
+      if({...despesa,[evento.target.name]:evento.target.value}<0)
+        setDespesa({...despesa,[evento.target.name]:evento.target.value=0});
+    }
+    else
+      setDespesa({...despesa,[evento.target.name]:evento.target.value})
 
   }
+  const manipularParcela = (evento) =>{
+    setParcela({...parcela,[evento.target.name]:evento.target.value.replace(/^-\d*\.?\d+$/, "")});
+  }
+
+  
 
   const manipularEnvioDados = (event) => {
     const form = event.currentTarget;
@@ -100,17 +110,17 @@ import { buscarTipoDesp } from "../redux/redutores/TipoDespesaSlice.js";
   } else  if (status === STATUS.CARREGADO) {
     return (
 
-      <div className="modal show" style={{ display: 'block', position: 'initial'}}>
+      <div className="modal show" style={{ display: 'initial', position: 'initial'}}>
         <Modal.Dialog size="lg">
-          <Modal.Header>
-            <Modal.Title classname="col-md-5 mx-auto">Lançar Despesas</Modal.Title>
+          <Modal.Header class="modal-header text-center">
+            <Modal.Title class="modal-title w-100 h4" centered>Lançar Despesas</Modal.Title>
           </Modal.Header>
-          <Form method="POST" action="/despesa" className="m-3 p-3" noValidate validated={validado} onSubmit={manipularEnvioDados}>
+          <Form method="POST" action="/despesa" className="m-1 p-1" noValidate validated={validado} onSubmit={manipularEnvioDados}>
             <Modal.Body>
               { <Row className="mb-3">
                 <Form.Group as={Col} md="8">
                   <Form.Label>Tipo de Despesa</Form.Label>
-                  <Form.Select ref={componenteSelecao}>
+                  <Form.Select>
                         {
                             dados_tipo.map((tipo) => {
                                 return <option key={tipo.tipo_desp_codigo} value={tipo.tipo_desp_codigo}>
@@ -153,25 +163,33 @@ import { buscarTipoDesp } from "../redux/redutores/TipoDespesaSlice.js";
                   <Form.Control.Feedback>Ok</Form.Control.Feedback>
                   <Form.Control.Feedback type='invalid'>Quantidade inválida.</Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col}>
+                <Form.Group as={Col} md="4">
+                  <Form.Label>Vencimento</Form.Label>
+                  <Form.Control type="date" placeholder="data" required
+                    id='vencimento'
+                    name='vencimento'
+                    value={despesa.vencimento}
+                    onChange={manipularMudanca}
+                  />
+                  <Form.Control.Feedback>Ok</Form.Control.Feedback>
+                  <Form.Control.Feedback type='invalid'>Data inválida.</Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group as={Col} md="3">
                   <Form.Label>Desconto</Form.Label>
                   <Form.Control
-                    required
                     type="number"
+                    min="0"
                     placeholder="Valor de desconto"
                     defaultValue="0"
                     id='desconto'
                     name='desconto'
-                    value={despesa.desconto}
+                    value={(despesa.valor - despesa.desconto)<0?despesa.desconto="":despesa.desconto} //Ternário pra n deixar o desconto ser maior que o valor
                     onChange={manipularMudanca}
                   />
                   <Form.Control.Feedback>Ok</Form.Control.Feedback>
                   <Form.Control.Feedback type='invalid'>Valor inválido</Form.Control.Feedback>
                 </Form.Group>
-              </Row>
-              <Row className="mb-2" md="12">
-                
-                <Form.Group as={Col}>
+                <Form.Group as={Col} md="3">
                   <Form.Label>Valor Final</Form.Label>
                   <Form.Control
                     type="number"
@@ -185,74 +203,61 @@ import { buscarTipoDesp } from "../redux/redutores/TipoDespesaSlice.js";
 
                   />
                   <Form.Control.Feedback>Ok</Form.Control.Feedback>
-                  <Form.Control.Feedback type='invalid'></Form.Control.Feedback>
+                  <Form.Control.Feedback type='invalid'>Valor inválido.</Form.Control.Feedback>
                 </Form.Group>
-              </Row>
-              
-              <Row className="mb-2">
-                <Form.Group as={Col}>
-                  <Form.Label>Vencimento</Form.Label>
-                  <Form.Control type="date" placeholder="data" required
-                    id='vencimento'
-                    name='vencimento'
-                    value={despesa.vencimento}
-                    onChange={manipularMudanca}
-                  />
-                  <Form.Control.Feedback>Ok</Form.Control.Feedback>
-                  <Form.Control.Feedback type='invalid'>Data inválida.</Form.Control.Feedback>
-                </Form.Group>
-              </Row>
+              </Row>              
               <Row className="mb">
-                <Form.Group as={Col}>
+                <Form.Group as={Col} md="2">
                   <Form.Label>Valor da Parcela</Form.Label>
-                  <Form.Control type="number" placeholder="0  " required
+                  <Form.Control type="number" placeholder="0" required
                     id='valor'
                     name='valor'
                     value={parcela.valor}
-                    onChange={manipularMudanca}
+                    onChange={manipularParcela}
                   />
                   <Form.Control.Feedback>Ok</Form.Control.Feedback>
                   <Form.Control.Feedback type='invalid'>Valor de parcela inválido</Form.Control.Feedback>
                 </Form.Group>
-              </Row>
-              <Container>
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Valor</th>
-                            <th>Vencimento</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            dados_parcela.map(parcela =>
-                                <tr>
+                <Container style={{width: '82%', margin: "4px"}}>
+                  <Table striped bordered hover>
+                      <thead>
+                          <tr>
+                              <th>Valor</th>
+                              <th>Vencimento</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {
+                              dados_parcela.map(parcela =>
+                                  <tr>
 
-                                    <td>{parcela.parc_valor}</td>
+                                      <td>{parcela.parc_valor}</td>
 
-                                    <td>{parcela.parc_vencimento}</td>
+                                      <td>{parcela.parc_vencimento}</td>
 
-                                    <td>
-                                        <Button  onClick={() => {
-                                             //dispatch(excluirParcelas(parcela));
-                                        }}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                            </svg>
-                                        
-                                        </Button>
-                                    </td>
-                                </tr>
+                                      <td width="15px">
+                                          <Button onClick={() => {
+                                              //dispatch(excluirParcelas(parcela));
+                                          }}>
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                              </svg>
+                                          
+                                          </Button>
+                                      </td>
+                                  </tr>
 
-                            )
-                        }
-                    </tbody>
-                </Table>
-            </Container>
-              <Stack gap={2}>
-                <Button type="submit" className="col-md-5 mx-auto" style={{ margin: "5px" }}>+</Button>
-                <Button type="button" className="col-md-5 mx-auto" style={{ margin: "5px" }} variant="secondary" onClick={()=>{dispatch(buscarParcelas(1))}}>Listar Despesas</Button>
-              </Stack>
+                              )
+                          }
+                      </tbody>
+                  </Table>
+                  <Button type="submit" className="col-md-5 mx-auto" style={{ margin: "5px", width: "10%"}}>+</Button> 
+              </Container>
+              </Row>     
+                <Row style={{float: "right"}}>
+                  <Button type="submit" className="col-md-5 mx-auto" style={{float: "left", margin: "5px"}}>Adicionar Despesa</Button>
+                  <Button type="button" className="col-md-5 mx-auto" style={{ margin: "5px"}} variant="secondary" onClick={()=>{dispatch(buscarParcelas(1))}}>Listar Despesas</Button>  
+                </Row>         
             </Modal.Body>
           </Form>
         </Modal.Dialog>

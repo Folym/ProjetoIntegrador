@@ -130,13 +130,8 @@ export default class ParcelasCTRL{
 
     consultarParcelas(req,resp)
     {
-        console.log("controle parc")
         resp.setHeader("Content-Type","application/json");
-        //if(req.is("application/json"))
-       // {
-            console.log("controle")
             const desp_codigo = req.params['cod'];
-            console.log("controle :" + desp_codigo)
             if(desp_codigo==undefined || desp_codigo=="")
             {
                 resp.statusCode = 400;
@@ -162,7 +157,6 @@ export default class ParcelasCTRL{
 
     consultarTodos(req,resp){
         resp.setHeader("Content-Type","application/json");
-            console.log('chamou')
             const parc = new Parcelas();
             parc.consultarTodos().then((lista)=>{
                 resp.json(lista);
