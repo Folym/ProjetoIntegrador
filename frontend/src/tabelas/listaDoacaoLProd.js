@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Container, Table, Button } from 'react-bootstrap';
+import { Container, Table, Button, Modal } from 'react-bootstrap';
 import {Spinner} from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { buscarDoacao,excluirDoacao } from '../redux/redutores/DoacaoLProdSlice.js';
@@ -32,7 +32,11 @@ export default function ListaDoacao(props) {
     }else if (statusLProd === STATUS.CARREGADO) {
         
         return (
-            <Container>
+            <Modal.Dialog>
+            <Modal.Header>
+              <Modal.Title classname="col-md-5 mx-auto">Tabela de Doação Presencial de Produto</Modal.Title>
+            </Modal.Header>
+              <Modal.Body>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
@@ -73,7 +77,8 @@ export default function ListaDoacao(props) {
                     </tbody>
                 </Table>
                 <Button onClick={() => props.onTabela(false)}>Nova Doacao</Button>
-            </Container>
+            </Modal.Body>
+            </Modal.Dialog>
 
         );
     }else if(statusLProd === STATUS.ERRO){

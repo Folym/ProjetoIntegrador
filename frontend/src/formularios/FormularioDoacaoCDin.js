@@ -27,7 +27,7 @@ export default function FormCadastroDoac(props) {
     desc: ""
   });
 
-  const { statusCDin,dadosCDin } = useSelector(state => state.doacaoCDin)
+  const { statusCDin } = useSelector(state => state.doacaoCDin)
 
 
   
@@ -78,7 +78,7 @@ export default function FormCadastroDoac(props) {
       <div className="modal show" style={{ display: 'block', position: 'initial' }}>
         <Modal.Dialog>
           <Modal.Header>
-            <Modal.Title classname="col-md-5 mx-auto">Registrar Doação</Modal.Title>
+            <Modal.Title classname="col-md-5 mx-auto">Registrar Doação Remota de Dinheiro</Modal.Title>
           </Modal.Header>
           <Form method="POST" action="/doacao" className="m-3 p-3" noValidate validated={validado} onSubmit={manipularEnvioDados}>
             <Modal.Body>
@@ -176,7 +176,7 @@ export default function FormCadastroDoac(props) {
               </Row>
               <Stack gap={2}>
                 <Button type="submit" className="col-md-5 mx-auto" style={{ margin: "5px" }}>Registrar Doação</Button>
-                <Button type="button" className="col-md-5 mx-auto" style={{ margin: "5px" }} variant="secondary" onClick={() => { props.onTabela(true) }}>Lista Doacao</Button>
+                <Button type="button" className="col-md-5 mx-auto" style={{ margin: "5px" }} variant="secondary" onClick={() => { props.onTabela(true) }}>Lista Doação</Button>
               </Stack>
             </Modal.Body>
           </Form>
