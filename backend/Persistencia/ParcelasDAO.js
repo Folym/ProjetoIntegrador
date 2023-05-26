@@ -37,7 +37,7 @@ export default class ParcelasDAO{
 
     async consultarParcelas(parcela){
         const dao = new Dao();
-        const sql = `SELECT * FROM Parcelas WHERE desp_codigo = ${parcela}`;
+        const sql = `SELECT *, TO_CHAR(parc_vencimento::DATE, 'dd Mon, yyyy') as parc_vencimento FROM Parcelas WHERE desp_codigo = ${parcela}`;
         return await dao.consultar(sql);
 }
 
