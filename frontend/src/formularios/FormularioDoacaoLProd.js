@@ -16,7 +16,7 @@ export default function FormCadastroDoac(props) {
   const dispatch = useDispatch();
   const [validado, setValidado] = useState(false);
   const componenteSelecao = useRef();
-
+  // const componenteSelecaoCamp = useRef();
   const { statusLProd } = useSelector(state => state.doacaoLProd);
   const { dadosPr } = useSelector(state => state.produto);
   const { dadosCamp} = useSelector(state => state.campanhas)
@@ -44,11 +44,17 @@ export default function FormCadastroDoac(props) {
 
   
   const manipularMudanca = (evento) => {
-    setDoacao({ ...doacao, [evento.target.name]: evento.target.value })
-
+    console.log(evento.target.name)
+    console.log(evento.target.value);
+    setDoacao({ ...doacao, [evento.target.name]: evento.target.value });
   }
-
+  
   const manipularEnvioDados = (event) => {
+    // setDoacao({ ...doacao, [doacao.prodcod] : componenteSelecao.current.value });
+    // setDoacao({ ...doacao, [doacao.campcod]: componenteSelecaoCamp.current.value });
+    console.log(doacao);
+    console.log(componenteSelecao.current.value);
+
     const form = event.currentTarget;
     if (form.checkValidity() === true) {
       dispatch(adicionarDoacao(doacao));
@@ -96,7 +102,7 @@ export default function FormCadastroDoac(props) {
             <Row className="mb-2">
                 <Form.Group as={Col}>
                   <Form.Label column sm={2}>Produto</Form.Label>
-                  <Form.Select aria-label="Produto" ref={componenteSelecao}>
+                  <Form.Select aria-label="Produto" name = "prodcod" onChange = {manipularMudanca} ref={componenteSelecao}>
                         {
                             dadosPr.map((produto) => {
                                 return <option key={produto.prod_codigo} value={produto.prod_codigo}>
@@ -153,7 +159,7 @@ export default function FormCadastroDoac(props) {
               <Row className="mb-2">
                 <Form.Group as={Col}>
                   <Form.Label column sm={2}>Campanha</Form.Label>
-                  <Form.Select aria-label="Campanha" ref={componenteSelecao}>
+                  <Form.Select aria-label="Campanha" name = "campcod" onChange = {manipularMudanca} ref={componenteSelecao}>
                         {
                             dadosCamp.map((camp) => {
                                 return <option key={camp.camp_codigo} value={camp.camp_codigo}>

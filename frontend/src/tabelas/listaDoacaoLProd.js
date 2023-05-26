@@ -7,7 +7,7 @@ import { STATUS } from '../redux/redutores/DoacaoLProdSlice.js';
 
 export default function ListaDoacao(props) {
     const dispatch = useDispatch();
-    const {statusLProd,dadosLProd} = useSelector(state => state.doacao)
+    const {statusLProd,dadosLProd} = useSelector(state => state.doacaoLProd)
 
     useEffect(()=>{
         dispatch(buscarDoacao());
@@ -50,7 +50,7 @@ export default function ListaDoacao(props) {
 
                                     <td>{doacao.prod_codigo}</td>
 
-                                    <td>{doacao.doac_quantidade}</td>
+                                    <td>{doacao.doac_quant}</td>
 
                                     <td>{doacao.doac_data}</td>
 

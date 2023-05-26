@@ -7,7 +7,7 @@ import { STATUS } from '../redux/redutores/DoacaoCDinSlice.js';
 
 export default function ListaDoacao(props) {
     const dispatch = useDispatch();
-    const {statusCDin,dadosCDin} = useSelector(state => state.doacao)
+    const {statusCDin,dadosCDin} = useSelector(state => state.doacaoCDin)
 
     useEffect(()=>{
         dispatch(buscarDoacao());

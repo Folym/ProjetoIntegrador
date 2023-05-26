@@ -48,6 +48,8 @@ export default function FormCadastroDoac(props) {
 
   
   const manipularMudanca = (evento) => {
+    console.log(evento.target.name)
+    console.log(evento.target.value);
     setDoacao({ ...doacao, [evento.target.name]: evento.target.value })
 
   }
@@ -101,9 +103,9 @@ export default function FormCadastroDoac(props) {
           <Form method="POST" action="/doacao" className="m-3 p-3" noValidate validated={validado} onSubmit={manipularEnvioDados}>
             <Modal.Body>
               <Row className="mb-2">
-                <Form.Group as={Col}>
+              <Form.Group as={Col}>
                   <Form.Label column sm={2}>Produto</Form.Label>
-                  <Form.Select aria-label="Produto" ref={componenteSelecao}>
+                  <Form.Select aria-label="Produto" name = "prodcod" onChange = {manipularMudanca} ref={componenteSelecao}>
                         {
                             dadosPr.map((produto) => {
                                 return <option key={produto.prod_codigo} value={produto.prod_codigo}>
@@ -209,9 +211,9 @@ export default function FormCadastroDoac(props) {
                 </Form.Group>
               </Row>
               <Row className="mb-2">
-                <Form.Group as={Col}>
+              <Form.Group as={Col}>
                   <Form.Label column sm={2}>Campanha</Form.Label>
-                  <Form.Select aria-label="Campanha" ref={componenteSelecao}>
+                  <Form.Select aria-label="Campanha" name = "campcod" onChange = {manipularMudanca} ref={componenteSelecao}>
                         {
                             dadosCamp.map((camp) => {
                                 return <option key={camp.camp_codigo} value={camp.camp_codigo}>
