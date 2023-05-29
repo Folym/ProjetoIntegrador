@@ -60,7 +60,7 @@ export default function ModalConfirmacao(props) {
                         dispatch(excluirCampanhas(props.dados)); 
                     }
                 
-                }}
+                }} onAuxClick={props.onHide}
                 >
                     {props.tipo}
                 </Button>
