@@ -3,6 +3,7 @@ import { Container, Modal } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
+import swal from 'sweetalert';
 import Stack from 'react-bootstrap/Stack';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -38,14 +39,22 @@ export default function FormCadastroDoac(props) {
   const manipularEnvioDados = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === true) {
-      dispatch(adicionarDoacao(doacao));
-      setDoacao({
-        tipo:"LD",
-        valor: "",
-        data: "",
-        desc: ""
-      })
-      setValidado(false)
+      if(doacao.valor>0){
+        dispatch(adicionarDoacao(doacao));
+        setDoacao({
+          tipo:"LD",
+          valor: "",
+          data: "",
+          desc: ""
+        })
+        setValidado(false)
+      }
+      else{
+        swal({
+          title:"Valor negativo",
+          icon: "error",
+        });
+      }
     } else {
       setValidado(true);
     }

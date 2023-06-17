@@ -7,7 +7,7 @@ export default class Dao{
     async gravar(param){
         try{
             const con = await conectar();
-            con.connect()
+            con.connect();
             const resultado = await con.query(param);
             console.log(resultado);
             return resultado.rowCount;

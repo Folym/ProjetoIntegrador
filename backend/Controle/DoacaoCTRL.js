@@ -7,30 +7,33 @@ export default class DoacaoCTRL{
             
             const {prodcod,tipo,end,numend,cep,quant,valor,data,desc,campcod} = req.body;
             console.log({prodcod,tipo,end,numend,cep,quant,valor,data,desc,campcod});
-            if(tipo==undefined || tipo==""){
-                resp.statusCode = 400;
-                resp.json({
-                    "status":false,
-                    "mensagem":"Doação cancelada"
-                })
+                const doacao = new Doacao(0,prodcod,tipo,end,numend,cep,quant,valor,data,desc,campcod);
+                doacao.gravar()
+                .then(()=>{
+                    if((tipo==="CD" || tipo==="LD") && valor <= 0){
+                        throw new Error("");
+                    }
+                    else
+                    if((tipo==="CP" || tipo==="LP")&& quant<=0){
+                        throw new Error("");
+                    }
+                    else{
+                        resp.statusCode = 200;
+                        resp.json({
+                            "status":true,
+                            "mensagem":"Doação concluída"
+                        })
+                    }
+                }).catch((error)=>{
+                    console.log(error);
+                    resp.statusCode = 400;
+                    resp.json({
+                        "status":false,
+                        "mensagem":"Doação cancelada"
+                    })
+                });
             }
-            const doacao = new Doacao(0,prodcod,tipo,end,numend,cep,quant,valor,data,desc,campcod);
-            doacao.gravar().then(()=>{
-                resp.statusCode = 200;
-                resp.json({
-                    "status":true,
-                    "mensagem":"Doação concluída"
-                })
-            }).catch((error)=>{
-                console.log(error);
-                resp.statusCode = 400;
-                resp.json({
-                    "status":false,
-                    "mensagem":"Doação cancelada"
-                })
-            });
         }
-    }
 
     atualizar(req,resp){
         resp.setHeader("Content-Type","application/json");
