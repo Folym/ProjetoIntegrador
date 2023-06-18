@@ -24,6 +24,7 @@ export default function ListaDoacao(props) {
 
     useEffect(()=>{
         dispatch(buscarDoacao());
+        console.log(dadosLProd);
     }, []);
 
    

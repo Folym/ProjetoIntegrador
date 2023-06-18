@@ -8,10 +8,31 @@ export const STATUS = Object.freeze({
     'ERRO':'reajected'
 })
 
-export const buscarDoacao = createAsyncThunk('doacao/buscarDoacao', async ()=>{
-    const resposta = await fetch(urlBase,{method :'GET'});
-    const dadosCProd = await resposta.json();
-    return dadosCProd;
+
+function buscarProdutoId(produtoId, produtos) {
+    let pos = 0;
+    while (pos < produtos.length && produtos[pos].prod_cod !== produtoId) {
+      pos++;
+
+    return produtos[pos].nome;
+  }
+}
+  export const buscarDoacao = createAsyncThunk('doacao/buscarDoacao', async ()=>{
+    const resposta = await fetch(urlBase,{method :'GET'})
+    .then(resposta => resposta.json())
+    .then(dadosDoacao => {
+      const urlDeBuscarProdutos = "http://localhost:8080/produto";
+      fetch(urlDeBuscarProdutos,{method :'GET'})
+      .then(resposta => resposta.json())
+      .then(produtos => {
+          dadosDoacao.map(doacao => {
+            const nomeProduto = buscarProdutoId(doacao.prod_cod, produtos)
+            doacao.produtoId = nomeProduto;
+          })  
+        }          
+      )      
+    })
+    return resposta;
 });
 
 export const adicionarDoacao = createAsyncThunk('doacao/adicionarDoacao', async(doacao)=>{

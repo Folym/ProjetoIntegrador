@@ -8,9 +8,30 @@ export const STATUS = Object.freeze({
     'ERRO':'reajected'
 })
 
+
 export const buscarDoacao = createAsyncThunk('doacao/buscarDoacao', async ()=>{
-    const resposta = await fetch(urlBase,{method :'GET'});
+    const resposta = await fetch(urlBase,{method :'GET'})
     const dadosLProd = await resposta.json();
+
+    const urlDeBuscarProdutos = "http://localhost:8080/produto";
+    await fetch(urlDeBuscarProdutos,{method :'GET'})
+    .then(resposta => resposta.json())
+    .then(produtos => {
+        
+        dadosLProd.map(doacao => {
+            let pos = 0;
+            console.log(produtos);
+            while (pos < produtos.length && produtos[pos].prod_codigo !== doacao.prod_codigo) {
+                pos++;
+            }
+            console.log(pos);
+            console.log(produtos[pos].prod_nome)
+            doacao.prod_codigo = produtos[pos].prod_nome;
+        
+            return doacao;
+        })  
+    })    
+    
     return dadosLProd;
 });
 

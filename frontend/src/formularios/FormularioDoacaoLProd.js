@@ -52,7 +52,7 @@ export default function FormCadastroDoac(props) {
   const manipularEnvioDados = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === true) {
-      if(doacao.quant){
+      if(doacao.quant>0){
         dispatch(adicionarDoacao(doacao));
         setDoacao({
           prodcod: "",
